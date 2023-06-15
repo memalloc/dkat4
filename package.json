@@ -12,12 +12,13 @@
   },
   "scripts": {
     "dev:watch": "yarn parcel --target web",
-    "production:build": "yarn parcel build --target frontend --no-cache --no-source-maps"
+    "production:build": "yarn parcel build --target web --no-cache --no-source-maps"
   },
   "targets": {
     "web": {
       "source": "src/html/index.html",
       "distDir": "dist",
+      "publicUrl" : ".",
       "scopeHoist": false,
       "includeNodeModules": {
         "storybook": false
