@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+.cache/
+dist/
+packaged/
+*.sublime-workspace
+.parcel-cache/
+storybook-static/
