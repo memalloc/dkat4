@@ -11,8 +11,10 @@
     "styled-components": "6.0.0-rc.3"
   },
   "scripts": {
-    "dev" : "run-s dev:watch",
-    "build" : "run-s clean:* production:build",
+    "preinstall": "mkdir node_modules ; xattr -w com.dropbox.ignored 1 node_modules",
+
+    "dev" : "run-s prepare:dist dev:watch",
+    "build" : "run-s clean:* prepare:dist production:build",
 
     "dev:watch": "yarn parcel --target web",
 
@@ -20,7 +22,9 @@
 
 
     "clean:dist": "rm -Rf dist",
-    "clean:cache": "rm -Rf .parcel-cache"
+    "clean:cache": "rm -Rf .parcel-cache",
+
+    "prepare:dist" : "mkdir dist ; xattr -w com.dropbox.ignored 1 dist"
   },
   "targets": {
     "web": {
