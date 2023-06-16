@@ -11,8 +11,16 @@
     "styled-components": "6.0.0-rc.3"
   },
   "scripts": {
+    "dev" : "run-s dev:watch",
+    "build" : "run-s clean:* production:build",
+
     "dev:watch": "yarn parcel --target web",
-    "production:build": "yarn parcel build --target web --no-cache --no-source-maps"
+
+    "production:build": "yarn parcel build --target web --no-cache --no-source-maps",
+
+
+    "clean:dist": "rm -Rf dist",
+    "clean:cache": "rm -Rf .parcel-cache"
   },
   "targets": {
     "web": {
