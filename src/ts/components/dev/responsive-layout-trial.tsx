@@ -45,6 +45,7 @@ export const ResponsiveLayoutTrial = (props:any) => {
 
 const Container = styled.div`
 	user-select: none;
+	font-family: ArvoRegular;
 `
 
 const DetailToggle = styled.div`

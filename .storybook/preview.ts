@@ -2,7 +2,8 @@ import { Preview } from '@storybook/react'
 // import { withThemeFromJSXProvider } from '@storybook/addon-styling'
 // import { createGlobalStyle  } from 'styled-components'
 
-// import "../src/less/typefaces/input-mono.less"
+// import "../src/less/main.less"
+import "../src/less/typefaces/arvo.less"
 
 const preview: Preview = {
   parameters: {
