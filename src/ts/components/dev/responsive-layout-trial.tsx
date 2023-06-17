@@ -43,6 +43,8 @@ export const ResponsiveLayoutTrial = (props:any) => {
 			</Container>
 }
 
+const onMobile = 'max-width: 425px'
+
 const Container = styled.div`
 	user-select: none;
 	font-family: ArvoRegular;
@@ -65,12 +67,18 @@ const DetailToggle = styled.div`
 
 	font-size: 20px;
 
+	transition: 1s all;
+
 	&:hover {
 		background: rgb(255,0,0);
 	}
 
 	&:active {
 		color: black;
+	}
+
+	@media (${onMobile}) {
+		left: -100vw;
 	}
 `
 
@@ -86,11 +94,19 @@ const TextScrollContainer = styled.div`
 	transition: 1s all;
 
 	overflow: scroll;
+
+	@media (${onMobile}) {
+		left: -500vw;
+	}
 `
 
 const MediaColumn = styled.div`
 	transition: 1s all;
 	margin-left: ${props => props.fullWidth ? '0' : '34'}vw;
+
+	@media (${onMobile}) {
+		margin: 0px;
+	}
 
 	background: green;
 
