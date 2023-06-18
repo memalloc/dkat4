@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 import { LoremIpsum } from './lorem-ipsum'
 
+import TestVideo from '../../../assets/video/test.mp4'
+
 export const ResponsiveLayoutTrial = (props:any) => {
 
 	const [showDetails, setShowDetails] = useState(true)
@@ -21,22 +23,16 @@ export const ResponsiveLayoutTrial = (props:any) => {
 
 				<MediaColumn fullWidth={!showDetails}>
 					<MediaContainer>
-						MediaContainer
+						<video src={TestVideo} autoPlay loop mute width='100%'/>
 					</MediaContainer>
 					<MediaContainer>
-						MediaContainer
+						<Image src='https://placehold.co/800x800'/>
 					</MediaContainer>
 					<MediaContainer>
-						MediaContainer
+						<Image src='https://placehold.co/1920x1080'/>
 					</MediaContainer>
 					<MediaContainer>
-						MediaContainer
-					</MediaContainer>
-					<MediaContainer>
-						MediaContainer
-					</MediaContainer>
-					<MediaContainer>
-						MediaContainer
+						<Image src='https://placehold.co/90x160'/>
 					</MediaContainer>
 				</MediaColumn>
 
@@ -48,6 +44,7 @@ const onMobile = 'max-width: 425px'
 const Container = styled.div`
 	user-select: none;
 	font-family: ArvoRegular;
+	background: #aaa;
 `
 
 const DetailToggle = styled.div`
@@ -122,4 +119,11 @@ const MediaContainer = styled.div`
 
 	display: grid;
 	place-items: center;
+	align-items: stretch;
+
+	pointer-events: none;
+`
+
+const Image = styled.img`
+	max-width: 100%;
 `
