@@ -114,6 +114,7 @@ const MediaColumn = styled.div`
 
 const MediaContainer = styled.div`
 	height: 100vh;
+	
 	background: #555;
 	color: #eee;
 
@@ -122,8 +123,16 @@ const MediaContainer = styled.div`
 	align-items: stretch;
 
 	pointer-events: none;
+
+	@media (${onMobile}) {
+		height: auto;
+	}
 `
 
 const Image = styled.img`
 	max-width: 100%;
+
+	@media (${onMobile}) {
+		width: 100%;
+	}
 `
