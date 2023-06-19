@@ -63,6 +63,12 @@ const Container = styled.div`
 	user-select: none;
 	font-family: ArvoRegular;
 	background: #aaa;
+
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
 `
 
 const DetailToggle = styled.div`
@@ -158,10 +164,20 @@ const ProjectDescription = styled.div`
 
 const MediaColumn = styled.div`
 	transition: 1s all;
-	margin-left: ${props => props.fullWidth ? '0' : '34'}vw;
+
+	position: fixed;
+	left: ${props => props.fullWidth ? '0' : '34'}vw;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+
+	overflow: scroll;
+
+	scroll-snap-type: y mandatory;
 
 	@media (${onMobile}) {
-		margin: 0px;
+		left: 0px;
+		scroll-snap-type: none;
 	}
 
 	& *:nth-child(even) {
@@ -171,6 +187,8 @@ const MediaColumn = styled.div`
 
 const MediaContainer = styled.div`
 	height: 100vh;
+
+	scroll-snap-align: center;
 	
 	background: #555;
 	color: #eee;
