@@ -19,6 +19,8 @@ export const ResponsiveLayoutTrial = (props:any) => {
 
 				<MediaColumn fullWidth={!showDetails}>
 
+					{/* mandatory elements */}
+
 					<Title>
 						Projekttitel Platzhalter
 					</Title>
@@ -27,16 +29,20 @@ export const ResponsiveLayoutTrial = (props:any) => {
 						<Video src={TestVideo} autoPlay loop mute/>
 					</MediaContainer>
 
-					<TextScrollContainer hide={!showDetails}>
+					<ProjectDescription hide={!showDetails}>
 						<LoremIpsum paragraphs={3}/>
-					</TextScrollContainer>
+					</ProjectDescription>
+
+					{/* optional content elements */}
 
 					<MediaContainer>
 						<Image src='https://placehold.co/800x800'/>
 					</MediaContainer>
+
 					<MediaContainer>
 						<Image src='https://placehold.co/1920x1080'/>
 					</MediaContainer>
+
 					<MediaContainer>
 						<Image src='https://placehold.co/90x160'/>
 					</MediaContainer>
@@ -107,7 +113,7 @@ const Title = styled.div`
 	}
 `
 
-const TextScrollContainer = styled.div`
+const ProjectDescription = styled.div`
 	position: fixed;
 	top: 20vh;
 	bottom: 2vw;;
