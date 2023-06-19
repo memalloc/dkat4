@@ -2318,6 +2318,22 @@
     posthtml-render "^3.0.0"
     semver "^5.7.1"
 
+"@parcel/transformer-typescript-tsc@2.9.2":
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/@parcel/transformer-typescript-tsc/-/transformer-typescript-tsc-2.9.2.tgz#f28ff33f5af0bfdceddf70d4f463cb2974535e47"
+  integrity sha512-yIOgk/EnRqmQlRVCqa5n9OM8oavul6NQDk4QktXB096KKYGN8lrtt7PaAy7raLopIK5B6PyyM0g2TjtReL2ubw==
+  dependencies:
+    "@parcel/plugin" "2.9.2"
+    "@parcel/source-map" "^2.1.1"
+    "@parcel/ts-utils" "2.9.2"
+
+"@parcel/ts-utils@2.9.2":
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/@parcel/ts-utils/-/ts-utils-2.9.2.tgz#873a341f592743b617333d07198fe888a99dffa3"
+  integrity sha512-Julkwe/iJ/CWrL+/s0L/LUq7FWyB0bRvd7G1qnL1cGjCuspD6qSp6Ko4xLmSYakco8FTlIU8VRbRTBs9UHOIEQ==
+  dependencies:
+    nullthrows "^1.1.1"
+
 "@parcel/types@2.9.2":
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/@parcel/types/-/types-2.9.2.tgz#195ce0075c9d084c5f57cdffba9ba75ea96e4993"

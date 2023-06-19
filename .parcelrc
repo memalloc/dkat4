@@ -1,0 +1,7 @@
+{
+  "extends": "@parcel/config-default",
+  "transformers": {
+    "*.{ts,tsx}": ["@parcel/transformer-typescript-tsc"],
+    "*.{jpg,png,glb,obj,mp4}": ["@parcel/transformer-raw"]
+  }
+}

@@ -4,6 +4,7 @@
     "@parcel/transformer-less": "2.9.2",
     "process": "0.11.10",
     "storybook": "7.0.9",
+    "@parcel/transformer-typescript-tsc": "2.9.2",
     "@storybook/addon-actions": "7.0.9",
     "@storybook/addon-essentials": "7.0.9",
     "@storybook/addon-interactions": "7.0.9",
@@ -43,7 +44,7 @@
     "web": {
       "source": "src/html/index.html",
       "distDir": "dist",
-      "publicUrl" : ".",
+      "publicUrl": ".",
       "scopeHoist": false,
       "includeNodeModules": {
         "storybook": false
