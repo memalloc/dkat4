@@ -29,6 +29,11 @@ export const ResponsiveLayoutTrial = (props:any) => {
 						<Video src={TestVideo} autoPlay loop mute/>
 					</MediaContainer>
 
+					<InfoBox>
+						Rolle: UI Designer, Lead Developer<br/>
+						Auftraggeber: Company XY
+					</InfoBox>
+
 					<ProjectDescription hide={!showDetails}>
 						<LoremIpsum paragraphs={3}/>
 					</ProjectDescription>
@@ -106,6 +111,24 @@ const Title = styled.div`
 
 	@media (${onMobile}) {
 		font-size: 30px;
+
+		position: static;
+		top: unset;
+		left: unset;
+	}
+`
+
+const InfoBox = styled.div`
+	font-size: 20px;
+
+	position: fixed;
+	right: 2vw;
+	bottom: 2vw;
+
+	background: rgba(0,0,0,0.1);
+
+	@media (${onMobile}) {
+		font-size: 15px;
 
 		position: static;
 		top: unset;
