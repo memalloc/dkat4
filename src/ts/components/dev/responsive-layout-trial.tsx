@@ -23,7 +23,7 @@ export const ResponsiveLayoutTrial = (props:any) => {
 
 				<MediaColumn fullWidth={!showDetails}>
 					<MediaContainer>
-						<video src={TestVideo} autoPlay loop mute width='100%'/>
+						<Video src={TestVideo} autoPlay loop mute/>
 					</MediaContainer>
 					<MediaContainer>
 						<Image src='https://placehold.co/800x800'/>
@@ -129,8 +129,14 @@ const MediaContainer = styled.div`
 	}
 `
 
+const Video = styled.video`
+	width: 100%;
+	max-height: 100vh;
+`
+
 const Image = styled.img`
 	max-width: 100%;
+	max-height: 100vh;
 
 	@media (${onMobile}) {
 		width: 100%;
