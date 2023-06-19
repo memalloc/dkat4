@@ -196,8 +196,8 @@ const MediaContainer = styled.div`
 	color: #eee;
 
 	display: grid;
-	place-items: center;
 	align-items: stretch;
+	justify-items: stretch;
 
 	pointer-events: none;
 
