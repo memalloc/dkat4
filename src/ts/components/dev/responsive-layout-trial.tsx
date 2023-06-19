@@ -26,7 +26,7 @@ export const ResponsiveLayoutTrial = (props:any) => {
 					</Title>
 
 					<MediaContainer>
-						<Video src={TestVideo} autoPlay loop mute/>
+						<Video src={TestVideo} autoPlay loop muted/>
 					</MediaContainer>
 
 					<InfoBox>
