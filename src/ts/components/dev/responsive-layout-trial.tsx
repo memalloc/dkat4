@@ -22,6 +22,9 @@ export const ResponsiveLayoutTrial = (props:any) => {
 				</TextScrollContainer>
 
 				<MediaColumn fullWidth={!showDetails}>
+					<Title>
+						Projekttitel Platzhalter
+					</Title>
 					<MediaContainer>
 						<Video src={TestVideo} autoPlay loop mute/>
 					</MediaContainer>
@@ -50,7 +53,7 @@ const Container = styled.div`
 const DetailToggle = styled.div`
 	position: fixed;
 	top: 2vh;
-	left: 2vw;
+	right: 2vw;
 
 	background: rgb(200,0,0);
 	color: white;
@@ -64,6 +67,8 @@ const DetailToggle = styled.div`
 
 	font-size: 20px;
 
+	z-index: 100;
+
 	transition: 1s all;
 
 	&:hover {
@@ -75,7 +80,26 @@ const DetailToggle = styled.div`
 	}
 
 	@media (${onMobile}) {
-		left: -100vw;
+		right: -100vw;
+	}
+`
+
+const Title = styled.div`
+	font-size: 30px;
+
+	position: fixed;
+	top: 2vw;
+	left: 2vw;
+	width: 30vw;
+
+	background: rgba(0,0,0,0.1);
+
+	@media (${onMobile}) {
+		font-size: 30px;
+
+		position: static;
+		top: unset;
+		left: unset;
 	}
 `
 
@@ -104,8 +128,6 @@ const MediaColumn = styled.div`
 	@media (${onMobile}) {
 		margin: 0px;
 	}
-
-	background: green;
 
 	& *:nth-child(even) {
 		background: #444;
