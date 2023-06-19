@@ -17,17 +17,20 @@ export const ResponsiveLayoutTrial = (props:any) => {
 					{ showDetails ? '-' : '+'}
 				</DetailToggle>
 
-				<TextScrollContainer hide={!showDetails}>
-					<LoremIpsum paragraphs={5}/>
-				</TextScrollContainer>
-
 				<MediaColumn fullWidth={!showDetails}>
+
 					<Title>
 						Projekttitel Platzhalter
 					</Title>
+
 					<MediaContainer>
 						<Video src={TestVideo} autoPlay loop mute/>
 					</MediaContainer>
+
+					<TextScrollContainer hide={!showDetails}>
+						<LoremIpsum paragraphs={3}/>
+					</TextScrollContainer>
+
 					<MediaContainer>
 						<Image src='https://placehold.co/800x800'/>
 					</MediaContainer>
@@ -37,6 +40,7 @@ export const ResponsiveLayoutTrial = (props:any) => {
 					<MediaContainer>
 						<Image src='https://placehold.co/90x160'/>
 					</MediaContainer>
+
 				</MediaColumn>
 
 			</Container>
@@ -104,8 +108,6 @@ const Title = styled.div`
 `
 
 const TextScrollContainer = styled.div`
-	background: red;
-
 	position: fixed;
 	top: 20vh;
 	bottom: 2vw;;
@@ -117,7 +119,11 @@ const TextScrollContainer = styled.div`
 	overflow: scroll;
 
 	@media (${onMobile}) {
-		left: -500vw;
+		position: static;
+		top: unset;
+		left: unset;
+		bottom: unset;
+		width: unset;
 	}
 `
 
