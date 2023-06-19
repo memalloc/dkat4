@@ -165,8 +165,10 @@ const ProjectDescription = styled.div`
 const MediaColumn = styled.div`
 	transition: 1s all;
 
+	padding-left: ${props => props.fullWidth ? '0' : '34'}vw;
+
 	position: fixed;
-	left: ${props => props.fullWidth ? '0' : '34'}vw;
+	left: 0px;
 	right: 0px;
 	top: 0px;
 	bottom: 0px;
@@ -176,7 +178,7 @@ const MediaColumn = styled.div`
 	scroll-snap-type: y mandatory;
 
 	@media (${onMobile}) {
-		left: 0px;
+		padding: 0px;
 		scroll-snap-type: none;
 	}
 
