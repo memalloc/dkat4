@@ -5,6 +5,7 @@
 import { LoremIpsum } from "./lorem-ipsum"
 import { ResponsiveLayoutTrial } from "./responsive-layout-trial"
 import { ThreeBase } from "./three-base"
+import { ThreeSVGExtrusion } from "./three-svg-extrusion"
 
 export default {
   title: 'dkat4/Dev Components'
@@ -17,3 +18,6 @@ ResponsiveLayout.storyName = 'ResponsiveLayoutTrial'
 
 export const ThreeBaseSetup = () => <ThreeBase/>
 ThreeBaseSetup.storyName = 'Three Base'
+
+export const SVGExtrusion = () => <ThreeSVGExtrusion/>
+ThreeBaseSetup.storyName = 'Three SVG Extrusion'
