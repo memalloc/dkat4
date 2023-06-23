@@ -1,5 +1,7 @@
 import { useRef, useEffect } from 'react'
 
+import { styled } from 'styled-components'
+
 import * as THREE from 'three'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
 
@@ -33,7 +35,7 @@ export const ThreeSVGExtrusion = (props:any) =>  {
 
 		const scene = new THREE.Scene()
 		const camera = new THREE.PerspectiveCamera( 75, 16/9, 0.1, 1000 )
-		const renderer = new THREE.WebGLRenderer({antialias : true})
+		const renderer = new THREE.WebGLRenderer({antialias : true, alpha : true})
 
 		renderer.setSize(1920, 1080)
 		mountRef.current.appendChild(renderer.domElement )
@@ -54,8 +56,6 @@ export const ThreeSVGExtrusion = (props:any) =>  {
 
 		scene.add(light)
 		scene.add(ambientLight)
-
-		scene.background = new THREE.Color('rgb(255, 204, 0)')
 
 		camera.position.z = 1.5
 
@@ -136,8 +136,18 @@ export const ThreeSVGExtrusion = (props:any) =>  {
 
 	})
 
-	return 	<div>
+	return 	<Container>
 				<div ref={mountRef}/>
-			</div>
+			</Container>
 
 }
+
+const Container = styled.div`
+	width 100vw;
+	height: 100vh;
+
+	display: grid;
+	place-items: center;
+
+	background: rgb(255, 204, 0);
+`
