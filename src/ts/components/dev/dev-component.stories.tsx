@@ -20,4 +20,4 @@ export const ThreeBaseSetup = () => <ThreeBase/>
 ThreeBaseSetup.storyName = 'Three Base'
 
 export const SVGExtrusion = () => <ThreeSVGExtrusion/>
-ThreeBaseSetup.storyName = 'Three SVG Extrusion'
+SVGExtrusion.storyName = 'Three SVG Extrusion'
