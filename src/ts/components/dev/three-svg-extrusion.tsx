@@ -24,7 +24,6 @@ const svgLogoShapesOnly = `
 	c-88.4,0-160,71.6-160,160c0,88.4,71.6,160,160,160s160-71.6,160-160H228.5c0,29.5-23.9,53.3-53.3,53.3c-29.4,0-53.3-23.9-53.3-53.3
 	C121.8,306.3,145.7,282.4,175.1,282.4z"/>
 </svg>
-
 `
 
 export const ThreeSVGExtrusion = (props:any) =>  {
@@ -38,7 +37,7 @@ export const ThreeSVGExtrusion = (props:any) =>  {
 		const renderer = new THREE.WebGLRenderer({antialias : true, alpha : true})
 
 		renderer.setSize(1920, 1080)
-		mountRef.current.appendChild(renderer.domElement )
+		mountRef.current.appendChild(renderer.domElement)
 
 		renderer.domElement.style.width = '100%'
 		renderer.domElement.style.height = 'auto'
@@ -46,13 +45,13 @@ export const ThreeSVGExtrusion = (props:any) =>  {
 		// - - - - - - - - - - - - - - - - - - - - - -
 
 		const material = new THREE.MeshLambertMaterial({
-														color : 0xFC5721,
+														color : 'rgb(255, 204, 0)',
 														wireframe : false
 													})
 		const light = new THREE.PointLight()
 		light.position.set(100,10,100)
 
-		const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.25)
+		const ambientLight = new THREE.AmbientLight('rgb(255, 204, 0)', 1.25)
 
 		scene.add(light)
 		scene.add(ambientLight)
@@ -137,17 +136,36 @@ export const ThreeSVGExtrusion = (props:any) =>  {
 	})
 
 	return 	<Container>
-				<div ref={mountRef}/>
+				<CenterContainer>
+					<SVGBackground viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="50" cy="50" r="40" fill="#FC5721"/>
+					</SVGBackground>
+				</CenterContainer>
+				<CenterContainer ref={mountRef}/>
 			</Container>
 
 }
 
 const Container = styled.div`
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+
+	background: rgb(255, 204, 0);
+`
+
+const CenterContainer = styled(Container)`
 	width 100vw;
 	height: 100vh;
 
 	display: grid;
 	place-items: center;
 
-	background: rgb(255, 204, 0);
+	background: transparent;
+`
+
+const SVGBackground = styled.svg`
+	max-height: 100vh;
 `
