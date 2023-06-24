@@ -32,7 +32,7 @@ export const ThreeFiberSVGExtrusion = (props:any) => {
 
 				<Canvas shadows
 						gl={{antialias:true, toneMapping : THREE.NoToneMapping}}
-						camera={{ position: [-1, 1, 1], fov: 90, far: 2000 }}>
+						camera={{ position: [-1, 1, 1], fov: 90, far: 20000 }}>
 
 					<ambientLight color='rgb(255, 204, 0)' intensity={1.25}/>
 					<pointLight position={[100, 10, 100]} />
@@ -40,7 +40,7 @@ export const ThreeFiberSVGExtrusion = (props:any) => {
 					<CameraMovement/>
 
 					<ExtrudedSVG 	svgMarkup={svgLogoShapesOnly}
-									position={[-320,256,0]}
+									position={[-280,276,0]}
 									options={{
 										depth : 60,
 										curveSegments : 12 * 2
@@ -57,12 +57,24 @@ const CameraMovement = () => {
 
 	useFrame((state, delta) => {
 		time.current += delta
-		const rad = 500 - Math.cos(Date.now()/1000 * 0.25) * 300
 
-		state.camera.position.x = Math.sin(time.current/2) * rad
-		state.camera.position.z = Math.cos(time.current/2) * rad
+		const camera = state.camera as THREE.PerspectiveCamera
 
-		state.camera.lookAt(-40,0,0)
+		const factor = (Math.sin(time.current)+ 1)/2
+
+		const fov = 30 + 120 * factor
+
+		const dollyZoomDistance = (width, fov) => { 
+			return width / (2*Math.tan( THREE.MathUtils.degToRad(fov*0.5))) 
+		}
+
+		camera.position.z = Math.sin(time.current/4) *  dollyZoomDistance(1000, fov)
+		camera.position.x = Math.cos(time.current/4) *  dollyZoomDistance(1000, fov)
+
+		camera.lookAt(0,0,0)
+
+		camera.fov = fov
+		camera.updateProjectionMatrix()
 	})
 
 	return <React.Fragment/>
