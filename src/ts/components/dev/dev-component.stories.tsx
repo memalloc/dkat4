@@ -6,6 +6,7 @@ import { LoremIpsum } from "./lorem-ipsum"
 import { ResponsiveLayoutTrial } from "./responsive-layout-trial"
 import { ThreeBase } from "./three-base"
 import { ThreeSVGExtrusion } from "./three-svg-extrusion"
+import { ThreeFiberSVGExtrusion } from "./three-fiber-svg-extrusion"
 
 export default {
   title: 'dkat4/Dev Components'
@@ -21,3 +22,6 @@ ThreeBaseSetup.storyName = 'Three Base'
 
 export const SVGExtrusion = () => <ThreeSVGExtrusion/>
 SVGExtrusion.storyName = 'Three SVG Extrusion'
+
+export const ThreeFiberExtrusion = () => <ThreeFiberSVGExtrusion/>
+ThreeFiberExtrusion.storyName = 'React Three Fiber SVG Extrusion'
