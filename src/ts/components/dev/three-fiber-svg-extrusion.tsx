@@ -1,58 +1,100 @@
-import { useState, useRef } from 'react'
+import *  as React from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { styled } from 'styled-components'
 
 import * as THREE from 'three'
-import { Canvas, useFrame, ThreeElements } from '@react-three/fiber'
+import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
+
+import { Canvas, useFrame, ThreeElements, Vector3 } from '@react-three/fiber'
+
+const svgLogoShapesOnly = `
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+<path fill="#F15922" d="M335.1,229.1v106.7h0c88.4,0,160-71.6,160-160H388.4C388.4,205.2,364.6,229.1,335.1,229.1z"/>
+<path fill="#F15922" d="M388.4,495.7h106.7v0c0-88.4-71.6-160-160-160v106.7C364.6,442.4,388.4,466.2,388.4,495.7z"/>
+<path fill="#F15922" d="M175.1,282.4L175.1,282.4c88.4,0,160-71.6,160-160V15.8H228.5v106.7c0,29.5-23.9,53.3-53.3,53.3
+	c-88.4,0-160,71.6-160,160c0,88.4,71.6,160,160,160s160-71.6,160-160H228.5c0,29.5-23.9,53.3-53.3,53.3c-29.4,0-53.3-23.9-53.3-53.3
+	C121.8,306.3,145.7,282.4,175.1,282.4z"/>
+</svg>
+`
+
+type SVGShapes = Array<THREE.Shape[]>
 
 export const ThreeFiberSVGExtrusion = (props:any) => {
 
 	return 	<Container>
-				<Canvas shadows camera={{ position: [-1, 1, 1], fov: 90 }}>
-					<ambientLight />
-					<pointLight position={[10, 10, 10]} />
-					{
-						/*
-						*/
-					}
-					<Box position={[-1.2, 0, 0]} />
-					<Box position={[1.2, 0, 0]} />
-					<Box position={[0, 1, 0]} />
-					<Box position={[0, -1, 0]} />
+
+				<CenterContainer>
+					<SVGBackground viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="50" cy="50" r="40" fill="#FC5721"/>
+					</SVGBackground>
+				</CenterContainer>
+
+				<Canvas shadows
+						gl={{antialias:true, toneMapping : THREE.NoToneMapping}}
+						camera={{ position: [-1, 1, 1], fov: 90, far: 2000 }}>
+
+					<ambientLight color='rgb(255, 204, 0)' intensity={1.25}/>
+					<pointLight position={[100, 10, 100]} />
+
+					<CameraMovement/>
+
+					<ExtrudedSVG 	svgMarkup={svgLogoShapesOnly}
+									position={[-320,256,0]}
+									options={{
+										depth : 60,
+										curveSegments : 12 * 2
+									}}>
+							<meshLambertMaterial color={'rgb(255,204,0)'}/>
+					</ExtrudedSVG>
+
 				</Canvas>
 			</Container>
 }
 
-
-function Box(props: ThreeElements['mesh']) {
-
+const CameraMovement = () => {
 	const time = useRef(0)
 
-	const mesh = useRef<THREE.Mesh>(null!)
-	const [hovered, setHover] = useState(false)
-	const [active, setActive] = useState(false)
-
-	const center = new THREE.Vector3(0,0,0)
-
 	useFrame((state, delta) => {
-		mesh.current.rotation.x += delta
-
 		time.current += delta
-		const rad = 1
+		const rad = 500 - Math.cos(Date.now()/1000 * 0.25) * 300
 
 		state.camera.position.x = Math.sin(time.current/2) * rad
 		state.camera.position.z = Math.cos(time.current/2) * rad
 
-		state.camera.lookAt(center)
+		state.camera.lookAt(-40,0,0)
 	})
 
-	return <mesh	{...props} ref={mesh}
-					scale={active ? 1.5 : 1}
-					onClick={(event) => setActive(!active)}
-					onPointerOver={(event) => setHover(true)}
-					onPointerOut={(event) => setHover(false)}>
-				<boxGeometry args={[1, 1, 1]} />
-				<meshStandardMaterial color={hovered ? 'hotpink' : 'red'} />
-			</mesh>
+	return <React.Fragment/>
+}
+
+interface ExtrudedSVGProps {
+	svgMarkup : string
+	options? : THREE.ExtrudeGeometryOptions
+	position? : Vector3
+	children? : any
+}
+
+const ExtrudedSVG = (props:ExtrudedSVGProps) => {
+	const [svgShapes, setSvgShapes] = useState<SVGShapes>([])
+
+	useEffect(()=>{
+		const loader = new SVGLoader();
+		const svgData = loader.parse(svgLogoShapesOnly);
+		const shapes = svgData.paths.map(path => path.toShapes(true))
+		setSvgShapes(shapes)
+	}, [])
+
+	return	<group scale={[1,-1,1]} position={props.position}>
+			{
+			svgShapes.map((shape, i)=>{
+				return	<mesh key={i}>
+							<extrudeGeometry args={[shape, props.options]}/>
+							{ props.children }
+						</mesh>
+			})
+			}
+			</group>
 }
 
 const Container = styled.div`
@@ -63,4 +105,18 @@ const Container = styled.div`
 	bottom: 0px;
 
 	background: rgb(255, 204, 0);
+`
+
+const CenterContainer = styled(Container)`
+	width 100vw;
+	height: 100vh;
+
+	display: grid;
+	place-items: center;
+
+	background: transparent;
+`
+
+const SVGBackground = styled.svg`
+	max-height: 100vh;
 `
