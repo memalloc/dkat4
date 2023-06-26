@@ -1,18 +1,26 @@
+import { useRef } from 'react'
 import styled from 'styled-components'
 
 export const SinglePageProjectsTrial = (props:any) => {
+
+	const firstProject = useRef(null)
 
 	return	<Container>
 
 				<ScreenContent>
 					initial screen content placeholder
+					<Button onClick={()=>{
+						firstProject.current.scrollIntoView({behavior: 'smooth', block: 'center'})
+					}}>
+						scroll to projects
+					</Button>
 				</ScreenContent>
 
 				<ProjectsHeader>
 					selected projects
 				</ProjectsHeader>
 
-				<Project>Project</Project>
+				<Project ref={firstProject}>Project</Project>
 				<Project>Project</Project>
 				<Project>Project</Project>
 				<Project>Project</Project>
@@ -65,6 +73,19 @@ const ScreenContent = styled.div`
 	place-items: center;
 
 	scroll-snap-align: center;
+`
+
+const Button = styled.div`
+	color: #555;
+	background: #bbb;
+	padding: 5px;
+
+	display: inline;
+
+	&:hover {
+		background: #ddd;	
+		color: #333;	
+	}
 `
 
 const ProjectsHeader = styled.div`
