@@ -4,6 +4,7 @@
 
 import { LoremIpsum } from "./lorem-ipsum"
 import { ResponsiveLayoutTrial } from "./responsive-layout-trial"
+import { SinglePageProjectsTrial } from "./single-page-projects-trial"
 import { ThreeBase } from "./three-base"
 import { ThreeSVGExtrusion } from "./three-svg-extrusion"
 import { ThreeFiberSVGExtrusion } from "./three-fiber-svg-extrusion"
@@ -16,6 +17,9 @@ export const LoremIpsumStory = () => <LoremIpsum/>
 
 export const ResponsiveLayout = () => <ResponsiveLayoutTrial/>
 ResponsiveLayout.storyName = 'ResponsiveLayoutTrial'
+
+export const SinglePageProjects = () => <SinglePageProjectsTrial/>
+SinglePageProjects.storyName = 'SinglePageProjectsTrial'
 
 export const ThreeBaseSetup = () => <ThreeBase/>
 ThreeBaseSetup.storyName = 'Three Base'
