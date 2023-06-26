@@ -27,6 +27,8 @@ export const SinglePageProjectsTrial = (props:any) => {
 			</Container>
 }
 
+const onMobileAspectRatio = 'max-aspect-ratio: 6/10'
+
 const Container = styled.div`
 	user-select: none;
 	font-family: ArvoRegular;
@@ -46,6 +48,10 @@ const Container = styled.div`
 	overflow: scroll;
 
 	scroll-snap-type: y mandatory;
+
+	@media (${onMobileAspectRatio}) {
+		scroll-snap-type: none;
+	}
 `
 
 const ScreenContent = styled.div`
@@ -60,6 +66,7 @@ const ScreenContent = styled.div`
 
 	scroll-snap-align: center;
 `
+
 const ProjectsHeader = styled.div`
 	background: rgba(0,0,0,0.7);
 	color: #eee;
@@ -85,4 +92,12 @@ const Project = styled.div`
 	place-items: center;
 
 	scroll-snap-align: center;
+
+	@media (${onMobileAspectRatio}) {
+		width: 100vw;
+		height: 100vw;
+
+		margin-top: 5vw;
+		margin-bottom: 5vw;
+	}
 `
