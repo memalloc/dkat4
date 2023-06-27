@@ -94,6 +94,8 @@ const ProjectsHeader = styled.div`
 	width: 100vw;
 
 	padding: 1vh 0vh;
+	margin-top: 15vh;
+	margin-bottom: 15vh;
 
 	position: sticky;
 	top: 0vh;
