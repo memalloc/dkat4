@@ -1,9 +1,15 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import styled from 'styled-components'
+import { AnimatePresence, motion } from 'framer-motion'
+
+import { ResponsiveLayoutTrial } from './responsive-layout-trial'
 
 export const SinglePageProjectsTrial = (props:any) => {
 
+	const [selectedProject, setSelectedProject] = useState(undefined)
 	const firstProject = useRef(null)
+
+	const projects = [1,2,3,4,5,6,7,8]
 
 	return	<Container>
 
@@ -16,21 +22,33 @@ export const SinglePageProjectsTrial = (props:any) => {
 					</Button>
 				</ScreenContent>
 
-				<ProjectsHeader>
+				<ProjectsHeader onClick={()=>{
+					setSelectedProject(undefined)
+				}}>
 					selected projects
 				</ProjectsHeader>
 
-				<Project ref={firstProject}>Project</Project>
-				<Project>Project</Project>
-				<Project>Project</Project>
-				<Project>Project</Project>
-				<Project>Project</Project>
-				<Project>Project</Project>
-				<Project>Project</Project>
-				<Project>Project</Project>
-				<Project>Project</Project>
-				<Project>Project</Project>
-				<Project>Project</Project>
+				{
+				projects.map((project, i) => {
+					return	<Project	ref={i===0 ? firstProject : undefined}
+										key={i} onClick={()=>{
+											setSelectedProject(project)
+										}}>
+								Project #{i+1}
+							</Project>	
+				})
+				}
+
+				<AnimatePresence>
+				{
+					selectedProject &&
+					<motion.div initial={{opacity:0}}
+								animate={{opacity:1}}
+								exit={{opacity:0}}>
+						<ResponsiveLayoutTrial/>
+					</motion.div>
+				}
+				</AnimatePresence>
 
 			</Container>
 }
@@ -99,6 +117,8 @@ const ProjectsHeader = styled.div`
 
 	position: sticky;
 	top: 0vh;
+
+	z-index: 100;
 `
 
 const Project = styled.div`
