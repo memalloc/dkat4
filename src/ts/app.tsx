@@ -1,11 +1,11 @@
 import { styled } from 'styled-components'
 
-import { ResponsiveLayoutTrial } from './components/dev/responsive-layout-trial'
+import { ReactRouterTrial } from './components/dev/react-router-trial'
 
 export const App = (props:any) => {
 
 	return	<Container>
-				<ResponsiveLayoutTrial/>
+				<ReactRouterTrial/>
 			</Container>
 }
 
