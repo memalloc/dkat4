@@ -1,12 +1,28 @@
+import { PropsWithChildren } from 'react'
 import { styled } from 'styled-components'
 
-export const ScrollContainer = (props:any) => {
+interface Props {
+}
+
+export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 
 	return	<Container>
-				ScrollContainer
+				{props.children}
 			</Container>
 }
 
 const Container = styled.div`
-	background: #777;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+
+	overflow: scroll;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	scrollbar-width: none;
 `
