@@ -2,6 +2,8 @@ import { PropsWithChildren, useEffect, useRef } from 'react'
 import { styled } from 'styled-components'
 import { motion, useMotionValue } from "framer-motion"
 
+import * as Design from '../design'
+
 interface Props {
 }
 
@@ -62,11 +64,19 @@ const Container = styled.div`
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
+
+	@media (${Design.onMobile}) {
+		grid-template-columns: 0vw auto;
+	}
 `
 
 const ScrollBar = styled(motion.div)`
 	background: orange;
 	width: 1vw;
+
+	@media (${Design.onMobile}) {
+		opacity: 0;
+	}
 `
 
 const ScrollContent = styled.div`
