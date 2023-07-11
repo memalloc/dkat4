@@ -71,7 +71,7 @@ const Container = styled.div`
 `
 
 const ScrollBar = styled(motion.div)`
-	background: orange;
+	background: #FF5605;
 	width: 1vw;
 
 	@media (${Design.onMobile}) {
