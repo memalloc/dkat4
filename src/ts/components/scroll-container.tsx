@@ -29,11 +29,13 @@ export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 
 		const element = contentRef.current
 		element.addEventListener('scroll', scroll)
+		window.addEventListener('resize', scroll)
 
 		updateScrollbar()
 
 		return () => {
 			element.removeEventListener('scroll', scroll)
+			window.removeEventListener('resize', scroll)
 		}
 	},[contentRef])
 
