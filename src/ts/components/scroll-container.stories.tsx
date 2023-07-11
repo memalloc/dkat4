@@ -14,6 +14,7 @@ export const ScrollContainerStory = () => {
 					</ScrollContainer>
 				</ContainerOne>
 }
+ScrollContainerStory.storyName = 'Scroll Container'
 
 const ContainerOne = styled.div`
 	position: absolute;
