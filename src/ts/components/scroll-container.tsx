@@ -67,6 +67,12 @@ const Container = styled.div`
 
 	@media (${Design.onMobile}) {
 		grid-template-columns: 0vw auto;
+
+		position: static;
+		top: unset;
+		left: unset;
+		right: unset;
+		bottom: unset;
 	}
 `
 
