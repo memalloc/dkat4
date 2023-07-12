@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import ReactMarkdown from 'react-markdown'
 
+import * as Design from '../design'
+
 interface Props {
 	children?: string
 	disableParagraphMargin?: boolean
@@ -27,8 +29,8 @@ const Paragraph = styled.p<{$disableMargin:boolean}>`
 const Hyperlink = styled.a`
 	text-decoration: none;
 
-	background: #FF5605;
-	border: 2px solid #FF5605;
+	background: ${Design.Colors.Orange};
+	border: 2px solid ${Design.Colors.Orange};
 	color: #172C32;
 
 	font-family: ArvoBold;
@@ -38,6 +40,6 @@ const Hyperlink = styled.a`
 
 	&:hover {
 		background: transparent;
-		color: #FF5605;
+		color: ${Design.Colors.Orange};
 	}
 `

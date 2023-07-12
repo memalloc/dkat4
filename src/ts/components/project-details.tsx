@@ -85,7 +85,7 @@ export const ProjectDetails = (props:Props) => {
 
 const Container = styled.div`
 	font-family: ArvoRegular;
-	color: #FF5605;
+	color: ${Design.Colors.Orange};
 `
 
 const BackgroundPlaceholder = styled.div`

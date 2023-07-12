@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { styled } from 'styled-components'
 
+import * as Design from '../design'
+
 interface Props {
 	container : React.RefObject<HTMLElement>
 	pageCount : number
@@ -51,7 +53,7 @@ const Indicator = (props:IndicatorProps) => {
 		height: size,
 		borderWidth,
 		borderStyle: 'solid',
-		borderColor: '#FF5605'
+		borderColor: Design.Colors.Orange
 	}
 
 	return <motion.div style={style}/>

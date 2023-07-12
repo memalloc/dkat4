@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import { styled } from 'styled-components'
 
+import * as Design from '../design'
+
 interface Props {
 	details : boolean
 	onClick : ()=>void
@@ -34,7 +36,7 @@ export const DetailToggle = (props:Props) => {
 				<motion.div onClick={props.onClick}
 							variants={variants}
 							animate={props.details ? 'details' : 'hidden'}>
-					<Icon color={"#FF5605"}/>
+					<Icon color={Design.Colors.Orange}/>
 				</motion.div>
 			</Container>
 }

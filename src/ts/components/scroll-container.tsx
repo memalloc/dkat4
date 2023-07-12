@@ -77,7 +77,7 @@ const Container = styled.div`
 `
 
 const ScrollBar = styled(motion.div)`
-	background: #FF5605;
+	background: ${Design.Colors.Orange};
 	width: 4px;
 
 	@media (${Design.onMobile}) {
@@ -87,8 +87,8 @@ const ScrollBar = styled(motion.div)`
 
 const ScrollContent = styled.div`
 
-	border-top: 2px solid #FF5605;
-	border-bottom: 2px solid #FF5605;
+	border-top: 2px solid ${Design.Colors.Orange};
+	border-bottom: 2px solid ${Design.Colors.Orange};
 
 	overflow: scroll;
 
