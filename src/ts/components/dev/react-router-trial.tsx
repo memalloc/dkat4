@@ -1,4 +1,4 @@
-import { HashRouter, Link, Route, Routes, useLocation } from 'react-router-dom'
+import { HashRouter, Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 
 export const ReactRouterTrial = () => {
@@ -14,13 +14,19 @@ export const ReactRouterTrial = () => {
 const AnimatedRouter = () => {
 
 	const location = useLocation()
+	const navigate = useNavigate()
 
 	const BaseContent = <motion.div initial={{opacity:0}}
 											animate={{opacity:1}}
 											transition={{duration:0.5}}
 											exit={{opacity:0}}>
 									root level
-									<Link to={'/project'}>navigate to project level</Link>	
+									<Link to={'/project'}>navigate to project level</Link>
+									<div onClick={()=>{
+										navigate('/project')
+									}}>
+										programmatic navigation to project
+									</div>
 								</motion.div>
 	const ProjectContent = <motion.div initial={{opacity:0}}
 											animate={{opacity:1}}
