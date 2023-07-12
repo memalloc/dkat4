@@ -97,4 +97,8 @@ const ScrollContent = styled.div`
 	}
 
 	scrollbar-width: none;
+
+	@media (${Design.onMobile}) {
+		border: none;
+	}
 `
