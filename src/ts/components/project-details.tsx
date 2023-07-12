@@ -5,12 +5,21 @@ import * as Design from '../design'
 
 import { ScrollContainer } from "./scroll-container"
 
-import TestVideo from '../../assets/video/test.mp4'
-import { LoremIpsum } from './dev/lorem-ipsum'
+import { Markdown } from './markdown'
+
 import { PageIndicator } from './page-indicator'
 import { DetailToggle } from './detail-toggle'
+import { MediaContent } from './media-content'
+
+export interface Project {
+	title : string
+	info : string
+	description : string
+	media : Array<string>
+}
 
 interface Props {
+	project : Project
 }
 
 export const ProjectDetails = (props:Props) => {
@@ -18,45 +27,46 @@ export const ProjectDetails = (props:Props) => {
 	
 	const mediaColumnRef = useRef(null)
 
+	const media = [...props.project.media]
+	const initialMedia = media.shift()
+
 	return	<Container>
 
 				<BackgroundPlaceholder/>
 
 				<MediaColumn fullWidth={!showDetails} ref={mediaColumnRef}>
 
-					{/* mandatory elements */}
-
-					<Title shadow={!showDetails}>Verkehrsmuseum Remise</Title>
+					<Title shadow={!showDetails}>
+						<Markdown disableParagraphMargin>
+							{ props.project.title }
+						</Markdown>
+					</Title>
 
 					<MediaContainer>
-						<Video src={TestVideo} autoPlay loop muted playsInline/>
+						<MediaContent url={initialMedia}/>
 					</MediaContainer>
 
 					<InfoBox details={showDetails} shadow={!showDetails}>
-						Work: Design &amp; Development<br />
-						Client: Wiener Linien<br />
-						Agency: Zone Media
+						<Markdown>
+							{ props.project.info }
+						</Markdown>
 					</InfoBox>
 
 					<ProjectDescription details={showDetails}>
 						<ScrollContainer>
-							<LoremIpsum paragraphs={3}/>
+							<Markdown>
+								{ props.project.description }
+							</Markdown>
 						</ScrollContainer>
 					</ProjectDescription>
 
-					{/* optional content elements */}
-
-					<MediaContainer>
-						<Image src='https://placehold.co/800x800'/>
-					</MediaContainer>
-
-					<MediaContainer>
-						<Image src='https://placehold.co/1920x1080'/>
-					</MediaContainer>
-
-					<MediaContainer>
-						<Image src='https://placehold.co/90x160'/>
-					</MediaContainer>
+					{
+						media.map((url, i)=>{
+							return	<MediaContainer key={i}>
+										<MediaContent url={url}/>
+									</MediaContainer>
+						})
+					}
 
 				</MediaColumn>
 
@@ -67,7 +77,7 @@ export const ProjectDetails = (props:Props) => {
 				</ToggleContainer>
 
 				<PageIndicatorContainer details={showDetails}>
-					<PageIndicator container={mediaColumnRef} pageCount={4}/>
+					<PageIndicator container={mediaColumnRef} pageCount={props.project.media.length}/>
 				</PageIndicatorContainer>
 
 			</Container>
@@ -233,19 +243,5 @@ const MediaContainer = styled.div`
 
 	@media (${Design.onMobile}) {
 		height: auto;
-	}
-`
-
-const Video = styled.video`
-	width: 100%;
-	max-height: 100vh;
-`
-
-const Image = styled.img`
-	max-width: 100%;
-	max-height: 100vh;
-
-	@media (${Design.onMobile}) {
-		width: 100%;
 	}
 `
