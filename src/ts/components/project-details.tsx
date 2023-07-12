@@ -166,6 +166,7 @@ const PageIndicatorContainer = styled.div<{details:boolean}>`
 	transition: 1s all;
 
 	@media (${Design.onMobile}) {
+		display: none;
 	}
 `
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - temp
