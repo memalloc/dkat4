@@ -8,6 +8,7 @@ import { ScrollContainer } from "./scroll-container"
 import TestVideo from '../../assets/video/test.mp4'
 import { LoremIpsum } from './dev/lorem-ipsum'
 import { PageIndicator } from './page-indicator'
+import { DetailToggle } from './detail-toggle'
 
 interface Props {
 }
@@ -62,9 +63,7 @@ export const ProjectDetails = (props:Props) => {
 				<ToggleContainer details={showDetails}>
 					<DetailToggle details={showDetails} onClick={()=>{
 						setShowDetails(!showDetails)
-					}}>
-						{ showDetails ? '<' : '>'}
-					</DetailToggle>
+					}}/>
 				</ToggleContainer>
 
 				<PageIndicatorContainer details={showDetails}>
@@ -172,7 +171,7 @@ const PageIndicatorContainer = styled.div<{details:boolean}>`
 		display: none;
 	}
 `
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - temp
+
 const ToggleContainer = styled.div<{details:boolean}>`
 	position: fixed;
 	bottom: 0vw;
@@ -191,40 +190,6 @@ const ToggleContainer = styled.div<{details:boolean}>`
 	}
 `
 
-const DetailToggle = styled.div<{details:boolean}>`
-	background: #FF5605;
-	color: white;
-
-	border-radius: 100vw;
-	width: 4vw;
-	height: 4vw;
-
-	display: grid;
-	place-items: center;
-
-	font-size: 20px;
-
-	z-index: 100;
-
-	user-select: none;
-
-	transition: 1s all;
-
-
-	&:hover {
-		background: rgb(255,0,0);
-	}
-
-	&:active {
-		color: black;
-	}
-
-	@media (${Design.onMobile}) {
-		right: -100vw;
-	}
-`
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 const MediaColumn = styled.div<{fullWidth : boolean}>`
 	transition: 1s all;
 
