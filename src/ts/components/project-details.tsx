@@ -34,9 +34,9 @@ export const ProjectDetails = (props:Props) => {
 
 				<BackgroundPlaceholder/>
 
-				<MediaColumn fullWidth={!showDetails} ref={mediaColumnRef}>
+				<MediaColumn $fullWidth={!showDetails} ref={mediaColumnRef}>
 
-					<Title shadow={!showDetails}>
+					<Title $shadow={!showDetails}>
 						<Markdown disableParagraphMargin>
 							{ props.project.title }
 						</Markdown>
@@ -46,13 +46,13 @@ export const ProjectDetails = (props:Props) => {
 						<MediaContent url={initialMedia}/>
 					</MediaContainer>
 
-					<InfoBox details={showDetails} shadow={!showDetails}>
+					<InfoBox $details={showDetails} $shadow={!showDetails}>
 						<Markdown>
 							{ props.project.info }
 						</Markdown>
 					</InfoBox>
 
-					<ProjectDescription details={showDetails}>
+					<ProjectDescription $details={showDetails}>
 						<ScrollContainer>
 							<Markdown disableParagraphMargin>
 								{ props.project.description }
@@ -70,13 +70,13 @@ export const ProjectDetails = (props:Props) => {
 
 				</MediaColumn>
 
-				<ToggleContainer details={showDetails}>
+				<ToggleContainer $details={showDetails}>
 					<DetailToggle details={showDetails} onClick={()=>{
 						setShowDetails(!showDetails)
 					}}/>
 				</ToggleContainer>
 
-				<PageIndicatorContainer details={showDetails}>
+				<PageIndicatorContainer $details={showDetails}>
 					<PageIndicator container={mediaColumnRef} pageCount={props.project.media.length}/>
 				</PageIndicatorContainer>
 
@@ -97,8 +97,8 @@ const BackgroundPlaceholder = styled.div`
 	bottom: 0px;
 `
 
-const Shadow = styled.div<{shadow:boolean}>`
-	text-shadow: 0px 0px 20px rgba(0,0,0,${props => props.shadow ? 0.3 : 0});
+const Shadow = styled.div<{$shadow:boolean}>`
+	text-shadow: 0px 0px 20px rgba(0,0,0,${props => props.$shadow ? 0.3 : 0});
 	transition: 1s all;
 `
 
@@ -126,7 +126,7 @@ const Title = styled(Shadow)`
 	}
 `
 
-const ProjectDescription = styled.div<{details:boolean}>`
+const ProjectDescription = styled.div<{$details:boolean}>`
 	font-size: 15px;
 	line-height: 32.75px;
 	letter-spacing: 0.5px;
@@ -134,7 +134,7 @@ const ProjectDescription = styled.div<{details:boolean}>`
 	position: fixed;
 	top: 17.5vh;
 	bottom: 17.5vh;
-	left: ${props => !props.details ? '-40' : '0'}vw;
+	left: ${props => !props.$details ? '-40' : '0'}vw;
 	width: 30vw;
 
 	transition: 1s all;
@@ -150,13 +150,13 @@ const ProjectDescription = styled.div<{details:boolean}>`
 	}
 `
 
-const InfoBox = styled(Shadow)<{details:boolean}>`
+const InfoBox = styled(Shadow)<{$details:boolean}>`
 	font-size: 15px;
 	line-height: 24px;
 	letter-spacing: 0.5px;
 
 	position: fixed;
-	left: ${props => props.details ? 3 : 7}vw;
+	left: ${props => props.$details ? 3 : 7}vw;
 	bottom: 0vw;
 	height: 16.5vh;
 
@@ -172,13 +172,13 @@ const InfoBox = styled(Shadow)<{details:boolean}>`
 	}
 `
 
-const PageIndicatorContainer = styled.div<{details:boolean}>`
+const PageIndicatorContainer = styled.div<{$details:boolean}>`
 	background: green;
 	position: fixed;
 	bottom: 20vh;
 	top: 20vh;
 
-	left: ${props => props.details ? 31 : 2}vw;
+	left: ${props => props.$details ? 31 : 2}vw;
 
 	transition: 1s all;
 
@@ -187,12 +187,12 @@ const PageIndicatorContainer = styled.div<{details:boolean}>`
 	}
 `
 
-const ToggleContainer = styled.div<{details:boolean}>`
+const ToggleContainer = styled.div<{$details:boolean}>`
 	position: fixed;
 	bottom: 0vw;
 	height: 15.5vh;
 
-	left: ${props => props.details ? 30 : 2}vw;
+	left: ${props => props.$details ? 30 : 2}vw;
 
 	display: grid;
 	justify-items: end;
@@ -204,10 +204,10 @@ const ToggleContainer = styled.div<{details:boolean}>`
 	}
 `
 
-const MediaColumn = styled.div<{fullWidth : boolean}>`
+const MediaColumn = styled.div<{$fullWidth : boolean}>`
 	transition: 1s all;
 
-	padding-left: ${props => props.fullWidth ? '0' : '34'}vw;
+	padding-left: ${props => props.$fullWidth ? '0' : '34'}vw;
 
 	position: fixed;
 	left: 0px;
