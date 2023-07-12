@@ -37,7 +37,8 @@ const Indicator = (props:IndicatorProps) => {
 		return [v-pageHeight,v,v+pageHeight]
 	}
 
-	const scale = useTransform(scrollY, range(props.page), [1, 2, 1])
+	const size = useTransform(scrollY, range(props.page), [6, 0, 6])
+	const borderWidth = useTransform(scrollY, range(props.page), [3, 4, 3])
 
 	useEffect(() => {
 		const clientHeight = props.container.current.clientHeight
@@ -45,19 +46,15 @@ const Indicator = (props:IndicatorProps) => {
 	}, [props.container])
 
 	const style = {
-		width: 50,
-		height: 50,
-		borderRadius: 100,
-		background: '#FF5605',
-		color: '#172C32',
-		display: 'grid',
-		placeContent: 'center',
-		scale
+		margin: 9,
+		width: size,
+		height: size,
+		borderWidth,
+		borderStyle: 'solid',
+		borderColor: '#FF5605'
 	}
 
-	return <motion.div style={style}>
-				{props.page+1}
-			</motion.div>
+	return <motion.div style={style}/>
 }
 
 const Container = styled.div`
@@ -67,4 +64,5 @@ const Container = styled.div`
 
 	display: grid;
 	align-content: center;
+	justify-items: center;
 `
