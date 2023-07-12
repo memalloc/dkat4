@@ -56,7 +56,7 @@ export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 
 const Container = styled.div`
 	display: grid;
-	grid-template-columns: 8vw auto;
+	grid-template-columns: 3vw auto;
 	justify-items: center;	
 
 	position: absolute;
@@ -78,7 +78,7 @@ const Container = styled.div`
 
 const ScrollBar = styled(motion.div)`
 	background: #FF5605;
-	width: 1vw;
+	width: 4px;
 
 	@media (${Design.onMobile}) {
 		opacity: 0;
@@ -86,6 +86,9 @@ const ScrollBar = styled(motion.div)`
 `
 
 const ScrollContent = styled.div`
+
+	border-top: 2px solid #FF5605;
+	border-bottom: 2px solid #FF5605;
 
 	overflow: scroll;
 

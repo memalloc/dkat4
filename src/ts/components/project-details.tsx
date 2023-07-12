@@ -93,8 +93,8 @@ const Title = styled.div`
 
 	position: fixed;
 	top: 0vh;
-	height: 20vh;
-	left: 2vw;
+	height: 16.5vh;
+	left: 3vw;
 	width: 30vw;
 
 	display: grid;
@@ -113,14 +113,15 @@ const Title = styled.div`
 `
 
 const ProjectDescription = styled.div<{details:boolean}>`
-	position: fixed;
-	top: 20vh;
-	bottom: 20vh;;
-	left: ${props => !props.details ? '-40' : '2'}vw;
-	width: 30vw;
+	font-size: 15px;
+	line-height: 32.75px;
+	letter-spacing: 0.5px;
 
-	border-top: 3px solid #FF5605;
-	border-bottom: 3px solid #FF5605;
+	position: fixed;
+	top: 17.5vh;
+	bottom: 17.5vh;
+	left: ${props => !props.details ? '-40' : '0'}vw;
+	width: 30vw;
 
 	transition: 1s all;
 
@@ -136,12 +137,14 @@ const ProjectDescription = styled.div<{details:boolean}>`
 `
 
 const InfoBox = styled.div<{details:boolean}>`
-	font-size: 20px;
+	font-size: 15px;
+	line-height: 24px;
+	letter-spacing: 0.5px;
 
 	position: fixed;
-	left: ${props => props.details ? 2 : 9}vw;
+	left: ${props => props.details ? 3 : 7}vw;
 	bottom: 0vw;
-	height: 20vh;
+	height: 16.5vh;
 
 	transition: 1s all;
 
@@ -161,7 +164,7 @@ const PageIndicatorContainer = styled.div<{details:boolean}>`
 	bottom: 20vh;
 	top: 20vh;
 
-	left: ${props => props.details ? 30 : 2}vw;
+	left: ${props => props.details ? 31 : 2}vw;
 
 	transition: 1s all;
 
@@ -173,10 +176,10 @@ const PageIndicatorContainer = styled.div<{details:boolean}>`
 const ToggleContainer = styled.div<{details:boolean}>`
 	position: fixed;
 	bottom: 0vw;
-	height: 20vh;
+	height: 15.5vh;
 
 	left: 2vw;
-	width: ${props => props.details ? 30 : 2}vw;
+	width: ${props => props.details ? 31 : 2}vw;
 
 	display: grid;
 	justify-items: end;
