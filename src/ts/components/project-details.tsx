@@ -26,13 +26,13 @@ export const ProjectDetails = (props:Props) => {
 
 					{/* mandatory elements */}
 
-					<Title>Verkehrsmuseum Remise</Title>
+					<Title shadow={!showDetails}>Verkehrsmuseum Remise</Title>
 
 					<MediaContainer>
 						<Video src={TestVideo} autoPlay loop muted playsInline/>
 					</MediaContainer>
 
-					<InfoBox details={showDetails}>
+					<InfoBox details={showDetails} shadow={!showDetails}>
 						Work: Design &amp; Development<br />
 						Client: Wiener Linien<br />
 						Agency: Zone Media
@@ -87,7 +87,12 @@ const BackgroundPlaceholder = styled.div`
 	bottom: 0px;
 `
 
-const Title = styled.div`
+const Shadow = styled.div<{shadow:boolean}>`
+	text-shadow: 0px 0px 20px rgba(0,0,0,${props => props.shadow ? 0.3 : 0});
+	transition: 1s all;
+`
+
+const Title = styled(Shadow)`
 	font-size: 30px;
 
 	position: fixed;
@@ -99,7 +104,7 @@ const Title = styled.div`
 	display: grid;
     align-items: end;
 
-	transition: 1s all;
+	transition: 3s all;
 
 	@media (${Design.onMobile}) {
 		font-size: 30px;
@@ -135,7 +140,7 @@ const ProjectDescription = styled.div<{details:boolean}>`
 	}
 `
 
-const InfoBox = styled.div<{details:boolean}>`
+const InfoBox = styled(Shadow)<{details:boolean}>`
 	font-size: 15px;
 	line-height: 24px;
 	letter-spacing: 0.5px;
