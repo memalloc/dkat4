@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
+import { styled } from 'styled-components'
 
 interface Props {
 	container : React.RefObject<HTMLElement>
@@ -9,13 +10,13 @@ interface Props {
 export const PageIndicator = (props:Props) => {
 	const pages = Array.from(Array(props.pageCount))
 
-	return	<div>
+	return	<Container>
 			{
 				pages.map((_, i) => {
 					return <Indicator key={i} page={i} container={props.container}/>
 				})
 			}
-			</div>
+			</Container>
 }
 
 interface IndicatorProps {
@@ -44,8 +45,6 @@ const Indicator = (props:IndicatorProps) => {
 	}, [props.container])
 
 	const style = {
-		x : '35vw',
-		y : `${35 + 20 * (props.page/4)}vh`,
 		width: 50,
 		height: 50,
 		borderRadius: 100,
@@ -60,3 +59,12 @@ const Indicator = (props:IndicatorProps) => {
 				{props.page+1}
 			</motion.div>
 }
+
+const Container = styled.div`
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+
+	display: grid;
+	align-content: center;
+`

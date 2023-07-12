@@ -67,7 +67,9 @@ export const ProjectDetails = (props:Props) => {
 					</DetailToggle>
 				</ToggleContainer>
 
-				<PageIndicator container={mediaColumnRef} pageCount={4}/>
+				<PageIndicatorContainer details={showDetails}>
+					<PageIndicator container={mediaColumnRef} pageCount={4}/>
+				</PageIndicatorContainer>
 
 			</Container>
 }
@@ -150,6 +152,20 @@ const InfoBox = styled.div<{details:boolean}>`
 		top: unset;
 		left: unset;
 		height: unset;
+	}
+`
+
+const PageIndicatorContainer = styled.div<{details:boolean}>`
+	background: green;
+	position: fixed;
+	bottom: 20vh;
+	top: 20vh;
+
+	left: ${props => props.details ? 30 : 2}vw;
+
+	transition: 1s all;
+
+	@media (${Design.onMobile}) {
 	}
 `
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - temp
