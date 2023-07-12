@@ -192,8 +192,7 @@ const ToggleContainer = styled.div<{details:boolean}>`
 	bottom: 0vw;
 	height: 15.5vh;
 
-	left: 2vw;
-	width: ${props => props.details ? 31 : 2}vw;
+	left: ${props => props.details ? 30 : 2}vw;
 
 	display: grid;
 	justify-items: end;
