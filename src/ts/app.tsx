@@ -1,18 +1,18 @@
 import { styled } from 'styled-components'
 
-import { ReactRouterTrial } from './components/dev/react-router-trial'
+import { ThreeFiberSVGExtrusion } from './components/dev/three-fiber-svg-extrusion'
+import { MainNavigation } from './components/main-navigation'
+import { sampleProjects } from './components/dev/sample-data'
 
 export const App = (props:any) => {
 
 	return	<Container>
-				<ReactRouterTrial/>
+				<ThreeFiberSVGExtrusion/>
+				<MainNavigation projects={sampleProjects} onProjectSelection={(project) => {
+					console.log(`selected project ${project.title}`, project)
+				}}/>
 			</Container>
 }
 
 const Container = styled.div`
-	background: #777;
 `
-
-const FontTest = (props:{fontFamily:string}) => {
-	return <div style={{...props}}>{props.fontFamily}</div>	
-}
