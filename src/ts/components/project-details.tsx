@@ -11,7 +11,7 @@ import { PageIndicator } from './page-indicator'
 import { DetailToggle } from './detail-toggle'
 import { MediaContent } from './media-content'
 
-export interface Project {
+export interface ProjectData {
 	title : string
 	info : string
 	description : string
@@ -19,7 +19,7 @@ export interface Project {
 }
 
 interface Props {
-	project : Project
+	project : ProjectData
 }
 
 export const ProjectDetails = (props:Props) => {

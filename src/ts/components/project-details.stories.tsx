@@ -1,6 +1,6 @@
 import { styled } from 'styled-components'
 
-import { ProjectDetails, Project } from './project-details'
+import { ProjectDetails, ProjectData } from './project-details'
 
 import TestVideo from '../../assets/video/test.mp4'
 import { text } from './dev/lorem-ipsum'
@@ -16,7 +16,7 @@ export const ProjectDetailsStory = () => {
 }
 ProjectDetailsStory.storyName = 'Project Details'
 
-export const sampleProject:Project = {
+export const sampleProject:ProjectData = {
 	title : `Verkehrsmuseum Remise`,
 	info : `Work: Design & Development  \nClient: Wiener Linien  \nAgency: [Zone Media](https://www.zonemedia.at/)`,
 	description : `Project Description, [dkat](https://www.danielkauer.at/) ${text}\n\n${text}`,
