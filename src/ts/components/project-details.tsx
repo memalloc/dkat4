@@ -54,7 +54,7 @@ export const ProjectDetails = (props:Props) => {
 
 					<ProjectDescription details={showDetails}>
 						<ScrollContainer>
-							<Markdown>
+							<Markdown disableParagraphMargin>
 								{ props.project.description }
 							</Markdown>
 						</ScrollContainer>
