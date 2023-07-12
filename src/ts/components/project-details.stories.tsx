@@ -11,12 +11,12 @@ export default {
 
 export const ProjectDetailsStory = () => {
 	return <Container>
-				<ProjectDetails project={project}/>
+				<ProjectDetails project={sampleProject}/>
 			</Container>
 }
 ProjectDetailsStory.storyName = 'Project Details'
 
-const project:Project = {
+export const sampleProject:Project = {
 	title : `Verkehrsmuseum Remise`,
 	info : `Work: Design & Development  \nClient: Wiener Linien  \nAgency: [Zone Media](https://www.zonemedia.at/)`,
 	description : `Project Description, [dkat](https://www.danielkauer.at/) ${text}\n\n${text}`,
