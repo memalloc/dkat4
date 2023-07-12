@@ -11,7 +11,7 @@ export const Markdown = (props:Props) => {
 	const components = {
 		p : ({node, ...props}) => <Paragraph {...props} disableMargin={noMargin}/>,
 		strong : ({node, ...props}) => <Strong {...props}/>,
-		a : ({node, ...props}) => <Hyperlink {...props}/>,
+		a : ({node, ...props}) => <Hyperlink {...props} target="_blank"/>,
 	}
 	return <ReactMarkdown children={props.children} components={components}/>
 }
