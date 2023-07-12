@@ -3,15 +3,18 @@ import { motion, useScroll, useTransform } from "framer-motion"
 
 interface Props {
 	container : React.RefObject<HTMLElement>
+	pageCount : number
 }
 
 export const PageIndicator = (props:Props) => {
+	const pages = Array.from(Array(props.pageCount))
+
 	return	<div>
-				PageIndicator
-				<Indicator page={0} container={props.container}/>
-				<Indicator page={1} container={props.container}/>
-				<Indicator page={2} container={props.container}/>
-				<Indicator page={3} container={props.container}/>
+			{
+				pages.map((_, i) => {
+					return <Indicator key={i} page={i} container={props.container}/>
+				})
+			}
 			</div>
 }
 

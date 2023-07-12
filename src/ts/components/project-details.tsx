@@ -67,7 +67,7 @@ export const ProjectDetails = (props:Props) => {
 					</DetailToggle>
 				</ToggleContainer>
 
-				<PageIndicator container={mediaColumnRef}/>
+				<PageIndicator container={mediaColumnRef} pageCount={4}/>
 
 			</Container>
 }
