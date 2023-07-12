@@ -9,3 +9,5 @@ export const sampleProject:ProjectData = {
 	description : `Project Description, [dkat](https://www.danielkauer.at/) ${text}\n\n${text}`,
 	media : [TestVideo, 'https://placehold.co/800x800', 'https://placehold.co/1920x1080', 'https://placehold.co/90x160']
 }
+
+export const sampleProjects = [sampleProject, sampleProject, sampleProject, sampleProject, sampleProject]
