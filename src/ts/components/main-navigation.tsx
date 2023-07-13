@@ -103,8 +103,6 @@ const ProjectsHeader = styled(HideOnProject)`
 
 	position: sticky;
 	top: 0vh;
-
-	z-index: 100;
 `
 
 const Project = styled(HideOnProject)`
