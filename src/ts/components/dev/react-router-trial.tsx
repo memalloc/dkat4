@@ -1,4 +1,4 @@
-import { HashRouter, Link, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { HashRouter, Link, Outlet, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 
 export const ReactRouterTrial = () => {
@@ -6,8 +6,28 @@ export const ReactRouterTrial = () => {
 	return <div>	
 				<h1>react-router-dom test</h1>
 				<HashRouter>
-					<AnimatedRouter/>
+					<Routes>
+						<Route path='/' element={<Root/>}>
+							<Route path='child' element={<Child/>}/>
+						</Route>
+					</Routes>
+					{/*<AnimatedRouter/>*/}
 				</HashRouter>
+			</div>
+}
+
+const Root = () => {
+	return <div>
+				App<br />
+				<Link to='child'>link to child</Link>
+				<Outlet/>
+			</div>
+}
+
+const Child = () => {
+	return <div>
+				Child<br />
+				<Link to='..'>up/back</Link>
 			</div>
 }
 
