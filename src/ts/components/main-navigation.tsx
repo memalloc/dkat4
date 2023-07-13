@@ -23,7 +23,7 @@ export const MainNavigation = (props:Props) => {
 	}
 
 	return	<Container>
-				<ScreenContent>
+				<ScreenContent $projectSelected={selectedProject !== undefined}>
 					initial screen content placeholder
 					<Button onClick={()=>{
 						firstProject.current.scrollIntoView({behavior: 'smooth', block: 'center'})
@@ -32,9 +32,10 @@ export const MainNavigation = (props:Props) => {
 					</Button>
 				</ScreenContent>
 
-				<ProjectsHeader onClick={()=>{
-					selectProject(undefined)
-				}}>
+				<ProjectsHeader $projectSelected={selectedProject !== undefined}
+								onClick={()=>{
+									selectProject(undefined)
+								}}>
 					selected projects
 				</ProjectsHeader>
 
@@ -75,7 +76,12 @@ const Container = styled.div`
 	}
 `
 
-const ScreenContent = styled.div`
+const HideOnProject= styled.div<{$projectSelected:boolean}>`
+	opacity: ${props => props.$projectSelected ? 0 : 1};
+	transition: 1s all;
+`
+
+const ScreenContent = styled(HideOnProject)`
 	width: 100vw;
 	height: 100vh;
 
@@ -86,7 +92,7 @@ const ScreenContent = styled.div`
 	scroll-snap-align: center;
 `
 
-const ProjectsHeader = styled.div`
+const ProjectsHeader = styled(HideOnProject)`
 	background: rgba(0,0,0,0.7);
 	color: #eee;
 	width: 100vw;
@@ -101,7 +107,7 @@ const ProjectsHeader = styled.div`
 	z-index: 100;
 `
 
-const Project = styled.div<{$projectSelected:boolean}>`
+const Project = styled(HideOnProject)`
 	width: 60vh;
 	height: 60vh;
 
