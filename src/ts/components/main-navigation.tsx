@@ -114,7 +114,7 @@ const Project = styled(HideOnProject)`
 	margin-top: 5vh;
 	margin-bottom: 5vh;
 
-	background: #ddd;
+	background: rgba(200,200,200,0.5);
 	color: #555;
 	border: 3px solid ${Design.Colors.Orange};
 
