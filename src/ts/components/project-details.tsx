@@ -12,6 +12,7 @@ import { DetailToggle } from './detail-toggle'
 import { MediaContent } from './media-content'
 
 export interface ProjectData {
+	id : string
 	title : string
 	info : string
 	description : string
