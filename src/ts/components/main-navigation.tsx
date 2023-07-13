@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -8,14 +8,19 @@ import { ProjectData } from './project-details'
 
 interface Props {
 	projects : Array<ProjectData>
+	selectedProject? : ProjectData
 	onProjectSelection : (project:ProjectData) => void
 }
 
 export const MainNavigation = (props:Props) => {
 
-	const [selectedProject, setSelectedProject] = useState(undefined)
+	const [selectedProject, setSelectedProject] = useState(props.selectedProject)
 
 	const firstProject = useRef(null)
+
+	useEffect(() => {
+		setSelectedProject(props.selectedProject)
+	}, [props.selectedProject])
 
 	const selectProject = (project:ProjectData) => {
 		setSelectedProject(project)
