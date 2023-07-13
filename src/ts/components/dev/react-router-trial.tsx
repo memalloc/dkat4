@@ -1,4 +1,4 @@
-import { HashRouter, Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { HashRouter, Link, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 
 export const ReactRouterTrial = () => {
@@ -21,25 +21,38 @@ const AnimatedRouter = () => {
 											transition={{duration:0.5}}
 											exit={{opacity:0}}>
 									root level
-									<Link to={'/project'}>navigate to project level</Link>
+									<Link to={'/project/testproject1'}>navigate to project level</Link>
 									<div onClick={()=>{
-										navigate('/project')
+										navigate('/project/testproject2')
 									}}>
 										programmatic navigation to project
 									</div>
 								</motion.div>
-	const ProjectContent = <motion.div initial={{opacity:0}}
-											animate={{opacity:1}}
-											transition={{duration:0.5}}
-											exit={{opacity:0}}>
-									project level
-									<Link to={'..'} relative='path'>up/back</Link>	
-								</motion.div>
+	const ProjectContent = <ProjectView/>
 
 	return <AnimatePresence mode='wait'>
+				<pre>
+					location: { JSON.stringify(location, null, 2) }
+				</pre>
 				<Routes location={location} key={location.pathname}>
 					<Route path='/' element={BaseContent}/>
-					<Route path='/project' element={ProjectContent}/>
+					<Route path='/project/:id' element={ProjectContent}/>
 				</Routes>
 			</AnimatePresence>
+}
+
+const ProjectView = () => {
+
+	const params = useParams()
+
+	return <motion.div initial={{opacity:0}}
+						animate={{opacity:1}}
+						transition={{duration:0.5}}
+						exit={{opacity:0}}>
+				<pre>
+					params: { JSON.stringify(params, null, 2) }
+				</pre>
+				project level<br />
+				<Link to={'/'} relative='path'>up/back</Link>	
+			</motion.div>
 }
