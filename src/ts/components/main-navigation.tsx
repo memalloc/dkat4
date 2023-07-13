@@ -17,6 +17,11 @@ export const MainNavigation = (props:Props) => {
 
 	const firstProject = useRef(null)
 
+	const selectProject = (project:ProjectData) => {
+		setSelectedProject(project)
+		props.onProjectSelection(project)
+	}
+
 	return	<Container>
 				<ScreenContent>
 					initial screen content placeholder
@@ -28,7 +33,7 @@ export const MainNavigation = (props:Props) => {
 				</ScreenContent>
 
 				<ProjectsHeader onClick={()=>{
-					setSelectedProject(undefined)
+					selectProject(undefined)
 				}}>
 					selected projects
 				</ProjectsHeader>
@@ -38,8 +43,7 @@ export const MainNavigation = (props:Props) => {
 					return	<Project	ref={i===0 ? firstProject : undefined}
 										$projectSelected={selectedProject !== undefined}
 										key={i} onClick={()=>{
-											setSelectedProject(project)
-											props.onProjectSelection(project)
+											selectProject(project)
 										}}>
 								{ project.title } #{ i + 1 }
 							</Project>	
