@@ -33,8 +33,6 @@ export const ProjectDetails = (props:Props) => {
 
 	return	<Container>
 
-				<BackgroundPlaceholder/>
-
 				<MediaColumn $fullWidth={!showDetails} ref={mediaColumnRef}>
 
 					<Title $shadow={!showDetails}>
@@ -87,15 +85,6 @@ export const ProjectDetails = (props:Props) => {
 const Container = styled.div`
 	font-family: ArvoRegular;
 	color: ${Design.Colors.Orange};
-`
-
-const BackgroundPlaceholder = styled.div`
-	background: #172C32;
-	position: fixed;
-	left: 0px;
-	top: 0px;
-	right: 0px;
-	bottom: 0px;
 `
 
 const Shadow = styled.div<{$shadow:boolean}>`
