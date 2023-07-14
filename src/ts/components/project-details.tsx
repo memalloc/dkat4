@@ -36,6 +36,9 @@ export const ProjectDetails = (props:Props) => {
 				<MediaColumn $fullWidth={!showDetails} ref={mediaColumnRef}>
 
 					<Title $shadow={!showDetails}>
+						<CloseHeader href="javascript:history.back()" $details={showDetails}>
+							Selected Projects
+						</CloseHeader>
 						<Markdown disableParagraphMargin>
 							{ props.project.title }
 						</Markdown>
@@ -92,6 +95,11 @@ const Shadow = styled.div<{$shadow:boolean}>`
 	transition: 1s all;
 `
 
+const CloseHeader = styled(Design.ProjectDetailsCloseHeader)<{$details:boolean}>`
+	${props => !props.$details ? 'transform: translateX(-30vw);' : undefined}
+	transition: 1s transform;
+`
+
 const Title = styled(Shadow)`
 	font-size: 30px;
 
@@ -101,10 +109,12 @@ const Title = styled(Shadow)`
 	left: 3vw;
 	width: 30vw;
 
-	display: grid;
-    align-items: end;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: end;
 
-	transition: 3s all;
+	transition: 1s all;
 
 	@media (${Design.onMobile}) {
 		font-size: 30px;
@@ -113,6 +123,9 @@ const Title = styled(Shadow)`
 		top: unset;
 		left: unset;
 		height: unset;
+
+		margin-left: 8px;
+		margin-bottom: 8px;
 	}
 `
 
