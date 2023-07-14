@@ -2,6 +2,8 @@ import { Fragment, useEffect } from "react"
 import { HashRouter, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom"
 import { AnimatePresence, motion } from "framer-motion"
 
+import * as Helper from '../helper'
+
 import { ProjectData, ProjectDetails } from "./project-details"
 
 interface Props {
@@ -68,13 +70,23 @@ const ProjectRoute = (props:Props) => {
 		}
 	}, [location.pathname])
 
-	return <motion.div initial={{opacity:0}}
-						animate={{opacity:1}}
-						transition={{duration:0.5}}
-						exit={{opacity:0}}>
-			{
-				project &&
-				<ProjectDetails project={project}/>
-			}
-			</motion.div>
+	if(Helper.onSafari){
+		return <div>
+				{
+					project &&
+					<ProjectDetails project={project}/>
+				}
+				</div>
+	} else {
+		return <motion.div initial={{opacity:0}}
+							animate={{opacity:1}}
+							transition={0.5}
+							exit={{opacity:0}}>
+				{
+					project &&
+					<ProjectDetails project={project}/>
+				}
+				</motion.div>
+
+	}
 }

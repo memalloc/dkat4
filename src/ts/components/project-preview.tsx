@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { useInView } from "framer-motion"
 
 import * as Design from '../design'
+import * as Helper from '../helper'
 
 import { ProjectData } from "./project-details"
 
@@ -46,7 +47,7 @@ const Project = styled.div<{$projectSelected:boolean,ref:any}>`
 	border: 3px solid ${Design.Colors.Orange};
 
 	opacity: ${props => props.$projectSelected ? 0 : 1};
-	transition: 1s all;
+	transition: ${Helper.onSafari ? 'unset' : '1s all'};
 
 	display: grid;
 

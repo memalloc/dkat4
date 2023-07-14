@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import * as Design from '../design'
+import * as Helper from '../helper'
 
 import { ProjectData } from './project-details'
 import { ProjectPreview } from './project-preview'
@@ -98,7 +99,7 @@ const Container = styled.div`
 
 const HideOnProject= styled.div<{$projectSelected:boolean}>`
 	opacity: ${props => props.$projectSelected ? 0 : 1};
-	transition: 1s all;
+	transition: ${Helper.onSafari ? 'unset' : '1s all'};
 `
 
 const ScreenContent = styled(HideOnProject)`
