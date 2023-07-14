@@ -6,6 +6,7 @@ import * as Design from '../design'
 
 import { ProjectData } from './project-details'
 import { ProjectPreview } from './project-preview'
+import { Markdown } from './markdown'
 
 interface Props {
 	projects : Array<ProjectData>
@@ -16,6 +17,7 @@ interface Props {
 export const MainNavigation = (props:Props) => {
 
 	const [selectedProject, setSelectedProject] = useState(props.selectedProject)
+	const [projectInView, setProjectInView] = useState(undefined)
 
 	const firstProject = useRef(null)
 
@@ -42,8 +44,14 @@ export const MainNavigation = (props:Props) => {
 								onClick={()=>{
 									selectProject(undefined)
 								}}>
-					<SelectedProjects>Selected Projects</SelectedProjects>
-					<HiddenTitle>Verkehrsmuseum Remise</HiddenTitle>
+					<SelectedProjects layout>
+						Selected Projects
+					</SelectedProjects>
+					<HiddenTitle>
+						<Markdown disableParagraphMargin>
+							{ projectInView ? projectInView.title : "_" }
+						</Markdown>
+					</HiddenTitle>
 				</ProjectsHeader>
 
 				{
@@ -52,6 +60,9 @@ export const MainNavigation = (props:Props) => {
 											ref={i===0 ? firstProject : undefined}
 											project={project}
 											projectSelected={selectedProject !== undefined}
+											onInView={(project)=>{
+												setProjectInView(project)
+											}}
 											onClick={()=>{
 												selectProject(project)
 											}}/>
@@ -120,18 +131,19 @@ const ProjectsHeader = styled(HideOnProject)`
     justify-content: end;
 `
 
-const SelectedProjects = styled.div`
+const SelectedProjects = styled(motion.div)`
 	font-family: ArvoBoldItalic;
 	letter-spacing: 0.5px;
 	margin-bottom: 5px;
 	padding: 0px 2px;
 
 	border: 2px solid transparent;
-    transform: translateX(-4px);
+    transform: translateX(-5px);
 `
 
 const HiddenTitle = styled.div`
 	opacity: 0;
+	width: 30vw
 `
 
 // - - - - - - - - - - - - - - - - - - - - - - - - temp
