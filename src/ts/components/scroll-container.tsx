@@ -108,6 +108,8 @@ const ScrollBarContainer = styled.div`
 
 	display: grid;
 	justify-items: center;
+	
+	cursor: pointer;
 
 	@media (${Design.onMobile}) {
 		opacity: 0;
