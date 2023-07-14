@@ -96,7 +96,7 @@ const Shadow = styled.div<{$shadow:boolean}>`
 `
 
 const CloseHeader = styled(Design.ProjectDetailsCloseHeader)<{$details:boolean}>`
-	${props => !props.$details ? 'transform: translateX(-30vw);' : undefined}
+	${props => !props.$details ? 'transform: translateX(-50vw);' : undefined}
 	transition: 1s transform;
 `
 
