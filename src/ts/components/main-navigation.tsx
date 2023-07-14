@@ -13,6 +13,7 @@ interface Props {
 	projects : Array<ProjectData>
 	selectedProject? : ProjectData
 	onProjectSelection : (project:ProjectData) => void
+	colorTheme? : Design.ColorTheme
 }
 
 export const MainNavigation = (props:Props) => {
@@ -31,6 +32,9 @@ export const MainNavigation = (props:Props) => {
 		props.onProjectSelection(project)
 	}
 
+	const primaryColor = props.colorTheme ? props.colorTheme.primary : Design.Colors.Orange
+	const bgColor = props.colorTheme ? props.colorTheme.background : Design.Colors.Yellow
+
 	return	<Container>
 				<ScreenContent $projectSelected={selectedProject !== undefined}>
 					initial screen content placeholder
@@ -42,6 +46,7 @@ export const MainNavigation = (props:Props) => {
 				</ScreenContent>
 
 				<ProjectsHeader $projectSelected={selectedProject !== undefined}
+								$color={primaryColor}
 								onClick={()=>{
 									selectProject(undefined)
 								}}>
@@ -113,11 +118,11 @@ const ScreenContent = styled(HideOnProject)`
 	scroll-snap-align: center;
 `
 
-const ProjectsHeader = styled(HideOnProject)`
+const ProjectsHeader = styled(HideOnProject)<{$color:string}>`
 	font-family: Arvo;
 	font-size: 30px;
 
-	color: ${Design.Colors.Orange};
+	color: ${props => props.$color};
 
 	position: sticky;
 	top: 0vh;

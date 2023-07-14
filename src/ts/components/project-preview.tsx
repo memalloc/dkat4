@@ -44,7 +44,7 @@ const Project = styled.div<{$projectSelected:boolean,ref:any}>`
 	margin-bottom: 5vh;
 
 	color: #555;
-	border: 3px solid ${Design.Colors.Orange};
+	// border: 3px solid ${Design.Colors.Orange};
 
 	opacity: ${props => props.$projectSelected ? 0 : 1};
 	transition: ${Helper.onSafari ? 'unset' : '1s all'};

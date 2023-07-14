@@ -29,6 +29,7 @@ export const App = (props:any) => {
 				<ThreeFiberSVGExtrusion colorTheme={theme}/>
 
 				<MainNavigation projects={sampleProjects}
+								colorTheme={theme}
 								selectedProject={selectedProject}
 								onProjectSelection={(project) => {
 									setSelectedProject(project)
