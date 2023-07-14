@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -8,12 +8,12 @@ import * as Helper from '../helper'
 import { ProjectData } from './project-details'
 import { ProjectPreview } from './project-preview'
 import { Markdown } from './markdown'
+import { ColorThemeContext } from '../app'
 
 interface Props {
 	projects : Array<ProjectData>
 	selectedProject? : ProjectData
 	onProjectSelection : (project:ProjectData) => void
-	colorTheme? : Design.ColorTheme
 }
 
 export const MainNavigation = (props:Props) => {
@@ -32,8 +32,7 @@ export const MainNavigation = (props:Props) => {
 		props.onProjectSelection(project)
 	}
 
-	const primaryColor = props.colorTheme ? props.colorTheme.primary : Design.Colors.Orange
-	const bgColor = props.colorTheme ? props.colorTheme.background : Design.Colors.Yellow
+	const colorTheme = useContext(ColorThemeContext)
 
 	return	<Container>
 				<ScreenContent $projectSelected={selectedProject !== undefined}>
@@ -46,7 +45,7 @@ export const MainNavigation = (props:Props) => {
 				</ScreenContent>
 
 				<ProjectsHeader $projectSelected={selectedProject !== undefined}
-								$color={primaryColor}
+								$color={colorTheme.primary}
 								onClick={()=>{
 									selectProject(undefined)
 								}}>

@@ -1,5 +1,5 @@
-import *  as React from 'react'
-import { useState, useEffect, useRef } from 'react'
+import * as React from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import { styled } from 'styled-components'
 
 import * as Design from '../../design'
@@ -9,6 +9,7 @@ import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
 
 import { Canvas, useFrame, ThreeElements, Vector3 } from '@react-three/fiber'
 import { motion } from 'framer-motion-3d'
+import { ColorThemeContext } from '../../app'
 
 const svgLogoShapesOnly = `
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -24,13 +25,14 @@ const svgLogoShapesOnly = `
 type SVGShapes = Array<THREE.Shape[]>
 
 interface Props {
-	colorTheme? : Design.ColorTheme
 }
 
 export const ThreeFiberSVGExtrusion = (props:Props) => {
 
-	const primaryColor = props.colorTheme ? props.colorTheme.primary : "#FC5721"
-	const bgColor = props.colorTheme ? props.colorTheme.background : "rgb(255, 204, 0)"
+	const colorTheme = useContext(ColorThemeContext)
+
+	const primaryColor = colorTheme.primary
+	const bgColor = colorTheme.background
 
 	return 	<Container $color={bgColor}>
 

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { createContext, useState } from 'react'
 import { styled } from 'styled-components'
 
 import * as Design from './design'
@@ -19,6 +19,8 @@ const ThemeB:Design.ColorTheme = {
 	background : Design.Colors.Orange
 }
 
+export const ColorThemeContext = createContext<Design.ColorTheme>(ThemeA)
+
 export const App = (props:any) => {
 
 	const [selectedProject, setSelectedProject] = useState(undefined)
@@ -26,26 +28,29 @@ export const App = (props:any) => {
 
 	return	<Container>
 
-				<ThreeFiberSVGExtrusion colorTheme={theme}/>
+				<ColorThemeContext.Provider value={theme}>
 
-				<MainNavigation projects={sampleProjects}
-								colorTheme={theme}
-								selectedProject={selectedProject}
-								onProjectSelection={(project) => {
-									setSelectedProject(project)
-								}}/>
+					<ThreeFiberSVGExtrusion/>
 
-				<ProjectRouter	projects={sampleProjects}
-								selectedProject={selectedProject}
-								onProjectSelection={(project) => {
-									setSelectedProject(project)
-								}}/>
+					<MainNavigation projects={sampleProjects}
+									selectedProject={selectedProject}
+									onProjectSelection={(project) => {
+										setSelectedProject(project)
+									}}/>
 
-				<ThemeSwitcher onClick={()=>{
-					setTheme(theme === ThemeA ? ThemeB : ThemeA)
-				}}>
-					switch
-				</ThemeSwitcher>
+					<ProjectRouter	projects={sampleProjects}
+									selectedProject={selectedProject}
+									onProjectSelection={(project) => {
+										setSelectedProject(project)
+									}}/>
+
+					<ThemeSwitcher onClick={()=>{
+						setTheme(theme === ThemeA ? ThemeB : ThemeA)
+					}}>
+						switch
+					</ThemeSwitcher>
+
+				</ColorThemeContext.Provider>
 								
 			</Container>
 }
