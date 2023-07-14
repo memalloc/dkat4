@@ -3,6 +3,11 @@ import styled from "styled-components"
 export const onMobile = 'max-width: 425px'
 export const onMobileAspectRatio = 'max-aspect-ratio: 6/10'
 
+export interface ColorTheme {
+	primary : string
+	background : string
+}
+
 export const Colors = {
 	Orange : '#FF5605',
 	Yellow : 'rgb(255, 204, 0)'
