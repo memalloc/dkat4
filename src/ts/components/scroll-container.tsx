@@ -51,7 +51,17 @@ export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 	}
 
 	return	<Container>
-				<ScrollBar style={scrollBarStyle}/>
+				<ScrollBarContainer onClick={(event)=>{
+					const div = event.target as HTMLDivElement
+					const bounds = div.getBoundingClientRect()
+					const y = event.clientY - bounds.top
+					const factor = y / bounds.height
+
+					const content = contentRef.current as HTMLDivElement
+					content.scrollTop = content.scrollHeight * factor - content.clientHeight/2
+				}}>
+					<ScrollBar style={scrollBarStyle}/>
+				</ScrollBarContainer>
 				<ScrollContent ref={contentRef}>
 					{props.children}
 				</ScrollContent>
@@ -80,13 +90,20 @@ const Container = styled.div`
 	}
 `
 
-const ScrollBar = styled(motion.div)`
-	background: ${Design.Colors.Orange};
-	width: 4px;
+const ScrollBarContainer = styled.div`
+	width: 3vw;
+
+	display: grid;
+	justify-items: center;
 
 	@media (${Design.onMobile}) {
 		opacity: 0;
 	}
+`
+
+const ScrollBar = styled(motion.div)`
+	background: ${Design.Colors.Orange};
+	width: 4px;
 `
 
 const ScrollContent = styled.div`
@@ -97,6 +114,7 @@ const ScrollContent = styled.div`
 	border-bottom: 2px solid ${Design.Colors.Orange};
 
 	overflow: scroll;
+	scroll-behavior: smooth;
 
 	&::-webkit-scrollbar {
 		display: none;
