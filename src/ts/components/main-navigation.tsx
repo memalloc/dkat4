@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import * as Design from '../design'
 
 import { ProjectData } from './project-details'
+import { ProjectPreview } from './project-preview'
 
 interface Props {
 	projects : Array<ProjectData>
@@ -47,17 +48,19 @@ export const MainNavigation = (props:Props) => {
 
 				{
 				props.projects.map((project, i) => {
-					return	<Project	ref={i===0 ? firstProject : undefined}
-										$projectSelected={selectedProject !== undefined}
-										key={i} onClick={()=>{
-											selectProject(project)
-										}}>
-								{ project.title } #{ i + 1 }
-							</Project>	
+					return	<ProjectPreview	key={i}
+											ref={i===0 ? firstProject : undefined}
+											project={project}
+											projectSelected={selectedProject !== undefined}
+											onClick={()=>{
+												selectProject(project)
+											}}/>
 				})
 				}
 			</Container>
 }
+
+
 
 const Container = styled.div`
 	user-select: none;
@@ -129,34 +132,6 @@ const SelectedProjects = styled.div`
 
 const HiddenTitle = styled.div`
 	opacity: 0;
-`
-
-const Project = styled(HideOnProject)`
-	width: 60vh;
-	height: 60vh;
-
-	margin-top: 5vh;
-	margin-bottom: 5vh;
-
-	background: rgba(200,200,200,0.5);
-	color: #555;
-	border: 3px solid ${Design.Colors.Orange};
-
-	opacity: ${props => props.$projectSelected ? 0 : 1};
-	transition: 1s all;
-
-	display: grid;
-	place-items: center;
-
-	scroll-snap-align: center;
-
-	@media (${Design.onMobileAspectRatio}) {
-		width: 100vw;
-		height: 100vw;
-
-		margin-top: 5vw;
-		margin-bottom: 5vw;
-	}
 `
 
 // - - - - - - - - - - - - - - - - - - - - - - - - temp
