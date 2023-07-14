@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useRef } from 'react'
+import { PropsWithChildren, useEffect, useRef, useState } from 'react'
 import { styled } from 'styled-components'
 import { motion, useMotionValue } from "framer-motion"
 
@@ -10,6 +10,7 @@ interface Props {
 export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 
 	const contentRef = useRef(null)
+	const [mouseDown, setMouseDown] = useState(false)
 
 	const thumbY = useMotionValue(0)
 	const thumbHeight = useMotionValue(0)
@@ -50,19 +51,31 @@ export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 		opacity : thumbOpacity
 	}
 
+	const scrollToMousePosition = (event:React.MouseEvent) => {
+		const div = event.target as HTMLDivElement
+		const bounds = div.getBoundingClientRect()
+		const y = event.clientY - bounds.top
+		const factor = y / bounds.height
+
+		const content = contentRef.current as HTMLDivElement
+		content.scrollTop = content.scrollHeight * factor - content.clientHeight/2
+	}
+
 	return	<Container>
 				<ScrollBarContainer onClick={(event)=>{
-					const div = event.target as HTMLDivElement
-					const bounds = div.getBoundingClientRect()
-					const y = event.clientY - bounds.top
-					const factor = y / bounds.height
-
-					const content = contentRef.current as HTMLDivElement
-					content.scrollTop = content.scrollHeight * factor - content.clientHeight/2
-				}}>
+					scrollToMousePosition(event)
+				}} onMouseMove={(event)=>{
+					if(mouseDown){
+						scrollToMousePosition(event)
+					}
+				}}
+				onMouseDown={_ => setMouseDown(true)}
+				onMouseUp={_ => setMouseDown(false)}
+				onMouseLeave={_ => setMouseDown(false)}
+				onMouseOut={_ => setMouseDown(false)}>
 					<ScrollBar style={scrollBarStyle}/>
 				</ScrollBarContainer>
-				<ScrollContent ref={contentRef}>
+				<ScrollContent ref={contentRef} $smoothScroll={!mouseDown}>
 					{props.children}
 				</ScrollContent>
 			</Container>
@@ -104,9 +117,10 @@ const ScrollBarContainer = styled.div`
 const ScrollBar = styled(motion.div)`
 	background: ${Design.Colors.Orange};
 	width: 4px;
+	pointer-events: none;
 `
 
-const ScrollContent = styled.div`
+const ScrollContent = styled.div<{$smoothScroll:boolean}>`
 
 	justify-self: stretch;
 
@@ -114,7 +128,7 @@ const ScrollContent = styled.div`
 	border-bottom: 2px solid ${Design.Colors.Orange};
 
 	overflow: scroll;
-	scroll-behavior: smooth;
+	scroll-behavior: ${props => props.$smoothScroll ? 'smooth' : 'auto'};
 
 	&::-webkit-scrollbar {
 		display: none;
