@@ -26,7 +26,7 @@ export const App = (props:any) => {
 
 	return	<Container>
 
-				<ThreeFiberSVGExtrusion/>
+				<ThreeFiberSVGExtrusion colorTheme={theme}/>
 
 				<MainNavigation projects={sampleProjects}
 								selectedProject={selectedProject}

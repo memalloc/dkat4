@@ -2,6 +2,8 @@ import *  as React from 'react'
 import { useState, useEffect, useRef } from 'react'
 import { styled } from 'styled-components'
 
+import * as Design from '../../design'
+
 import * as THREE from 'three'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
 
@@ -20,13 +22,20 @@ const svgLogoShapesOnly = `
 
 type SVGShapes = Array<THREE.Shape[]>
 
-export const ThreeFiberSVGExtrusion = (props:any) => {
+interface Props {
+	colorTheme? : Design.ColorTheme
+}
 
-	return 	<Container>
+export const ThreeFiberSVGExtrusion = (props:Props) => {
 
-				<CenterContainer>
+	const primaryColor = props.colorTheme ? props.colorTheme.primary : "#FC5721"
+	const bgColor = props.colorTheme ? props.colorTheme.background : "rgb(255, 204, 0)"
+
+	return 	<Container $color={bgColor}>
+
+				<CenterContainer $color="transparent">
 					<SVGBackground viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="50" cy="50" r="40" fill="#FC5721"/>
+						<circle cx="50" cy="50" r="40" fill={primaryColor} style={{transition:'1s all'}}/>
 					</SVGBackground>
 				</CenterContainer>
 
@@ -45,7 +54,7 @@ export const ThreeFiberSVGExtrusion = (props:any) => {
 										depth : 60,
 										curveSegments : 12 * 2
 									}}>
-							<meshLambertMaterial color={'rgb(255,204,0)'}/>
+							<meshLambertMaterial color={bgColor}/>
 					</ExtrudedSVG>
 
 				</Canvas>
@@ -109,14 +118,15 @@ const ExtrudedSVG = (props:ExtrudedSVGProps) => {
 			</group>
 }
 
-const Container = styled.div`
+const Container = styled.div<{$color:string}>`
 	position: fixed;
 	top: 0px;
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
 
-	background: rgb(255, 204, 0);
+	background: ${props => props.$color};
+	transition: 1s all;
 `
 
 const CenterContainer = styled(Container)`
@@ -125,8 +135,6 @@ const CenterContainer = styled(Container)`
 
 	display: grid;
 	place-items: center;
-
-	background: transparent;
 `
 
 const SVGBackground = styled.svg`
