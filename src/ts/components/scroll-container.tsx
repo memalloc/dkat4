@@ -13,6 +13,7 @@ export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 
 	const thumbY = useMotionValue(0)
 	const thumbHeight = useMotionValue(0)
+	const thumbOpacity = useMotionValue(0)
 
 	const updateScrollbar = () => {
 		const element = contentRef.current
@@ -22,6 +23,8 @@ export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 
 		const y = (element.scrollTop / element.scrollHeight) * (element.clientHeight)
 		thumbY.set(y)
+
+		thumbOpacity.set(element.clientHeight === element.scrollHeight ? 0 : 1)
 	}
 
 	useEffect(()=>{
@@ -43,7 +46,8 @@ export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 
 	const scrollBarStyle = {
 		y : thumbY,
-		height: thumbHeight
+		height: thumbHeight,
+		opacity : thumbOpacity
 	}
 
 	return	<Container>
