@@ -41,7 +41,8 @@ export const MainNavigation = (props:Props) => {
 								onClick={()=>{
 									selectProject(undefined)
 								}}>
-					selected projects
+					<SelectedProjects>Selected Projects</SelectedProjects>
+					<HiddenTitle>Verkehrsmuseum Remise</HiddenTitle>
 				</ProjectsHeader>
 
 				{
@@ -98,16 +99,36 @@ const ScreenContent = styled(HideOnProject)`
 `
 
 const ProjectsHeader = styled(HideOnProject)`
-	background: rgba(0,0,0,0.7);
-	color: #eee;
-	width: 100vw;
+	font-family: Arvo;
+	font-size: 30px;
 
-	padding: 1vh 0vh;
-	margin-top: 15vh;
-	margin-bottom: 15vh;
+	color: ${Design.Colors.Orange};
 
 	position: sticky;
 	top: 0vh;
+	height: 16.5vh;
+	width: 97vw;
+
+	margin-left: 3vw;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: end;
+`
+
+const SelectedProjects = styled.div`
+	font-family: ArvoBoldItalic;
+	letter-spacing: 0.5px;
+	margin-bottom: 5px;
+	padding: 0px 2px;
+
+	border: 2px solid transparent;
+    transform: translateX(-4px);
+`
+
+const HiddenTitle = styled.div`
+	opacity: 0;
 `
 
 const Project = styled(HideOnProject)`
