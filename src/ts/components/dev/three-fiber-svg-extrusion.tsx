@@ -8,6 +8,7 @@ import * as THREE from 'three'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
 
 import { Canvas, useFrame, ThreeElements, Vector3 } from '@react-three/fiber'
+import { motion } from 'framer-motion-3d'
 
 const svgLogoShapesOnly = `
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -54,7 +55,7 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 										depth : 60,
 										curveSegments : 12 * 2
 									}}>
-							<meshLambertMaterial color={bgColor}/>
+							<motion.meshLambertMaterial animate={{color : bgColor}} transition={{duration: 1}}/>
 					</ExtrudedSVG>
 
 				</Canvas>
