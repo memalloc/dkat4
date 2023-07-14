@@ -23,7 +23,7 @@ export const longTitle:ProjectData = {
 	id : `LongTitle`,
 	title : `Ein Projekt mit einem  \nwirklich langem Titel`,
 	info : `Work: Development  \nClient: Graz Museum  \nAgency: [Zone Media](https://www.zonemedia.at/)`,
-	description : `Project Description, [dkat](https://www.danielkauer.at/) ${text}\n\n${text}`,
+	description : `Project Description, [dkat](https://www.danielkauer.at/).  \nDafür nur ein ganz kurzer Beschreibungstext.`,
 	media : [TestVideo, 'https://placehold.co/800x800', 'https://placehold.co/1920x1080', 'https://placehold.co/90x160']
 }
 

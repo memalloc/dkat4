@@ -87,6 +87,8 @@ const ScrollBar = styled(motion.div)`
 
 const ScrollContent = styled.div`
 
+	justify-self: stretch;
+
 	border-top: 2px solid ${Design.Colors.Orange};
 	border-bottom: 2px solid ${Design.Colors.Orange};
 
