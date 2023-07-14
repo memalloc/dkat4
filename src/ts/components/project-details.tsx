@@ -36,7 +36,11 @@ export const ProjectDetails = (props:Props) => {
 				<MediaColumn $fullWidth={!showDetails} ref={mediaColumnRef}>
 
 					<Title $shadow={!showDetails}>
-						<CloseHeader href="javascript:history.back()" $details={showDetails}>
+						<CloseHeader href="#"
+									$details={showDetails}
+									onClick={()=>{
+										history.back()
+									}}>
 							Selected Projects
 						</CloseHeader>
 						<Markdown disableParagraphMargin>
