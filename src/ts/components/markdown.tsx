@@ -13,7 +13,7 @@ export const Markdown = (props:Props) => {
 	const components = {
 		p : ({node, ...props}) => <Paragraph {...props} $disableMargin={noMargin}/>,
 		strong : ({node, ...props}) => <Strong {...props}/>,
-		a : ({node, ...props}) => <Hyperlink {...props} target="_blank"/>,
+		a : ({node, ...props}) => <Design.Hyperlink {...props} target="_blank"/>,
 	}
 	return <ReactMarkdown children={props.children} components={components}/>
 }
@@ -24,22 +24,4 @@ const Strong = styled.span`
 const Paragraph = styled.p<{$disableMargin:boolean}>`
 	margin: 0px;
 	margin-bottom: ${props => props.$disableMargin ? undefined : '35px'};
-`
-
-const Hyperlink = styled.a`
-	text-decoration: none;
-
-	background: ${Design.Colors.Orange};
-	border: 2px solid ${Design.Colors.Orange};
-	color: #172C32;
-
-	font-family: ArvoBold;
-    letter-spacing: 0px;
-
-	padding: 0px 2px;
-
-	&:hover {
-		background: transparent;
-		color: ${Design.Colors.Orange};
-	}
 `
