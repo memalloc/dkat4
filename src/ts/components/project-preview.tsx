@@ -1,5 +1,6 @@
-import { forwardRef } from "react"
+import { forwardRef, useEffect, useRef } from "react"
 import styled from "styled-components"
+import { useInView } from "framer-motion"
 
 import * as Design from '../design'
 
@@ -9,13 +10,27 @@ interface Props {
 	project : ProjectData
 	projectSelected : boolean
 	onClick : ()=>void
+	onInView : (project:ProjectData)=>void
 }
 
-export const ProjectPreview = forwardRef((props:Props, ref) => {
+export const ProjectPreview = forwardRef((props:Props, ref:React.RefObject<Element>) => {
+
+	const inViewRef = useRef(null)
+	const isInView = useInView(inViewRef, { margin : "-50%" })
+
+	useEffect(()=>{
+		if(isInView){
+			props.onInView(props.project)
+		}
+	}, [isInView])	
+
+
 	return	<Project	ref={ref}
 						$projectSelected={props.projectSelected}
 						onClick={props.onClick}>
-				{ props.project.title }
+				<Content ref={inViewRef}>
+					{ props.project.title }
+				</Content>
 			</Project>	
 	
 })
@@ -27,7 +42,6 @@ const Project = styled.div<{$projectSelected:boolean,ref:any}>`
 	margin-top: 5vh;
 	margin-bottom: 5vh;
 
-	background: rgba(200,200,200,0.5);
 	color: #555;
 	border: 3px solid ${Design.Colors.Orange};
 
@@ -35,7 +49,6 @@ const Project = styled.div<{$projectSelected:boolean,ref:any}>`
 	transition: 1s all;
 
 	display: grid;
-	place-items: center;
 
 	scroll-snap-align: center;
 
@@ -46,4 +59,10 @@ const Project = styled.div<{$projectSelected:boolean,ref:any}>`
 		margin-top: 5vw;
 		margin-bottom: 5vw;
 	}
+`
+
+const Content = styled.div`
+	background: rgba(200,200,200,0.5);
+	display: grid;
+	place-items: center;
 `
