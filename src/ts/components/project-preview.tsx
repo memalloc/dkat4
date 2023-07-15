@@ -30,6 +30,7 @@ export const ProjectPreview = forwardRef((props:Props, ref:React.RefObject<Eleme
 
 	return	<Project	ref={ref}
 						$color={colorTheme.primary}
+						$hoverColor={colorTheme.background}
 						$projectSelected={props.projectSelected}
 						onClick={props.onClick}>
 				<Content ref={inViewRef}>
@@ -39,7 +40,7 @@ export const ProjectPreview = forwardRef((props:Props, ref:React.RefObject<Eleme
 	
 })
 
-const Project = styled.div<{$projectSelected:boolean, $color: string, ref:any}>`
+const Project = styled.div<{$projectSelected:boolean, $color: string, $hoverColor: string, ref:any}>`
 	width: 60vh;
 	height: 60vh;
 
@@ -54,7 +55,13 @@ const Project = styled.div<{$projectSelected:boolean, $color: string, ref:any}>`
 
 	display: grid;
 
+	cursor: pointer;
+
 	scroll-snap-align: center;
+
+	&:hover {
+		border-color: ${props => props.$hoverColor}
+	}
 
 	@media (${Design.onMobileAspectRatio}) {
 		width: 100vw;
