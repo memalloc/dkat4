@@ -25,6 +25,7 @@ const svgLogoShapesOnly = `
 type SVGShapes = Array<THREE.Shape[]>
 
 interface Props {
+	mode : 'initial' | 'background'
 }
 
 export const ThreeFiberSVGExtrusion = (props:Props) => {
@@ -36,12 +37,13 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 	const bgColor2 = colorTheme.secondaryBackground ?
 						 colorTheme.secondaryBackground :
 						 colorTheme.primary
+	const circleFill = props.mode === 'initial' ? bgColor2 : bgColor
 
 	return 	<Container $color={bgColor}>
 
 				<CenterContainer $color="transparent">
 					<SVGBackground viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="50" cy="50" r="40" fill={bgColor2} style={{transition:'1s all'}}/>
+						<circle cx="50" cy="50" r="40" fill={circleFill} style={{transition:'1s all'}}/>
 					</SVGBackground>
 				</CenterContainer>
 

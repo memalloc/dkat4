@@ -31,7 +31,7 @@ export const App = (props:any) => {
 
 				<ColorThemeContext.Provider value={theme}>
 
-					<ThreeFiberSVGExtrusion/>
+					<ThreeFiberSVGExtrusion mode={selectedProject === undefined ? 'initial' : 'background'}/>
 
 					<MainNavigation projects={sampleProjects}
 									selectedProject={selectedProject}
