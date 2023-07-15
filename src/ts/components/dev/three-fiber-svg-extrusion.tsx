@@ -26,7 +26,7 @@ const svgLogoShapesOnly = `
 type SVGShapes = Array<THREE.Shape[]>
 
 interface Props {
-	mode : 'initial' | 'background'
+	mode : 'initial' | 'projects' | 'background'
 }
 
 export const ThreeFiberSVGExtrusion = (props:Props) => {
@@ -38,7 +38,7 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 	const bgColor2 = colorTheme.secondaryBackground ?
 						 colorTheme.secondaryBackground :
 						 colorTheme.primary
-	const circleFill = props.mode === 'initial' ? bgColor2 : bgColor
+	const circleFill = props.mode !== 'background' ? bgColor2 : bgColor
 
 	return 	<Container $color={bgColor}>
 
@@ -107,9 +107,13 @@ const Camera = (props:Props) => {
 	const springX = useSpring(tx, { damping : 60 }) 
 
 	useLayoutEffect(()=>{
-		mvZ.set(props.mode === 'initial' ? 600 : 200)
+		const distance = props.mode === 'initial' ? 450 :
+									props.mode === 'projects' ? 300 : 200
 
-		const txTarget = props.mode === 'initial' ? 500 : 50
+		mvZ.set(distance)
+
+		const txTarget = props.mode === 'initial' ? 500 :
+								props.mode === 'projects' ? 100 : 50
 
 		const animation = animate(tx, [-txTarget, txTarget], { duration : 15, repeat : Infinity, repeatType : 'reverse', ease : 'easeInOut'})
 

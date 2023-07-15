@@ -26,17 +26,21 @@ export const App = (props:any) => {
 
 	const [selectedProject, setSelectedProject] = useState(undefined)
 	const [theme, setTheme] = useState(ThemeA)
+	const [initialScrollPosition, setInitialScrollPosition] = useState(true)
+
+	const bgMode = initialScrollPosition ? 'initial' :
+						selectedProject ? 'background' : 'projects'
 
 	return	<Container>
 
 				<ColorThemeContext.Provider value={theme}>
 
-					<ThreeFiberSVGExtrusion mode={selectedProject === undefined ? 'initial' : 'background'}/>
+					<ThreeFiberSVGExtrusion mode={bgMode}/>
 
 					<MainNavigation projects={sampleProjects}
 									selectedProject={selectedProject}
 									onInitialScrollPositionChange={(initialPosition)=>{
-										console.log('initial position', initialPosition)
+										setInitialScrollPosition(initialPosition)
 									}}
 									onProjectSelection={(project) => {
 										setSelectedProject(project)
