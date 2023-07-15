@@ -16,7 +16,8 @@ const ThemeA:Design.ColorTheme = {
 
 const ThemeB:Design.ColorTheme = {
 	primary : Design.Colors.Yellow,
-	background : Design.Colors.Orange
+	background : Design.Colors.Orange,
+	secondaryBackground : "#FFAA00"
 }
 
 export const ColorThemeContext = createContext<Design.ColorTheme>(ThemeA)

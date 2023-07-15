@@ -6,6 +6,7 @@ export const onMobileAspectRatio = 'max-aspect-ratio: 6/10'
 export interface ColorTheme {
 	primary : string
 	background : string
+	secondaryBackground? : string
 }
 
 export const Colors = {
