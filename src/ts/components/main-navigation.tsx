@@ -14,12 +14,14 @@ interface Props {
 	projects : Array<ProjectData>
 	selectedProject? : ProjectData
 	onProjectSelection : (project:ProjectData) => void
+	onInitialScrollPositionChange : (initialPosition:boolean) => void
 }
 
 export const MainNavigation = (props:Props) => {
 
 	const [selectedProject, setSelectedProject] = useState(props.selectedProject)
 	const [projectInView, setProjectInView] = useState(undefined)
+	const [initialScrollPosition, setInitialScrollPosition] = useState(true)
 
 	const firstProject = useRef(null)
 
@@ -32,9 +34,30 @@ export const MainNavigation = (props:Props) => {
 		props.onProjectSelection(project)
 	}
 
+	const containerRef = useRef(null)
+
+	useEffect(()=>{
+		const element = containerRef.current
+
+		const scroll = event => {
+			const initialPosition = element.scrollTop <= element.clientHeight
+			setInitialScrollPosition(initialPosition)
+		}
+
+		element.addEventListener('scroll', scroll)
+
+		return () => {
+			element.removeEventListener('scroll', scroll)
+		}
+	}, [containerRef])
+
+	useEffect(()=>{
+		props.onInitialScrollPositionChange(initialScrollPosition)
+	}, [initialScrollPosition])
+
 	const colorTheme = useContext(ColorThemeContext)
 
-	return	<Container>
+	return	<Container ref={containerRef}>
 				<ScreenContent $projectSelected={selectedProject !== undefined}>
 					initial screen content placeholder
 					<Button onClick={()=>{

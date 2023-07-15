@@ -9,9 +9,12 @@ export default {
 
 export const MainNavigationStory = () => {
 	return <Container>
-				<MainNavigation projects={sampleProjects} onProjectSelection={(project) => {
-					console.log(`selected project ${project.title}`, project)
-				}}/>
+				<MainNavigation projects={sampleProjects}
+								onProjectSelection={(project) => {
+            						console.log(`selected project ${project.title}`, project)
+        						}} onInitialScrollPositionChange={(initialPosition) => {
+        							console.log('initial scroll position', initialPosition)
+        						}}/>
 			</Container>
 }
 MainNavigationStory.storyName = 'Main Navigation'
