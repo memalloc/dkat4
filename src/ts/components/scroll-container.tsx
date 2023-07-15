@@ -1,8 +1,9 @@
-import { PropsWithChildren, useEffect, useRef, useState } from 'react'
+import { PropsWithChildren, useContext, useEffect, useRef, useState } from 'react'
 import { styled } from 'styled-components'
 import { motion, useMotionValue } from "framer-motion"
 
 import * as Design from '../design'
+import { ColorThemeContext } from '../app'
 
 interface Props {
 }
@@ -15,6 +16,8 @@ export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 	const thumbY = useMotionValue(0)
 	const thumbHeight = useMotionValue(0)
 	const thumbOpacity = useMotionValue(0)
+
+	const colorTheme = useContext(ColorThemeContext)
 
 	const updateScrollbar = () => {
 		const element = contentRef.current
@@ -73,9 +76,9 @@ export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 				onMouseUp={_ => setMouseDown(false)}
 				onMouseLeave={_ => setMouseDown(false)}
 				onMouseOut={_ => setMouseDown(false)}>
-					<ScrollBar style={scrollBarStyle}/>
+					<ScrollBar style={scrollBarStyle} $color={colorTheme.primary}/>
 				</ScrollBarContainer>
-				<ScrollContent ref={contentRef} $smoothScroll={!mouseDown}>
+				<ScrollContent ref={contentRef} $smoothScroll={!mouseDown} $color={colorTheme.primary}>
 					{props.children}
 				</ScrollContent>
 			</Container>
@@ -116,18 +119,21 @@ const ScrollBarContainer = styled.div`
 	}
 `
 
-const ScrollBar = styled(motion.div)`
-	background: ${Design.Colors.Orange};
+const ScrollBar = styled(motion.div)<{$color:string}>`
 	width: 4px;
 	pointer-events: none;
+
+	background: ${props => props.$color};
+	transition: 1s background;
 `
 
-const ScrollContent = styled.div<{$smoothScroll:boolean}>`
+const ScrollContent = styled.div<{$smoothScroll:boolean, $color:string}>`
 
 	justify-self: stretch;
 
-	border-top: 2px solid ${Design.Colors.Orange};
-	border-bottom: 2px solid ${Design.Colors.Orange};
+	border-top: 2px solid ${props => props.$color};
+	border-bottom: 2px solid ${props => props.$color};
+	transition: 1s border-color;
 
 	overflow: scroll;
 	scroll-behavior: ${props => props.$smoothScroll ? 'smooth' : 'auto'};

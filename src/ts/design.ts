@@ -13,12 +13,12 @@ export const Colors = {
 	Yellow : 'rgb(255, 204, 0)'
 }
 
-export const Hyperlink = styled.a`
+export const Hyperlink = styled.a<{$color:string, $backgroundColor:string}>`
 	text-decoration: none;
 
-	background: ${Colors.Orange};
-	border: 2px solid ${Colors.Orange};
-	color: #172C32;
+	background: ${props => props.$color};
+	border: 2px solid ${props => props.$color};
+	color: ${props => props.$backgroundColor};
 
 	font-family: ArvoBold;
     letter-spacing: 0px;
@@ -27,7 +27,7 @@ export const Hyperlink = styled.a`
 
 	&:hover {
 		background: transparent;
-		color: ${Colors.Orange};
+		color: ${props => props.$color};
 	}
 `
 
@@ -41,6 +41,4 @@ export const ProjectDetailsCloseHeader = styled(Hyperlink)`
 
 	padding: 0px 6px;
     transform: translateX(-8px);
-
-	color: ${Colors.Yellow};
 `

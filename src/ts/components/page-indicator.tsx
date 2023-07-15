@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { useContext, useEffect, useState } from "react"
+import { color, motion, useScroll, useTransform } from "framer-motion"
 import { styled } from 'styled-components'
 
 import * as Design from '../design'
+import { ColorThemeContext } from "../app"
 
 interface Props {
 	container : React.RefObject<HTMLElement>
@@ -47,13 +48,15 @@ const Indicator = (props:IndicatorProps) => {
 		setPageHeight(clientHeight)
 	}, [props.container])
 
+	const colorTheme = useContext(ColorThemeContext)
 	const style = {
 		margin: 9,
 		width: size,
 		height: size,
 		borderWidth,
 		borderStyle: 'solid',
-		borderColor: Design.Colors.Orange
+		borderColor: colorTheme.primary,
+		transition: '1s border-color'
 	}
 
 	return <motion.div style={style}/>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { styled } from 'styled-components'
 
 import * as Design from '../design'
@@ -10,6 +10,7 @@ import { Markdown } from './markdown'
 import { PageIndicator } from './page-indicator'
 import { DetailToggle } from './detail-toggle'
 import { MediaContent } from './media-content'
+import { ColorThemeContext } from '../app'
 
 export interface ProjectData {
 	id : string
@@ -31,13 +32,17 @@ export const ProjectDetails = (props:Props) => {
 	const media = [...props.project.media]
 	const initialMedia = media.shift()
 
-	return	<Container>
+	const colorTheme = useContext(ColorThemeContext)
+
+	return	<Container $color={colorTheme.primary}>
 
 				<MediaColumn $fullWidth={!showDetails} ref={mediaColumnRef}>
 
 					<Title $shadow={!showDetails}>
 						<CloseHeader href="#"
 									$details={showDetails}
+									$color={colorTheme.primary}
+									$backgroundColor={colorTheme.background}
 									onClick={()=>{
 										history.back()
 									}}>
@@ -89,9 +94,9 @@ export const ProjectDetails = (props:Props) => {
 			</Container>
 }
 
-const Container = styled.div`
+const Container = styled.div<{$color:string}>`
 	font-family: ArvoRegular;
-	color: ${Design.Colors.Orange};
+	color: ${props => props.$color};
 `
 
 const Shadow = styled.div<{$shadow:boolean}>`
@@ -99,7 +104,7 @@ const Shadow = styled.div<{$shadow:boolean}>`
 	transition: 1s all;
 `
 
-const CloseHeader = styled(Design.ProjectDetailsCloseHeader)<{$details:boolean}>`
+const CloseHeader = styled(Design.ProjectDetailsCloseHeader)<{$details:boolean, $color:string}>`
 	${props => !props.$details ? 'transform: translateX(-50vw);' : undefined}
 	transition: 1s transform;
 `

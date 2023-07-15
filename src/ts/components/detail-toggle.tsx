@@ -2,7 +2,8 @@ import { motion } from 'framer-motion'
 import { styled } from 'styled-components'
 
 import * as Design from '../design'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { ColorThemeContext } from '../app'
 
 interface Props {
 	details : boolean
@@ -35,6 +36,8 @@ export const DetailToggle = (props:Props) => {
 		}
 	}
 
+	const colorTheme = useContext(ColorThemeContext)
+
 	return	<Container onMouseEnter={() => setHover(true)}
 						onMouseOver={() => setHover(true)}
 						onMouseOut={() => setHover(false)}
@@ -42,7 +45,7 @@ export const DetailToggle = (props:Props) => {
 				<motion.div onClick={props.onClick}
 							variants={variants}
 							animate={props.details ? 'details' : 'hidden'}>
-					<Icon color={Design.Colors.Orange} hover={hover}/>
+					<Icon color={colorTheme.primary} hover={hover}/>
 				</motion.div>
 			</Container>
 }
