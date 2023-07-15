@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef } from "react"
+import { forwardRef, useContext, useEffect, useRef } from "react"
 import styled from "styled-components"
 import { useInView } from "framer-motion"
 
@@ -6,6 +6,7 @@ import * as Design from '../design'
 import * as Helper from '../helper'
 
 import { ProjectData } from "./project-details"
+import { ColorThemeContext } from "../app"
 
 interface Props {
 	project : ProjectData
@@ -25,8 +26,10 @@ export const ProjectPreview = forwardRef((props:Props, ref:React.RefObject<Eleme
 		}
 	}, [isInView])	
 
+	const colorTheme = useContext(ColorThemeContext)
 
 	return	<Project	ref={ref}
+						$color={colorTheme.primary}
 						$projectSelected={props.projectSelected}
 						onClick={props.onClick}>
 				<Content ref={inViewRef}>
@@ -36,7 +39,7 @@ export const ProjectPreview = forwardRef((props:Props, ref:React.RefObject<Eleme
 	
 })
 
-const Project = styled.div<{$projectSelected:boolean,ref:any}>`
+const Project = styled.div<{$projectSelected:boolean, $color: string, ref:any}>`
 	width: 60vh;
 	height: 60vh;
 
@@ -44,7 +47,7 @@ const Project = styled.div<{$projectSelected:boolean,ref:any}>`
 	margin-bottom: 5vh;
 
 	color: #555;
-	// border: 3px solid ${Design.Colors.Orange};
+	border: 2px solid ${props => props.$color};
 
 	opacity: ${props => props.$projectSelected ? 0 : 1};
 	transition: ${Helper.onSafari ? 'unset' : '1s all'};
@@ -59,6 +62,8 @@ const Project = styled.div<{$projectSelected:boolean,ref:any}>`
 
 		margin-top: 5vw;
 		margin-bottom: 5vw;
+
+		border: none;
 	}
 `
 
