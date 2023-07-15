@@ -56,10 +56,12 @@ const Indicator = (props:IndicatorProps) => {
 		borderWidth,
 		borderStyle: 'solid',
 		borderColor: colorTheme.primary,
-		transition: '1s border-color'
+		background: 'rgba(0,0,0,0)',
+		transition: '1s border-color, 0.5s background',
+		cursor: 'pointer'
 	}
 
-	return <motion.div style={style}/>
+	return <motion.div style={style} onClick={props.onClick} whileHover={{background:colorTheme.primary}}/>
 }
 
 const Container = styled.div`
