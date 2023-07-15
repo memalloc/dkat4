@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useState, useEffect, useRef, useContext } from 'react'
+import { useState, useEffect, useRef, useContext, useLayoutEffect } from 'react'
 import { styled } from 'styled-components'
 
 import * as Design from '../../design'
@@ -7,7 +7,7 @@ import * as Design from '../../design'
 import * as THREE from 'three'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
 
-import { Canvas, useFrame, ThreeElements, Vector3 } from '@react-three/fiber'
+import { Canvas, useFrame, ThreeElements, Vector3, useThree } from '@react-three/fiber'
 import { motion } from 'framer-motion-3d'
 import { ColorThemeContext } from '../../app'
 
@@ -54,7 +54,9 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 					<ambientLight color='rgb(255, 204, 0)' intensity={1.25}/>
 					<pointLight position={[100, 10, 100]} />
 
-					<CameraMovement width={props.mode === 'initial' ? 1000 : 200}/>
+					<Camera {...props}/>
+
+					{/*<CameraMovement width={props.mode === 'initial' ? 1000 : 200}/>*/}
 
 					<ExtrudedSVG 	svgMarkup={svgLogoShapesOnly}
 									position={[-280,276,0]}
@@ -67,6 +69,41 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 
 				</Canvas>
 			</Container>
+}
+
+const Camera = (props:Props) => {
+
+	const set = useThree(({ set }) => set)
+	const camera = useThree(({ camera }) => camera)
+	const size = useThree(({ size }) => size)
+
+	const cameraRef = useRef()
+
+	useLayoutEffect(() => {
+		const cam = cameraRef.current as THREE.PerspectiveCamera
+		if (cam) {
+			cam.aspect = size.width / size.height;
+	  		cam.updateProjectionMatrix();
+		}
+  }, [size])
+
+	useLayoutEffect(()=>{
+		if (cameraRef.current) {
+			const oldCam = camera
+			set(() => ({ camera: cameraRef.current }))
+			return () => set(() => ({ camera: oldCam }))
+	}
+	}, [cameraRef.current])
+
+	useFrame(()=>{
+		camera.lookAt(0,0,0)
+	})	
+
+	const animationA = {x : [-500, 500], y : [0, 0], z : [600, 600]}
+	const animationB = {y : [-500, 500], x : [0, 0], z : [200, 200]}
+	const animation = props.mode === 'initial' ? animationA : animationB
+
+	return <motion.perspectiveCamera ref={cameraRef} fov={90} position={[0,0,600]} animate={animation} transition={{duration: 3, repeat:Infinity, repeatType:'reverse', ease : 'easeInOut'}}/>
 }
 
 const CameraMovement = (props:{width:number}) => {
