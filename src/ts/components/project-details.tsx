@@ -34,6 +34,13 @@ export const ProjectDetails = (props:Props) => {
 
 	const colorTheme = useContext(ColorThemeContext)
 
+	const scrollToPage = (page:number) => {
+		const element = mediaColumnRef.current
+		if(element){
+			element.scrollTop = element.clientHeight * page
+		}
+	}
+
 	return	<Container $color={colorTheme.primary}>
 
 				<MediaColumn $fullWidth={!showDetails} ref={mediaColumnRef}>
@@ -88,7 +95,11 @@ export const ProjectDetails = (props:Props) => {
 				</ToggleContainer>
 
 				<PageIndicatorContainer $details={showDetails}>
-					<PageIndicator container={mediaColumnRef} pageCount={props.project.media.length}/>
+					<PageIndicator	container={mediaColumnRef}
+									pageCount={props.project.media.length}
+									onSelectPage={(page) => {
+										scrollToPage(page)
+									}}/>
 				</PageIndicatorContainer>
 
 			</Container>
@@ -230,6 +241,7 @@ const MediaColumn = styled.div<{$fullWidth : boolean}>`
 	overflow: scroll;
 
 	scroll-snap-type: y mandatory;
+	scroll-behavior: smooth;
 
 	@media (${Design.onMobile}) {
 		padding: 0px;

@@ -8,6 +8,7 @@ import { ColorThemeContext } from "../app"
 interface Props {
 	container : React.RefObject<HTMLElement>
 	pageCount : number
+	onSelectPage : (page:number) => void
 }
 
 export const PageIndicator = (props:Props) => {
@@ -16,7 +17,11 @@ export const PageIndicator = (props:Props) => {
 	return	<Container>
 			{
 				pages.map((_, i) => {
-					return <Indicator key={i} page={i} container={props.container}/>
+					return <Indicator	key={i} page={i}
+										container={props.container}
+										onClick={() => {
+											props.onSelectPage(i)
+										}}/>
 				})
 			}
 			</Container>
@@ -25,6 +30,7 @@ export const PageIndicator = (props:Props) => {
 interface IndicatorProps {
 	page : number
 	container : React.RefObject<HTMLElement>
+	onClick : () => void
 }
 
 const Indicator = (props:IndicatorProps) => {
