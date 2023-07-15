@@ -54,7 +54,7 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 					<ambientLight color='rgb(255, 204, 0)' intensity={1.25}/>
 					<pointLight position={[100, 10, 100]} />
 
-					<CameraMovement/>
+					<CameraMovement width={props.mode === 'initial' ? 1000 : 200}/>
 
 					<ExtrudedSVG 	svgMarkup={svgLogoShapesOnly}
 									position={[-280,276,0]}
@@ -69,8 +69,9 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 			</Container>
 }
 
-const CameraMovement = () => {
+const CameraMovement = (props:{width:number}) => {
 	const time = useRef(0)
+	let dollyWidth = 1000
 
 	useFrame((state, delta) => {
 		time.current += delta
@@ -85,8 +86,10 @@ const CameraMovement = () => {
 			return width / (2*Math.tan( THREE.MathUtils.degToRad(fov*0.5))) 
 		}
 
-		camera.position.z = Math.sin(time.current/4) *  dollyZoomDistance(1000, fov)
-		camera.position.x = Math.cos(time.current/4) *  dollyZoomDistance(1000, fov)
+		dollyWidth -= (dollyWidth-props.width) * 0.1
+
+		camera.position.z = Math.sin(time.current/4) *  dollyZoomDistance(dollyWidth, fov)
+		camera.position.x = Math.cos(time.current/4) *  dollyZoomDistance(dollyWidth, fov)
 
 		camera.lookAt(0,0,0)
 
