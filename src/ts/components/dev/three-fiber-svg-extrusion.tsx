@@ -10,6 +10,7 @@ import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
 import { Canvas, useFrame, ThreeElements, Vector3, useThree } from '@react-three/fiber'
 import { motion } from 'framer-motion-3d'
 import { ColorThemeContext } from '../../app'
+import { useMotionValue, useSpring } from 'framer-motion'
 
 const svgLogoShapesOnly = `
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -103,7 +104,15 @@ const Camera = (props:Props) => {
 	const animationB = {y : [-500, 500], x : [0, 0], z : [200, 200]}
 	const animation = props.mode === 'initial' ? animationA : animationB
 
-	return <motion.perspectiveCamera ref={cameraRef} fov={90} position={[0,0,600]} animate={animation} transition={{duration: 3, repeat:Infinity, repeatType:'reverse', ease : 'easeInOut'}}/>
+	const mvZ = useMotionValue(800)
+	const springZ = useSpring(mvZ, { damping : 60 }) 
+
+	useLayoutEffect(()=>{
+		mvZ.set(props.mode === 'initial' ? 600 : 200)
+	}, [props.mode])
+
+	return <motion.perspectiveCamera ref={cameraRef} fov={90} position={[0,0,springZ]}/>
+	{/*// return <motion.perspectiveCamera ref={cameraRef} fov={90} position={[0,0,600]} animate={animation} transition={{duration: 3, repeat:Infinity, repeatType:'reverse', ease : 'easeInOut'}}/>*/}
 }
 
 const CameraMovement = (props:{width:number}) => {
