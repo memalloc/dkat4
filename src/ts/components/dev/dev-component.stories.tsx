@@ -27,5 +27,5 @@ ThreeBaseSetup.storyName = 'Three Base'
 export const SVGExtrusion = () => <ThreeSVGExtrusion/>
 SVGExtrusion.storyName = 'Three SVG Extrusion'
 
-export const ThreeFiberExtrusion = () => <ThreeFiberSVGExtrusion/>
+export const ThreeFiberExtrusion = () => <ThreeFiberSVGExtrusion mode='initial'/>
 ThreeFiberExtrusion.storyName = 'React Three Fiber SVG Extrusion'
