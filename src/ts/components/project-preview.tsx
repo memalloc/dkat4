@@ -54,6 +54,8 @@ const Project = styled.div<{$projectSelected:boolean, $color: string, ref:any}>`
 
 	display: grid;
 
+	cursor: pointer;
+
 	scroll-snap-align: center;
 
 	@media (${Design.onMobileAspectRatio}) {
