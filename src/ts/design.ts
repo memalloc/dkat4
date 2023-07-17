@@ -14,6 +14,23 @@ export const Colors = {
 	Yellow : 'rgb(255, 204, 0)'
 }
 
+export const BaseTheme:ColorTheme = {
+	primary : "#ccc",
+	background :"#172c32",
+	secondaryBackground : "#1f3f46"
+}
+
+export const ThemeA:ColorTheme = {
+	primary : Colors.Orange,
+	background : Colors.Yellow
+}
+
+export const ThemeB:ColorTheme = {
+	primary : Colors.Yellow,
+	background : Colors.Orange,
+	secondaryBackground : "#FFAA00"
+}
+
 export const Hyperlink = styled.a<{$color:string, $backgroundColor:string}>`
 	text-decoration: none;
 
