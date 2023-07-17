@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useState, useEffect, useRef, useContext } from 'react'
+import { useState, useEffect, useRef, useContext, useLayoutEffect } from 'react'
 import { styled } from 'styled-components'
 
 import * as Design from '../../design'
@@ -7,9 +7,10 @@ import * as Design from '../../design'
 import * as THREE from 'three'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
 
-import { Canvas, useFrame, ThreeElements, Vector3 } from '@react-three/fiber'
+import { Canvas, useFrame, ThreeElements, Vector3, useThree } from '@react-three/fiber'
 import { motion } from 'framer-motion-3d'
 import { ColorThemeContext } from '../../app'
+import { animate, useMotionValue, useSpring } from 'framer-motion'
 
 const svgLogoShapesOnly = `
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -25,7 +26,7 @@ const svgLogoShapesOnly = `
 type SVGShapes = Array<THREE.Shape[]>
 
 interface Props {
-	mode : 'initial' | 'background'
+	mode : 'initial' | 'projects' | 'background'
 }
 
 export const ThreeFiberSVGExtrusion = (props:Props) => {
@@ -37,40 +38,130 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 	const bgColor2 = colorTheme.secondaryBackground ?
 						 colorTheme.secondaryBackground :
 						 colorTheme.primary
-	const circleFill = props.mode === 'initial' ? bgColor2 : bgColor
+	const circleFill = props.mode !== 'background' ? bgColor2 : bgColor
+
+	const [flattenLogo, setFlattenLogo] = useState(true)
+	useEffect(() => {
+		setFlattenLogo(props.mode === 'initial')
+	}, [props.mode])
 
 	return 	<Container $color={bgColor}>
-
-				<CenterContainer $color="transparent">
-					<SVGBackground viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="50" cy="50" r="40" fill={circleFill} style={{transition:'1s all'}}/>
-					</SVGBackground>
-				</CenterContainer>
 
 				<Canvas shadows
 						gl={{antialias:true, toneMapping : THREE.NoToneMapping}}
 						camera={{ position: [-1, 1, 1], fov: 90, far: 20000 }}>
 
-					<ambientLight color='rgb(255, 204, 0)' intensity={1.25}/>
-					<pointLight position={[100, 10, 100]} />
+						<Lights {...props}/>
 
-					<CameraMovement/>
+					<Camera {...props}/>
+
+					{/*<CameraMovement width={props.mode === 'initial' ? 1000 : 200}/>*/}
 
 					<ExtrudedSVG 	svgMarkup={svgLogoShapesOnly}
 									position={[-280,276,0]}
+									flatten={flattenLogo}
 									options={{
 										depth : 60,
 										curveSegments : 12 * 2
 									}}>
-							<motion.meshLambertMaterial animate={{color : bgColor}} transition={{duration: 1}}/>
+						<motion.meshLambertMaterial animate={{color : bgColor}} transition={{duration: 1}}/>
 					</ExtrudedSVG>
+
+					<group rotation={[THREE.MathUtils.degToRad(90),0,0]} position={[0,0,-10]}>
+						<mesh>
+							<cylinderGeometry args={[370, 370, 10, 128]}/>
+							<motion.meshBasicMaterial animate={{color : circleFill}} transition={{duration: 1}}/>
+						</mesh>
+					</group>
 
 				</Canvas>
 			</Container>
 }
 
-const CameraMovement = () => {
+const Lights = (props:Props) => {
+
+	const pointLight = useRef(null)
+	const pointLightIntensity = useSpring(0, { damping : 60 })
+
+	useFrame(({clock}) => {
+		pointLight.current.intensity = pointLightIntensity.get()
+	})
+
+	useEffect(() => {
+		pointLightIntensity.set(props.mode === 'initial' ? 0 : 1)
+	}, [props.mode])
+
+	return	<>
+				{/*<ambientLight color='rgb(255, 204, 0)' intensity={1.25}/>*/}
+				<ambientLight color='rgb(255, 255, 255)' intensity={1}/>
+				<pointLight ref={pointLight} intensity={0} position={[100, 10, 100]}/>
+			</>
+}
+
+const Camera = (props:Props) => {
+
+	const set = useThree(({ set }) => set)
+	const camera = useThree(({ camera }) => camera as THREE.PerspectiveCamera)
+	const size = useThree(({ size }) => size)
+
+	const cameraRef = useRef()
+
+	useLayoutEffect(() => {
+		const cam = cameraRef.current as THREE.PerspectiveCamera
+		if (cam) {
+			cam.aspect = size.width / size.height;
+	  		cam.updateProjectionMatrix();
+		}
+  }, [size])
+
+	useLayoutEffect(()=>{
+		if (cameraRef.current) {
+			const oldCam = camera
+			set(() => ({ camera: cameraRef.current }))
+			return () => set(() => ({ camera: oldCam }))
+	}
+	}, [cameraRef.current])
+
+	useFrame(()=>{
+		camera.lookAt(0,0,0)
+		camera.fov = fov.get()
+		camera.updateProjectionMatrix()
+	})	
+
+	const iniitalDistance = 800
+	const mvZ = useMotionValue(iniitalDistance)
+	const springZ = useSpring(mvZ, { damping : 60 }) 
+
+	const tx = useMotionValue(100)
+	const springX = useSpring(tx, { damping : 60 }) 
+
+	const fovTarget = useMotionValue(90)
+	const fov = useSpring(fovTarget, { damping : 60 }) 
+
+	useLayoutEffect(()=>{
+		const distance = props.mode === 'initial' ? iniitalDistance :
+									props.mode === 'projects' ? 200 : 70
+
+		mvZ.set(distance)
+
+		const txTarget = props.mode === 'initial' ? 0 :
+								props.mode === 'projects' ? 300 : 50
+
+		fovTarget.set(props.mode === 'background' ? 150 : 90)
+
+		const animation = animate(tx, [-txTarget, txTarget], { duration : 15, repeat : Infinity, repeatType : 'reverse', ease : 'easeInOut'})
+
+		return () => {
+			animation.stop()
+		}
+	}, [props.mode])
+
+	return <motion.perspectiveCamera ref={cameraRef} position={[springX,0,springZ]}/>
+}
+
+const CameraMovement = (props:{width:number}) => {
 	const time = useRef(0)
+	let dollyWidth = 1000
 
 	useFrame((state, delta) => {
 		time.current += delta
@@ -85,8 +176,10 @@ const CameraMovement = () => {
 			return width / (2*Math.tan( THREE.MathUtils.degToRad(fov*0.5))) 
 		}
 
-		camera.position.z = Math.sin(time.current/4) *  dollyZoomDistance(1000, fov)
-		camera.position.x = Math.cos(time.current/4) *  dollyZoomDistance(1000, fov)
+		dollyWidth -= (dollyWidth-props.width) * 0.1
+
+		camera.position.z = Math.sin(time.current/4) *  dollyZoomDistance(dollyWidth, fov)
+		camera.position.x = Math.cos(time.current/4) *  dollyZoomDistance(dollyWidth, fov)
 
 		camera.lookAt(0,0,0)
 
@@ -102,19 +195,27 @@ interface ExtrudedSVGProps {
 	options? : THREE.ExtrudeGeometryOptions
 	position? : Vector3
 	children? : any
+	flatten? : boolean
 }
 
 const ExtrudedSVG = (props:ExtrudedSVGProps) => {
 	const [svgShapes, setSvgShapes] = useState<SVGShapes>([])
 
-	useEffect(()=>{
+	useEffect(() => {
 		const loader = new SVGLoader();
 		const svgData = loader.parse(svgLogoShapesOnly);
 		const shapes = svgData.paths.map(path => path.toShapes(true))
 		setSvgShapes(shapes)
 	}, [])
 
-	return	<group scale={[1,-1,1]} position={props.position}>
+	const scaleZ = useMotionValue(1)
+	const scaleZSpring = useSpring(scaleZ)
+
+	useEffect(() => {
+		scaleZ.set(props.flatten ? 0.00001 : 1)
+	}, [props.flatten])
+
+	return	<motion.group scale={[1,-1,scaleZSpring]} position={props.position}>
 			{
 			svgShapes.map((shape, i)=>{
 				return	<mesh key={i}>
@@ -123,7 +224,7 @@ const ExtrudedSVG = (props:ExtrudedSVGProps) => {
 						</mesh>
 			})
 			}
-			</group>
+			</motion.group>
 }
 
 const Container = styled.div<{$color:string}>`

@@ -9,11 +9,13 @@ import { ProjectData } from './project-details'
 import { ProjectPreview } from './project-preview'
 import { Markdown } from './markdown'
 import { ColorThemeContext } from '../app'
+import { LandingScreenContent } from './landing-screen-content'
 
 interface Props {
 	projects : Array<ProjectData>
 	selectedProject? : ProjectData
 	onProjectSelection : (project:ProjectData) => void
+	onScroll : (initialPosition:boolean) => void
 }
 
 export const MainNavigation = (props:Props) => {
@@ -32,16 +34,30 @@ export const MainNavigation = (props:Props) => {
 		props.onProjectSelection(project)
 	}
 
+	const containerRef = useRef(null)
+
+	useEffect(()=>{
+		const element = containerRef.current
+
+		const scroll = event => {
+			const initialPosition = element.scrollTop <= element.clientHeight * 0.2
+			props.onScroll(initialPosition)
+		}
+
+		element.addEventListener('scroll', scroll)
+
+		return () => {
+			element.removeEventListener('scroll', scroll)
+		}
+	}, [containerRef])
+
 	const colorTheme = useContext(ColorThemeContext)
 
-	return	<Container>
+	return	<Container ref={containerRef}>
 				<ScreenContent $projectSelected={selectedProject !== undefined}>
-					initial screen content placeholder
-					<Button onClick={()=>{
+					<LandingScreenContent onScrollToProjects={()=>{
 						firstProject.current.scrollIntoView({behavior: 'smooth', block: 'center'})
-					}}>
-						scroll to projects
-					</Button>
+					}}/>
 				</ScreenContent>
 
 				<ProjectsHeader $projectSelected={selectedProject !== undefined}
@@ -149,19 +165,4 @@ const SelectedProjects = styled(motion.div)`
 const HiddenTitle = styled.div`
 	opacity: 0;
 	width: 30vw
-`
-
-// - - - - - - - - - - - - - - - - - - - - - - - - temp
-
-const Button = styled.div`
-	color: #555;
-	background: #bbb;
-	padding: 5px;
-
-	display: inline;
-
-	&:hover {
-		background: #ddd;	
-		color: #333;	
-	}
 `

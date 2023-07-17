@@ -9,32 +9,28 @@ import { ProjectRouter } from './components/project-router'
 
 import { sampleProjects } from './components/dev/sample-data'
 
-const ThemeA:Design.ColorTheme = {
-	primary : Design.Colors.Orange,
-	background : Design.Colors.Yellow
-}
-
-const ThemeB:Design.ColorTheme = {
-	primary : Design.Colors.Yellow,
-	background : Design.Colors.Orange,
-	secondaryBackground : "#FFAA00"
-}
-
-export const ColorThemeContext = createContext<Design.ColorTheme>(ThemeA)
+export const ColorThemeContext = createContext<Design.ColorTheme>(Design.BaseTheme)
 
 export const App = (props:any) => {
 
 	const [selectedProject, setSelectedProject] = useState(undefined)
-	const [theme, setTheme] = useState(ThemeA)
+	const [theme, setTheme] = useState(Design.BaseTheme)
+	const [initialScrollPosition, setInitialScrollPosition] = useState(true)
+
+	const bgMode = initialScrollPosition ? 'initial' :
+						selectedProject ? 'background' : 'projects'
 
 	return	<Container>
 
 				<ColorThemeContext.Provider value={theme}>
 
-					<ThreeFiberSVGExtrusion mode={selectedProject === undefined ? 'initial' : 'background'}/>
+					<ThreeFiberSVGExtrusion mode={bgMode}/>
 
 					<MainNavigation projects={sampleProjects}
 									selectedProject={selectedProject}
+									onScroll={(initialPosition)=>{
+										setInitialScrollPosition(initialPosition)
+									}}
 									onProjectSelection={(project) => {
 										setSelectedProject(project)
 									}}/>
@@ -46,7 +42,7 @@ export const App = (props:any) => {
 									}}/>
 
 					<ThemeSwitcher onClick={()=>{
-						setTheme(theme === ThemeA ? ThemeB : ThemeA)
+						setTheme(theme === Design.BaseTheme ? Design.ThemeA : Design.BaseTheme)
 					}}>
 						switch
 					</ThemeSwitcher>
