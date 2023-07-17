@@ -71,7 +71,7 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 					<group rotation={[THREE.MathUtils.degToRad(90),0,0]} position={[0,0,-10]}>
 						<mesh>
 							<cylinderGeometry args={[370, 370, 10, 128]}/>
-							<motion.meshLambertMaterial animate={{color : circleFill}} transition={{duration: 1}}/>
+							<motion.meshBasicMaterial animate={{color : circleFill}} transition={{duration: 1}}/>
 						</mesh>
 					</group>
 
