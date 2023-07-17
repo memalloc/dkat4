@@ -51,8 +51,7 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 						gl={{antialias:true, toneMapping : THREE.NoToneMapping}}
 						camera={{ position: [-1, 1, 1], fov: 90, far: 20000 }}>
 
-					<ambientLight color='rgb(255, 204, 0)' intensity={1.25}/>
-					<pointLight position={[100, 10, 100]} />
+						<Lights {...props}/>
 
 					<Camera {...props}/>
 
@@ -77,6 +76,26 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 
 				</Canvas>
 			</Container>
+}
+
+const Lights = (props:Props) => {
+
+	const pointLight = useRef(null)
+	const pointLightIntensity = useSpring(0, { damping : 60 })
+
+	useFrame(({clock}) => {
+		pointLight.current.intensity = pointLightIntensity.get()
+	})
+
+	useEffect(() => {
+		pointLightIntensity.set(props.mode === 'initial' ? 0 : 1)
+	}, [props.mode])
+
+	return	<>
+				{/*<ambientLight color='rgb(255, 204, 0)' intensity={1.25}/>*/}
+				<ambientLight color='rgb(255, 255, 255)' intensity={1}/>
+				<pointLight ref={pointLight} intensity={0} position={[100, 10, 100]}/>
+			</>
 }
 
 const Camera = (props:Props) => {
