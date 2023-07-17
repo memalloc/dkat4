@@ -81,7 +81,7 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 const Camera = (props:Props) => {
 
 	const set = useThree(({ set }) => set)
-	const camera = useThree(({ camera }) => camera)
+	const camera = useThree(({ camera }) => camera as THREE.PerspectiveCamera)
 	const size = useThree(({ size }) => size)
 
 	const cameraRef = useRef()
@@ -104,22 +104,30 @@ const Camera = (props:Props) => {
 
 	useFrame(()=>{
 		camera.lookAt(0,0,0)
+		camera.fov = fov.get()
+		camera.updateProjectionMatrix()
 	})	
 
-	const mvZ = useMotionValue(800)
+	const iniitalDistance = 800
+	const mvZ = useMotionValue(iniitalDistance)
 	const springZ = useSpring(mvZ, { damping : 60 }) 
 
 	const tx = useMotionValue(100)
 	const springX = useSpring(tx, { damping : 60 }) 
 
+	const fovTarget = useMotionValue(90)
+	const fov = useSpring(fovTarget, { damping : 60 }) 
+
 	useLayoutEffect(()=>{
-		const distance = props.mode === 'initial' ? 450 :
-									props.mode === 'projects' ? 300 : 200
+		const distance = props.mode === 'initial' ? iniitalDistance :
+									props.mode === 'projects' ? 200 : 70
 
 		mvZ.set(distance)
 
-		const txTarget = props.mode === 'initial' ? 500 :
-								props.mode === 'projects' ? 100 : 50
+		const txTarget = props.mode === 'initial' ? 0 :
+								props.mode === 'projects' ? 300 : 50
+
+		fovTarget.set(props.mode === 'background' ? 150 : 90)
 
 		const animation = animate(tx, [-txTarget, txTarget], { duration : 15, repeat : Infinity, repeatType : 'reverse', ease : 'easeInOut'})
 
@@ -128,7 +136,7 @@ const Camera = (props:Props) => {
 		}
 	}, [props.mode])
 
-	return <motion.perspectiveCamera ref={cameraRef} fov={90} position={[springX,0,springZ]}/>
+	return <motion.perspectiveCamera ref={cameraRef} position={[springX,0,springZ]}/>
 }
 
 const CameraMovement = (props:{width:number}) => {
