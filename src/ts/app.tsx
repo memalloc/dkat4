@@ -28,7 +28,7 @@ export const App = (props:any) => {
 
 					<MainNavigation projects={sampleProjects}
 									selectedProject={selectedProject}
-									onInitialScrollPositionChange={(initialPosition)=>{
+									onScroll={(initialPosition)=>{
 										setInitialScrollPosition(initialPosition)
 									}}
 									onProjectSelection={(project) => {

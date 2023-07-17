@@ -15,14 +15,13 @@ interface Props {
 	projects : Array<ProjectData>
 	selectedProject? : ProjectData
 	onProjectSelection : (project:ProjectData) => void
-	onInitialScrollPositionChange : (initialPosition:boolean) => void
+	onScroll : (initialPosition:boolean) => void
 }
 
 export const MainNavigation = (props:Props) => {
 
 	const [selectedProject, setSelectedProject] = useState(props.selectedProject)
 	const [projectInView, setProjectInView] = useState(undefined)
-	const [initialScrollPosition, setInitialScrollPosition] = useState(true)
 
 	const firstProject = useRef(null)
 
@@ -41,8 +40,8 @@ export const MainNavigation = (props:Props) => {
 		const element = containerRef.current
 
 		const scroll = event => {
-			const initialPosition = element.scrollTop <= element.clientHeight
-			setInitialScrollPosition(initialPosition)
+			const initialPosition = element.scrollTop <= element.clientHeight * 0.2
+			props.onScroll(initialPosition)
 		}
 
 		element.addEventListener('scroll', scroll)
@@ -51,10 +50,6 @@ export const MainNavigation = (props:Props) => {
 			element.removeEventListener('scroll', scroll)
 		}
 	}, [containerRef])
-
-	useEffect(()=>{
-		props.onInitialScrollPositionChange(initialScrollPosition)
-	}, [initialScrollPosition])
 
 	const colorTheme = useContext(ColorThemeContext)
 
