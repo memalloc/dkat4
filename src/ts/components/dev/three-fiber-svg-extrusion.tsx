@@ -40,6 +40,11 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 						 colorTheme.primary
 	const circleFill = props.mode !== 'background' ? bgColor2 : bgColor
 
+	const [flattenLogo, setFlattenLogo] = useState(true)
+	useEffect(() => {
+		setFlattenLogo(props.mode === 'initial')
+	}, [props.mode])
+
 	return 	<Container $color={bgColor}>
 
 				<CenterContainer $color="transparent">
@@ -61,11 +66,12 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 
 					<ExtrudedSVG 	svgMarkup={svgLogoShapesOnly}
 									position={[-280,276,0]}
+									flatten={flattenLogo}
 									options={{
 										depth : 60,
 										curveSegments : 12 * 2
 									}}>
-							<motion.meshLambertMaterial animate={{color : bgColor}} transition={{duration: 1}}/>
+						<motion.meshLambertMaterial animate={{color : bgColor}} transition={{duration: 1}}/>
 					</ExtrudedSVG>
 
 				</Canvas>
@@ -161,19 +167,27 @@ interface ExtrudedSVGProps {
 	options? : THREE.ExtrudeGeometryOptions
 	position? : Vector3
 	children? : any
+	flatten? : boolean
 }
 
 const ExtrudedSVG = (props:ExtrudedSVGProps) => {
 	const [svgShapes, setSvgShapes] = useState<SVGShapes>([])
 
-	useEffect(()=>{
+	useEffect(() => {
 		const loader = new SVGLoader();
 		const svgData = loader.parse(svgLogoShapesOnly);
 		const shapes = svgData.paths.map(path => path.toShapes(true))
 		setSvgShapes(shapes)
 	}, [])
 
-	return	<group scale={[1,-1,1]} position={props.position}>
+	const scaleZ = useMotionValue(1)
+	const scaleZSpring = useSpring(scaleZ)
+
+	useEffect(() => {
+		scaleZ.set(props.flatten ? 0.00001 : 1)
+	}, [props.flatten])
+
+	return	<motion.group scale={[1,-1,scaleZSpring]} position={props.position}>
 			{
 			svgShapes.map((shape, i)=>{
 				return	<mesh key={i}>
@@ -182,7 +196,7 @@ const ExtrudedSVG = (props:ExtrudedSVGProps) => {
 						</mesh>
 			})
 			}
-			</group>
+			</motion.group>
 }
 
 const Container = styled.div<{$color:string}>`
