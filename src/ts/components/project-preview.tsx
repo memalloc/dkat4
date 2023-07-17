@@ -75,7 +75,7 @@ const Project = styled.div<{$projectSelected:boolean, $color: string, $hoverColo
 `
 
 const Content = styled.div`
-	background: rgba(200,200,200,0.5);
+	background: rgba(200,200,200,0.1);
 	display: grid;
 	place-items: center;
 `
