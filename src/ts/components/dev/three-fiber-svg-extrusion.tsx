@@ -47,12 +47,6 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 
 	return 	<Container $color={bgColor}>
 
-				<CenterContainer $color="transparent">
-					<SVGBackground viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="50" cy="50" r="40" fill={circleFill} style={{transition:'1s all'}}/>
-					</SVGBackground>
-				</CenterContainer>
-
 				<Canvas shadows
 						gl={{antialias:true, toneMapping : THREE.NoToneMapping}}
 						camera={{ position: [-1, 1, 1], fov: 90, far: 20000 }}>
@@ -73,6 +67,13 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 									}}>
 						<motion.meshLambertMaterial animate={{color : bgColor}} transition={{duration: 1}}/>
 					</ExtrudedSVG>
+
+					<group rotation={[THREE.MathUtils.degToRad(90),0,0]} position={[0,0,-10]}>
+						<mesh>
+							<cylinderGeometry args={[370, 370, 10, 128]}/>
+							<motion.meshLambertMaterial animate={{color : circleFill}} transition={{duration: 1}}/>
+						</mesh>
+					</group>
 
 				</Canvas>
 			</Container>
