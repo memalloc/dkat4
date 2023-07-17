@@ -31,6 +31,8 @@ export const ThemeB:ColorTheme = {
 	secondaryBackground : "#FFAA00"
 }
 
+export const Themes = [BaseTheme, ThemeA, ThemeB]
+
 export const Hyperlink = styled.a<{$color:string, $backgroundColor:string}>`
 	text-decoration: none;
 

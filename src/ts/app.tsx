@@ -8,6 +8,7 @@ import { MainNavigation } from './components/main-navigation'
 import { ProjectRouter } from './components/project-router'
 
 import { sampleProjects } from './components/dev/sample-data'
+import { ThemeSwitcher } from './components/theme-switcher'
 
 export const ColorThemeContext = createContext<Design.ColorTheme>(Design.BaseTheme)
 
@@ -41,11 +42,9 @@ export const App = (props:any) => {
 										setSelectedProject(project)
 									}}/>
 
-					<ThemeSwitcher onClick={()=>{
-						setTheme(theme === Design.BaseTheme ? Design.ThemeA : Design.BaseTheme)
-					}}>
-						switch
-					</ThemeSwitcher>
+					<ThemeSwitcher onThemeChange={(theme) => {
+						setTheme(theme)
+					}}/>
 
 				</ColorThemeContext.Provider>
 								
@@ -55,20 +54,3 @@ export const App = (props:any) => {
 const Container = styled.div`
 `
 
-const ThemeSwitcher = styled.div`
-	position: fixed;
-	top: 20px;
-	right: 20px;
-	width: 100px;
-	height: 100px;
-
-	background: red;
-	color: black;
-
-	border: 3px solid: green;
-	border-radius: 300px;
-
-	display: grid;
-	place-items: center;
-	user-select: none;
-`
