@@ -3,6 +3,8 @@ import { ProjectData } from '../project-details'
 import TestVideo from '../../../assets/video/test.mp4'
 import { text } from './lorem-ipsum'
 
+import RepoExternalVideo from '../../../../../media/AYIM_WiiRealeaseTrailer_PEGI_30fps_singlePass.mp4'
+
 export const sampleProject:ProjectData = {
 	id : `VerkehrsmuseumRemise`,
 	title : `Verkehrsmuseum Remise`,
@@ -32,7 +34,7 @@ export const singleMedia:ProjectData = {
 	title : `Single Media`,
 	info : `Work: Design & Development  \nClient: Wiener Linien  \nAgency: [Zone Media](https://www.zonemedia.at/)`,
 	description : `Project Description, [dkat](https://www.danielkauer.at/) ${text}`,
-	media : ['https://placehold.co/800x800']
+	media : [RepoExternalVideo]
 }
 
 export const sampleProjects = [sampleProject, sampleProject2, longTitle, singleMedia, sampleProject]
