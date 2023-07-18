@@ -120,12 +120,16 @@ const CloseHeader = styled(Design.ProjectDetailsCloseHeader)<{$details:boolean, 
 	transition: 1s transform;
 `
 
+const hfMinHeight = 130
+
 const Title = styled(Shadow)`
 	font-size: 30px;
 
 	position: fixed;
 	top: 0vh;
 	height: 16.5vh;
+	min-height: ${hfMinHeight}px;	
+
 	left: 3vw;
 	width: 30vw;
 
@@ -158,8 +162,10 @@ const ProjectDescription = styled.div<{$details:boolean}>`
 	letter-spacing: 0.5px;
 
 	position: fixed;
-	top: 17.5vh;
-	bottom: 17.5vh;
+	top: 0vh;
+	margin-top: clamp(${hfMinHeight}px, 17.5vh, 17.5vh);
+	bottom: 0vh;
+	margin-bottom: clamp(${hfMinHeight}px, 17.5vh, 17.5vh);
 	left: ${props => !props.$details ? '-600' : '0'}px;
 
 	width: ${DescriptionWidth};
@@ -174,6 +180,7 @@ const ProjectDescription = styled.div<{$details:boolean}>`
 		width: unset;
 
 		border: none;
+		margin: unset;
 	}
 `
 
@@ -186,6 +193,7 @@ const InfoBox = styled(Shadow)<{$details:boolean}>`
 	left: ${props => props.$details ? '3vw' : '90px'};
 	bottom: 0vw;
 	height: 16.5vh;
+	min-height: ${hfMinHeight}px;	
 
 	transition: 1s all;
 
