@@ -1,6 +1,8 @@
 import { useContext } from 'react'
 import styled from 'styled-components'
+
 import { ColorThemeContext } from '../app'
+import { TypedPrompt } from './typed-prompt'
 
 interface Props {
 	onScrollToProjects : ()=>void	
@@ -13,7 +15,9 @@ export const LandingScreenContent = (props:Props) => {
 	return	<>
 				<MainText $color={colorTheme.primary}>
 					<Line>
-						daniel kauer
+						<TypedPrompt content={["daniel kauer", {text:"link", href:"http://www.danielkauer.at"}, "weiterer text"]} onTyped={()=>{
+							console.log('done')
+						}}/>
 					</Line>
 					<Line>
 						designs &amp; develops
