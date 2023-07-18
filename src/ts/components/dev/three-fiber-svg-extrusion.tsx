@@ -45,6 +45,10 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 		setFlattenLogo(props.mode === 'initial')
 	}, [props.mode])
 
+
+	const d2r = THREE.MathUtils.degToRad
+	const initialAnimation = {scale:[0, 1.2, 1], rotateZ : [d2r(45), d2r(-5), d2r(0)]}
+
 	return 	<Container $color={bgColor}>
 
 				<Canvas shadows
@@ -55,24 +59,24 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 
 					<Camera {...props}/>
 
-					{/*<CameraMovement width={props.mode === 'initial' ? 1000 : 200}/>*/}
+					<motion.group scale={0} animate={initialAnimation} transition={{duration:0.7, delay: 0.5}}>
+						<ExtrudedSVG 	svgMarkup={svgLogoShapesOnly}
+										position={[-280,276,0]}
+										flatten={flattenLogo}
+										options={{
+											depth : 60,
+											curveSegments : 12 * 2
+										}}>
+							<motion.meshLambertMaterial color={bgColor} animate={{color : bgColor}} transition={{duration: 1}}/>
+						</ExtrudedSVG>
 
-					<ExtrudedSVG 	svgMarkup={svgLogoShapesOnly}
-									position={[-280,276,0]}
-									flatten={flattenLogo}
-									options={{
-										depth : 60,
-										curveSegments : 12 * 2
-									}}>
-						<motion.meshLambertMaterial color={bgColor} animate={{color : bgColor}} transition={{duration: 1}}/>
-					</ExtrudedSVG>
-
-					<group rotation={[THREE.MathUtils.degToRad(90),0,0]} position={[0,0,-10]}>
-						<mesh>
-							<cylinderGeometry args={[370, 370, 10, 128]}/>
-							<motion.meshBasicMaterial color={circleFill} animate={{color : circleFill}} transition={{duration: 1}}/>
-						</mesh>
-					</group>
+						<group rotation={[THREE.MathUtils.degToRad(90),0,0]} position={[0,0,-10]}>
+							<mesh>
+								<cylinderGeometry args={[370, 370, 10, 128]}/>
+								<motion.meshBasicMaterial color={circleFill} animate={{color : circleFill}} transition={{duration: 1}}/>
+							</mesh>
+						</group>
+					</motion.group>
 
 				</Canvas>
 			</Container>
