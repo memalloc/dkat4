@@ -1,10 +1,68 @@
+import React from "react"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
+import { motion } from "framer-motion"
 
 import * as Design from '../design'
 import { ColorThemeContext } from "../app"
 
-type Line = Array<string | { text : string, href : string }>
+export type Line = Array<string | { text : string, href : string }>
+
+interface MultilinePromptProps {
+	lines : Array<Line>
+	onTyped : () => void
+}
+
+export const MultilinePrompt = (props:MultilinePromptProps) => {
+
+	const [current, setCurrent] = useState(0)
+
+	useEffect(()=>{
+		if(current === props.lines.length){
+			props.onTyped()
+		}
+	}, [current])
+
+	const colorTheme = useContext(ColorThemeContext)
+
+	return	<Container>
+				<div>
+				{
+				props.lines.map((line, i) => {
+					return	<React.Fragment key={i}>
+							{
+								i <= current &&
+								<TypedPrompt key={i} content={line} onTyped={() => {
+									setCurrent(current+1)
+								}}/>
+							}
+							</React.Fragment>
+				})
+				}
+				</div>
+				<Cursor $color={colorTheme.primary}
+						animate={{opacity:[0,0,0,0,1,1,0.5]}}
+						transition={{duration : 0.5, repeat : Infinity}}/>
+			</Container>
+}
+
+const CursorWidth = '4px'
+
+const Container = styled.div`
+	display: grid;
+	grid-template-columns: 1fr ${CursorWidth};
+	align-items: end;
+	grid-gap: 7px;
+`
+
+const Cursor = styled(motion.div)<{$color:string}>`
+	background: ${props => props.$color};
+	width: ${CursorWidth};
+	height: 24px;
+	margin-bottom: 8px;
+
+	transition: 1s background;
+`
 
 interface Props {
 	content : Line
@@ -21,7 +79,7 @@ export const TypedPrompt = (props:Props) => {
 		}
 	}, [current])
 
-	return <div>
+	return <PromptLine>
 			{
 				props.content.map((content,i) => {
 					const text = typeof content === 'object' ? content.text : content
@@ -30,8 +88,12 @@ export const TypedPrompt = (props:Props) => {
 											show={current >= i} onTyped={() => setCurrent(current+1)}/>
 				})
 			}
-			</div>
+			</PromptLine>
 }
+
+const PromptLine = styled.div`
+	height: 30px;
+`
 
 interface TypingProps {
 	text : string
@@ -70,12 +132,17 @@ export const TypingAnimation = (props:TypingProps) => {
 	const target = 	href =>  href.indexOf("mailto:") === -1 ? '_blank' : undefined
 	const content = props.href ? <Design.Hyperlink $color={colorTheme.primary} $backgroundColor={colorTheme.background} href={props.href} target={target(props.href)}>{text}</Design.Hyperlink> : <>{text}</>
 
-	return <Text>
-				{ text.length > 0 && content }
-			</Text>
+	return <>
+			{
+				text.length > 0 &&
+				<Text $margin={props.href !== undefined}>
+					{ text.length > 0 && content }
+				</Text>
+			}
+			</>
 }
 
-const Text = styled.div`
+const Text = styled.div<{$margin:boolean}>`
 	display: inline-block;
-	margin-right: 5px;
+	margin-left: ${props => props.$margin ? '8px' : undefined};
 `

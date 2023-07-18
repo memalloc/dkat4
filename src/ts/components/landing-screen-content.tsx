@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 
 import { ColorThemeContext } from '../app'
-import { TypedPrompt } from './typed-prompt'
+import { MultilinePrompt, Line, TypedPrompt } from './typed-prompt'
 
 interface Props {
 	onScrollToProjects : ()=>void	
@@ -12,22 +12,37 @@ export const LandingScreenContent = (props:Props) => {
 
 	const colorTheme = useContext(ColorThemeContext)
 
+	const promptContent:Array<Line> = [
+		["daniel kauer"],
+		["designs & develops"],
+		[' ',
+			{
+				text : "pinboard",
+				href : 'https://pinboard.in/u:memalloc'
+			},
+			{
+				text : "twitter",
+				href : 'https://twitter.com/memalloc'
+			},
+			' ',
+			{
+				text : "vimeo",
+				href : 'https://vimeo.com/memalloc'
+			}
+		],
+		[ "say ",
+			{
+				text : "> hello",
+				href : 'mailto:hello@danielkauer.at'
+			}
+		]
+	]
+
 	return	<>
 				<MainText $color={colorTheme.primary}>
-					<Line>
-						<TypedPrompt content={["daniel kauer", {text:"link", href:"http://www.danielkauer.at"}, "weiterer text"]} onTyped={()=>{
+					<MultilinePrompt lines={promptContent} onTyped={()=>{
 							console.log('done')
-						}}/>
-					</Line>
-					<Line>
-						designs &amp; develops
-					</Line>
-					<Line>
-						pinboard twitter vimeo
-					</Line>
-					<Line>
-						say &gt;hello
-					</Line>
+					}}/>
 				</MainText>
 
 				<Button onClick={()=>{
@@ -53,9 +68,6 @@ const MainText = styled.div<{$color:string}>`
     font-family: ArvoRegular;
 
     transition: 1s color;
-`
-
-const Line = styled.div`
 `
 
 // - - - - - - - - - - - - - - - - - - - - - - - - temp
