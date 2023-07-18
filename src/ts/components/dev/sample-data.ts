@@ -27,4 +27,12 @@ export const longTitle:ProjectData = {
 	media : [TestVideo, 'https://placehold.co/800x800', 'https://placehold.co/1920x1080', 'https://placehold.co/90x160']
 }
 
-export const sampleProjects = [sampleProject, sampleProject2, longTitle, sampleProject, sampleProject]
+export const singleMedia:ProjectData = {
+	id : `SingleMedia`,
+	title : `Single Media`,
+	info : `Work: Design & Development  \nClient: Wiener Linien  \nAgency: [Zone Media](https://www.zonemedia.at/)`,
+	description : `Project Description, [dkat](https://www.danielkauer.at/) ${text}`,
+	media : ['https://placehold.co/800x800']
+}
+
+export const sampleProjects = [sampleProject, sampleProject2, longTitle, singleMedia, sampleProject]

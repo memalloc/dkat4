@@ -16,6 +16,7 @@ export const PageIndicator = (props:Props) => {
 
 	return	<Container>
 			{
+				pages.length > 1 && 
 				pages.map((_, i) => {
 					return <Indicator	key={i} page={i}
 										container={props.container}
