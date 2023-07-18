@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
+
+import * as Design from '../design'
+import { ColorThemeContext } from "../app"
 
 type Line = Array<string | { text : string, href : string }>
 
@@ -62,11 +65,13 @@ export const TypingAnimation = (props:TypingProps) => {
 		}
 	}, [text, props.show])
 
+	const colorTheme = useContext(ColorThemeContext)
+
 	const target = 	href =>  href.indexOf("mailto:") === -1 ? '_blank' : undefined
-	const content = props.href ? <a href={props.href} target={target(props.href)}>{text}</a> : <>{text}</>
+	const content = props.href ? <Design.Hyperlink $color={colorTheme.primary} $backgroundColor={colorTheme.background} href={props.href} target={target(props.href)}>{text}</Design.Hyperlink> : <>{text}</>
 
 	return <Text>
-				{ content }
+				{ text.length > 0 && content }
 			</Text>
 }
 
