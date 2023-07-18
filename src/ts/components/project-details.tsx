@@ -65,7 +65,7 @@ export const ProjectDetails = (props:Props) => {
 					</MediaContainer>
 
 					<InfoBox $details={showDetails} $shadow={!showDetails}>
-						<Markdown>
+						<Markdown disableParagraphMargin>
 							{ props.project.info }
 						</Markdown>
 					</InfoBox>
@@ -122,6 +122,10 @@ const CloseHeader = styled(Design.ProjectDetailsCloseHeader)<{$details:boolean, 
 
 const hfMinHeight = 130
 
+const DescriptionMinWidth = 360
+const DescriptionMaxWidth = 550
+const DescriptionWidth = `clamp(${DescriptionMinWidth}px, 30vw, ${DescriptionMaxWidth}px)`
+
 const Title = styled(Shadow)`
 	font-size: 30px;
 
@@ -150,11 +154,11 @@ const Title = styled(Shadow)`
 
 		margin-left: 8px;
 		margin-bottom: 8px;
+
+		width: 100vw;
+		max-width: ${DescriptionMaxWidth}px;
 	}
 `
-
-const DescriptionMinWidth = 360
-const DescriptionWidth = `clamp(${DescriptionMinWidth}px, 30vw, 550px)`
 
 const ProjectDescription = styled.div<{$details:boolean}>`
 	font-size: 15px;
@@ -178,6 +182,8 @@ const ProjectDescription = styled.div<{$details:boolean}>`
 		left: unset;
 		bottom: unset;
 		width: unset;
+
+		max-width: ${DescriptionMaxWidth}px;
 
 		border: none;
 		margin: unset;
@@ -204,6 +210,12 @@ const InfoBox = styled(Shadow)<{$details:boolean}>`
 		top: unset;
 		left: unset;
 		height: unset;
+		min-height: unset;
+
+		width: 100vw;
+		max-width: ${DescriptionMaxWidth}px;
+
+		margin-bottom: 12px;
 	}
 `
 
@@ -260,6 +272,9 @@ const MediaColumn = styled.div<{$fullWidth : boolean}>`
 	${Design.MobileMediaQuery} {
 		padding: 0px;
 		scroll-snap-type: none;
+
+		display: grid;
+		justify-items: center;
 	}
 `
 

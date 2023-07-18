@@ -17,6 +17,10 @@ export const MediaContent = (props:Props) => {
 const Video = styled.video`
 	width: 100%;
 	max-height: 100vh;
+
+	${Design.MobileMediaQuery} {
+		margin: 20px 0px;
+	}
 `
 
 const Image = styled.img`
@@ -25,5 +29,6 @@ const Image = styled.img`
 
 	${Design.MobileMediaQuery} {
 		width: 100%;
+		margin: 20px 0px;
 	}
 `
