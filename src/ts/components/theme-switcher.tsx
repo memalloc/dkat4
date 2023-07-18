@@ -30,8 +30,8 @@ const Container = styled.div`
 const size = '20px'
 
 const Theme = styled.div<{$theme:Design.ColorTheme}>`
-	background: ${props => props.$theme.primary};
-	border: 3px solid ${props => props.$theme.background};
+	background: ${props => props.$theme.background};
+	border: 3px solid ${props => props.$theme.primary};
 
 	width: ${size};
 	height: ${size};
