@@ -95,7 +95,7 @@ const Container = styled.div`
 	right: 0px;
 	bottom: 0px;
 
-	@media (${Design.onMobile}) {
+	@media (${Design.onMobileAspectRatio}) {
 		grid-template-columns: 0vw auto;
 
 		position: static;
@@ -114,7 +114,7 @@ const ScrollBarContainer = styled.div`
 	
 	cursor: pointer;
 
-	@media (${Design.onMobile}) {
+	@media (${Design.onMobileAspectRatio}) {
 		opacity: 0;
 	}
 `
@@ -146,7 +146,7 @@ const ScrollContent = styled.div<{$smoothScroll:boolean, $color:string}>`
 
 	scrollbar-width: none;
 
-	@media (${Design.onMobile}) {
+	@media (${Design.onMobileAspectRatio}) {
 		border: none;
 	}
 `

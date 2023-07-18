@@ -136,7 +136,7 @@ const Title = styled(Shadow)`
 
 	transition: 1s all;
 
-	@media (${Design.onMobile}) {
+	@media (${Design.onMobileAspectRatio}) {
 		font-size: 30px;
 
 		position: static;
@@ -166,7 +166,7 @@ const ProjectDescription = styled.div<{$details:boolean}>`
 
 	transition: 1s all;
 
-	@media (${Design.onMobile}) {
+	@media (${Design.onMobileAspectRatio}) {
 		position: static;
 		top: unset;
 		left: unset;
@@ -189,7 +189,7 @@ const InfoBox = styled(Shadow)<{$details:boolean}>`
 
 	transition: 1s all;
 
-	@media (${Design.onMobile}) {
+	@media (${Design.onMobileAspectRatio}) {
 		font-size: 15px;
 
 		position: static;
@@ -210,7 +210,7 @@ const PageIndicatorContainer = styled.div<{$details:boolean}>`
 
 	transition: 1s all;
 
-	@media (${Design.onMobile}) {
+	@media (${Design.onMobileAspectRatio}) {
 		display: none;
 	}
 `
@@ -228,7 +228,7 @@ const ToggleContainer = styled.div<{$details:boolean}>`
 
 	transition: 1s all;
 
-	@media (${Design.onMobile}) {
+	@media (${Design.onMobileAspectRatio}) {
 		left: -100vw;
 	}
 `
@@ -249,13 +249,9 @@ const MediaColumn = styled.div<{$fullWidth : boolean}>`
 	scroll-snap-type: y mandatory;
 	scroll-behavior: smooth;
 
-	@media (${Design.onMobile}) {
+	@media (${Design.onMobileAspectRatio}) {
 		padding: 0px;
 		scroll-snap-type: none;
-	}
-
-	& *:nth-child(even) {
-		// background: #444;
 	}
 `
 
@@ -270,7 +266,7 @@ const MediaContainer = styled.div`
 
 	pointer-events: none;
 
-	@media (${Design.onMobile}) {
+	@media (${Design.onMobileAspectRatio}) {
 		height: auto;
 	}
 `

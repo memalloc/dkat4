@@ -23,7 +23,7 @@ const Image = styled.img`
 	max-width: 100%;
 	max-height: 100vh;
 
-	@media (${Design.onMobile}) {
+	@media (${Design.onMobileAspectRatio}) {
 		width: 100%;
 	}
 `
