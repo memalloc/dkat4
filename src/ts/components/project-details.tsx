@@ -149,6 +149,9 @@ const Title = styled(Shadow)`
 	}
 `
 
+const DescriptionMinWidth = 360
+const DescriptionWidth = `clamp(${DescriptionMinWidth}px, 30vw, 550px)`
+
 const ProjectDescription = styled.div<{$details:boolean}>`
 	font-size: 15px;
 	line-height: 32.75px;
@@ -157,8 +160,9 @@ const ProjectDescription = styled.div<{$details:boolean}>`
 	position: fixed;
 	top: 17.5vh;
 	bottom: 17.5vh;
-	left: ${props => !props.$details ? '-40' : '0'}vw;
-	width: 30vw;
+	left: ${props => !props.$details ? '-600' : '0'}px;
+
+	width: ${DescriptionWidth};
 
 	transition: 1s all;
 
@@ -179,7 +183,7 @@ const InfoBox = styled(Shadow)<{$details:boolean}>`
 	letter-spacing: 0.5px;
 
 	position: fixed;
-	left: ${props => props.$details ? 3 : 7}vw;
+	left: ${props => props.$details ? '3vw' : '90px'};
 	bottom: 0vw;
 	height: 16.5vh;
 
@@ -201,7 +205,8 @@ const PageIndicatorContainer = styled.div<{$details:boolean}>`
 	bottom: 20vh;
 	top: 20vh;
 
-	left: ${props => props.$details ? 31 : 2}vw;
+	left: ${props => props.$details ? DescriptionWidth : '2vw'};
+	margin-left: -5px;
 
 	transition: 1s all;
 
@@ -215,7 +220,8 @@ const ToggleContainer = styled.div<{$details:boolean}>`
 	bottom: 0vw;
 	height: 15.5vh;
 
-	left: ${props => props.$details ? 30 : 2}vw;
+	left: ${props => props.$details ? DescriptionWidth : '34px'};
+	margin-left: -18px;
 
 	display: grid;
 	justify-items: end;
@@ -230,7 +236,7 @@ const ToggleContainer = styled.div<{$details:boolean}>`
 const MediaColumn = styled.div<{$fullWidth : boolean}>`
 	transition: 1s all;
 
-	padding-left: ${props => props.$fullWidth ? '0' : '34'}vw;
+	padding-left: ${props => props.$fullWidth ? '0vw' : `clamp(${DescriptionMinWidth + 40}px, 34vw, 620px)`};
 
 	position: fixed;
 	left: 0px;

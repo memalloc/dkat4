@@ -135,6 +135,8 @@ const ScrollContent = styled.div<{$smoothScroll:boolean, $color:string}>`
 	border-bottom: 2px solid ${props => props.$color};
 	transition: 1s border-color;
 
+	padding-right: 20px;
+
 	overflow: scroll;
 	scroll-behavior: ${props => props.$smoothScroll ? 'smooth' : 'auto'};
 
