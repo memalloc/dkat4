@@ -64,13 +64,13 @@ export const ThreeFiberSVGExtrusion = (props:Props) => {
 										depth : 60,
 										curveSegments : 12 * 2
 									}}>
-						<motion.meshLambertMaterial animate={{color : bgColor}} transition={{duration: 1}}/>
+						<motion.meshLambertMaterial color={bgColor} animate={{color : bgColor}} transition={{duration: 1}}/>
 					</ExtrudedSVG>
 
 					<group rotation={[THREE.MathUtils.degToRad(90),0,0]} position={[0,0,-10]}>
 						<mesh>
 							<cylinderGeometry args={[370, 370, 10, 128]}/>
-							<motion.meshBasicMaterial animate={{color : circleFill}} transition={{duration: 1}}/>
+							<motion.meshBasicMaterial color={circleFill} animate={{color : circleFill}} transition={{duration: 1}}/>
 						</mesh>
 					</group>
 
@@ -132,7 +132,7 @@ const Camera = (props:Props) => {
 	const mvZ = useMotionValue(iniitalDistance)
 	const springZ = useSpring(mvZ, { damping : 60 }) 
 
-	const tx = useMotionValue(100)
+	const tx = useMotionValue(0)
 	const springX = useSpring(tx, { damping : 60 }) 
 
 	const fovTarget = useMotionValue(90)
@@ -208,7 +208,7 @@ const ExtrudedSVG = (props:ExtrudedSVGProps) => {
 		setSvgShapes(shapes)
 	}, [])
 
-	const scaleZ = useMotionValue(1)
+	const scaleZ = useMotionValue(props.flatten ? 0.00001 : 1)
 	const scaleZSpring = useSpring(scaleZ)
 
 	useEffect(() => {
