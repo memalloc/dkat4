@@ -39,7 +39,7 @@
 
     "dev:watch": "yarn parcel --target web",
 
-    "production:build": "yarn parcel build --target web --no-cache --no-source-maps",
+    "production:build": "yarn parcel build --target web --no-cache --no-source-maps --detailed-report",
 
 
     "clean:dist": "rm -Rf dist",
