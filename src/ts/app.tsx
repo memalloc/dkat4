@@ -7,8 +7,12 @@ import { ThreeFiberSVGExtrusion } from './components/dev/three-fiber-svg-extrusi
 import { MainNavigation } from './components/main-navigation'
 import { ProjectRouter } from './components/project-router'
 
-import { sampleProjects } from './components/dev/sample-data'
 import { ThemeSwitcher } from './components/theme-switcher'
+
+import { sampleProjects } from './components/dev/sample-data'
+import { Projects } from '../../temp-dev-data/data'
+
+const projects  = Projects
 
 export const ColorThemeContext = createContext<Design.ColorTheme>(Design.BaseTheme)
 
@@ -27,7 +31,7 @@ export const App = (props:any) => {
 
 					<ThreeFiberSVGExtrusion mode={bgMode}/>
 
-					<MainNavigation projects={sampleProjects}
+					<MainNavigation projects={projects}
 									selectedProject={selectedProject}
 									onScroll={(initialPosition)=>{
 										setInitialScrollPosition(initialPosition)
@@ -36,7 +40,7 @@ export const App = (props:any) => {
 										setSelectedProject(project)
 									}}/>
 
-					<ProjectRouter	projects={sampleProjects}
+					<ProjectRouter	projects={projects}
 									selectedProject={selectedProject}
 									onProjectSelection={(project) => {
 										setSelectedProject(project)
