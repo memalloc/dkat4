@@ -1,4 +1,4 @@
-import { forwardRef, useContext, useEffect, useRef } from "react"
+import { forwardRef, useContext, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import { useInView } from "framer-motion"
 
@@ -29,53 +29,105 @@ export const ProjectPreview = forwardRef((props:Props, ref:React.RefObject<Eleme
 	const colorTheme = useContext(ColorThemeContext)
 
 	return	<Project	ref={ref}
-						$color={colorTheme.primary}
-						$hoverColor={colorTheme.background}
 						$projectSelected={props.projectSelected}
 						onClick={props.onClick}>
-				<Content ref={inViewRef}>
-					{ props.project.title }
+				<Content ref={inViewRef} $inView={isInView} $color={colorTheme.primary}
+						$hoverColor={colorTheme.background}>
+					<ProjectImage src={props.project.image} inView={isInView}/>
 				</Content>
 			</Project>	
 	
 })
 
-const Project = styled.div<{$projectSelected:boolean, $color: string, $hoverColor: string, ref:any}>`
-	width: 60vh;
+const ProjectImage = (props:{src:string, inView:boolean}) => {
+
+	const [aspectRatio, setAspectRatio] = useState(1)
+
+	const colorTheme = useContext(ColorThemeContext)
+
+	return <Image	src={props.src}
+					$aspectRatio={aspectRatio}
+					$color={colorTheme.primary}
+					$hoverColor={colorTheme.background}
+					$inView={props.inView}
+					onLoad={(e)=>{
+						const image = e.target as HTMLImageElement
+						setAspectRatio(image.naturalWidth/image.naturalHeight)
+					}}/>
+}
+
+const Project = styled.div<{$projectSelected:boolean, ref:any}>`
+	width: 100vw;
 	height: 60vh;
 
 	margin-top: 5vh;
 	margin-bottom: 5vh;
 
 	color: #555;
-	border: 2px solid ${props => props.$color};
 
 	opacity: ${props => props.$projectSelected ? 0 : 1};
 	transition: ${Helper.onSafari ? 'unset' : '1s all'};
 
 	display: grid;
+	place-items: center;
 
 	cursor: pointer;
 
 	scroll-snap-align: center;
 
+	@media (${Design.onMobileAspectRatio}) {
+		width: 100vw;
+		height: unset;
+
+		margin-top: 5vw;
+		margin-bottom: 5vw;
+	}
+`
+
+const Content = styled.div<{$inView, $color, $hoverColor}>`
+	height: 60vh;
+	min-width: 60vh;
+	border: 2px solid ${props => props.$color};
+
+
 	&:hover {
 		border-color: ${props => props.$hoverColor}
 	}
 
+	opacity: ${props => props.$inView ? '1' : '0.5'};
+
+	transition: 1s all;
+
+	display: grid;
+	place-items: center;
+
 	@media (${Design.onMobileAspectRatio}) {
 		width: 100vw;
-		height: 100vw;
-
-		margin-top: 5vw;
-		margin-bottom: 5vw;
-
+		min-width: unset;
+		height: unset;
+		opacity: 1;
 		border: none;
 	}
 `
 
-const Content = styled.div`
-	background: rgba(200,200,200,0.1);
-	display: grid;
-	place-items: center;
+const Image = styled.img<{$inView, $aspectRatio}>`
+	object-fit: cover;
+
+	height: 60vh;
+	width: ${props => props.$inView ? props.$aspectRatio * 60 : 60}vh;
+	max-width: 95vw;
+
+	opacity: ${props => props.$inView ? 1 : 0};
+	transition: 1s all;
+
+	@media (${Design.onMobileAspectRatio}) {
+		width: 100vw;
+		max-width: 100vw;
+		height: auto;
+
+		opacity: 1;
+
+		object-fit: contain;
+	}
+
 `
