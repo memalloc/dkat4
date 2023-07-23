@@ -1,6 +1,11 @@
 import { ProjectData } from '../project-details'
 
 import TestVideo from '../../../assets/video/test.mp4'
+
+import Placeholder1920x1080 from '../../../assets/images/1920x1080.png'
+import Placeholder800x1080 from '../../../assets/images/800x800.png'
+import Placeholder90x160 from '../../../assets/images/90x160.png'
+
 import { text } from './lorem-ipsum'
 
 export const sampleProject:ProjectData = {
@@ -9,7 +14,7 @@ export const sampleProject:ProjectData = {
 	info : `Work: Design & Development  \nClient: Wiener Linien  \nAgency: [Zone Media](https://www.zonemedia.at/)`,
 	description : `Project Description, [dkat](https://www.danielkauer.at/) ${text}\n\n${text}`,
 	image : 'https://placehold.co/800x800',
-	media : [TestVideo, 'https://placehold.co/800x800', 'https://placehold.co/1920x1080', 'https://placehold.co/90x160']
+	media : [TestVideo, Placeholder1920x1080, Placeholder90x160, Placeholder800x1080]
 }
 
 export const sampleProject2:ProjectData = {

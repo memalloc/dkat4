@@ -24,6 +24,7 @@ const Video = styled.video`
 `
 
 const Image = styled.img`
+	object-fit: contain;
 	max-width: 100%;
 	max-height: 100vh;
 
