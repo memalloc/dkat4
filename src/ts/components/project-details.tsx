@@ -18,6 +18,7 @@ export interface ProjectData {
 	info : string
 	description : string
 	media : Array<string>
+	image : string
 }
 
 interface Props {
