@@ -73,7 +73,7 @@ export const ProjectDetails = (props:Props) => {
 
 					<ProjectDescription $details={showDetails}>
 						<ScrollContainer>
-							<Markdown disableParagraphMargin>
+							<Markdown>
 								{ props.project.description }
 							</Markdown>
 						</ScrollContainer>
