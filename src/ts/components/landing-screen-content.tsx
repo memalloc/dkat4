@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 import { ColorThemeContext } from '../app'
 import { MultilinePrompt, PromptLine, TypedPrompt } from './typed-prompt'
+import { ArrowIcon } from './arrow-icon'
+import { motion } from 'framer-motion'
 
 interface Props {
 	onScrollToProjects : ()=>void	
@@ -44,6 +46,8 @@ export const LandingScreenContent = (props:Props) => {
 		}
 	]
 
+	const hintDelay = 8
+
 	return	<>
 				<MainText $color={colorTheme.primary}>
 					<MultilinePrompt lines={promptContent} onTyped={()=>{
@@ -51,11 +55,20 @@ export const LandingScreenContent = (props:Props) => {
 					}}/>
 				</MainText>
 
-				<Button onClick={()=>{
-					props.onScrollToProjects()
-				}}>
-					scroll to projects
-				</Button>
+				<ProjectsHint	$color={colorTheme.primary}
+								animate={{y : [200, 0], x : 22}}
+								transition={{delay:hintDelay}}
+								onClick={()=>{
+									props.onScrollToProjects()
+								}}>
+					<ProjectsHintContent	animate={{y:[0,10,0,10,0]}}
+											transition={{repeat: Infinity, repeatDelay: 3}}>
+						<ArrowContainer>
+							<ArrowIcon/>
+						</ArrowContainer>
+						<MultilinePrompt delay={hintDelay} lines={[{line:["selected projects"], small : true}]}/>
+					</ProjectsHintContent>
+				</ProjectsHint>
 			</>
 }
 
@@ -70,29 +83,32 @@ const MainText = styled.div<{$color:string}>`
 	bottom: 0vh;
 
 	display: grid;
-    align-content: center;
-    font-family: ArvoRegular;
+	align-content: center;
+	font-family: ArvoRegular;
 
-    transition: 1s color;
+	transition: 1s color;
 `
 
-// - - - - - - - - - - - - - - - - - - - - - - - - temp
-
-const Button = styled.div`
+const ProjectsHint = styled(motion.div)<{$color:string}>`
 	position: absolute;
-	bottom: 10vh;
-	left: 10vh;
+	bottom: 20px;
 
-    font-family: ArvoBold;
+	font-family: ArvoRegular;
+	color: ${props => props.$color};
 
-	color: #555;
-	background: #bbb;
-	padding: 15px;
+	cursor: pointer;
+`
 
-	display: inline;
+const ProjectsHintContent = styled(motion.div)`
+	display: grid;
+	justify-items: start;
+	justify-content: center;
+	align-items: center;
 
-	&:hover {
-		background: #ddd;	
-		color: #333;	
-	}
+	grid-template-columns: 56px 170px;
+	grid-gap: 10px;
+`
+
+const ArrowContainer = styled.div`
+	transform: rotate(-90deg) translateX(2px);
 `
