@@ -34,7 +34,13 @@ export const ThemeB:ColorTheme = {
 	secondaryBackground : "#FFAA00"
 }
 
-export const Themes = [BaseTheme, ThemeA, ThemeB]
+export const LightGray:ColorTheme = {
+	primary : '#333',
+	background : '#999',
+	secondaryBackground : "#aaa"
+}
+
+export const Themes = [BaseTheme, ThemeA, ThemeB, LightGray]
 
 export const FontSizes = {
 	Prompt : {
