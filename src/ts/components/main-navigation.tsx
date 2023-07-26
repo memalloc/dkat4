@@ -68,13 +68,15 @@ export const MainNavigation = (props:Props) => {
 					<SelectedProjects layout>
 						Selected Projects
 					</SelectedProjects>
-					<HiddenTitle>
+					<ProjectTitle animate={{opacity : projectInView ? 1 : 0 }}>
+					{
+						projectInView &&
 						<Markdown disableParagraphMargin>
-							{ projectInView ? projectInView.title : "_" }
+							{ projectInView.title }
 						</Markdown>
-					</HiddenTitle>
+					}
+					</ProjectTitle>
 				</ProjectsHeader>
-
 				{
 				props.projects.map((project, i) => {
 					return	<ProjectPreview	key={i}
@@ -134,7 +136,7 @@ const ScreenContent = styled(HideOnProject)`
 `
 
 const ProjectsHeader = styled(HideOnProject)<{$color:string}>`
-	font-family: Arvo;
+	font-family: ArvoRegular;
 	font-size: 30px;
 
 	color: ${props => props.$color};
@@ -162,7 +164,6 @@ const SelectedProjects = styled(motion.div)`
     transform: translateX(-5px);
 `
 
-const HiddenTitle = styled.div`
-	opacity: 0;
+const ProjectTitle = styled(motion.div)`
 	width: 30vw
 `
