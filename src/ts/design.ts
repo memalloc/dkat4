@@ -35,6 +35,13 @@ export const ThemeB:ColorTheme = {
 
 export const Themes = [BaseTheme, ThemeA, ThemeB]
 
+export const FontSizes = {
+	Prompt : {
+		Default : 28,
+		Small : 16
+	}
+}
+
 export const Hyperlink = styled.a<{$color:string, $backgroundColor:string}>`
 	text-decoration: none;
 

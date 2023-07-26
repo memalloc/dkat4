@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 
 import { ColorThemeContext } from '../app'
-import { MultilinePrompt, Line, TypedPrompt } from './typed-prompt'
+import { MultilinePrompt, PromptLine, TypedPrompt } from './typed-prompt'
 
 interface Props {
 	onScrollToProjects : ()=>void	
@@ -12,24 +12,27 @@ export const LandingScreenContent = (props:Props) => {
 
 	const colorTheme = useContext(ColorThemeContext)
 
-	const promptContent:Array<Line> = [
+	const promptContent:Array<PromptLine> = [
 		["daniel kauer"],
 		["designs & develops"],
-		[' ',
-			{
-				text : "pinboard",
-				href : 'https://pinboard.in/u:memalloc'
-			},
-			{
-				text : "twitter",
-				href : 'https://twitter.com/memalloc'
-			},
-			' ',
-			{
-				text : "vimeo",
-				href : 'https://vimeo.com/memalloc'
-			}
-		],
+		{
+			line : [' ',
+				{
+					text : "pinboard",
+					href : 'https://pinboard.in/u:memalloc'
+				},
+				{
+					text : "twitter",
+					href : 'https://twitter.com/memalloc'
+				},
+				' ',
+				{
+					text : "vimeo",
+					href : 'https://vimeo.com/memalloc'
+				}
+			],
+			small : true
+		},
 		[ "say ",
 			{
 				text : "> hello",

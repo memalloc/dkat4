@@ -6,10 +6,12 @@ import { motion } from "framer-motion"
 import * as Design from '../design'
 import { ColorThemeContext } from "../app"
 
-export type Line = Array<string | { text : string, href : string }>
+type Line = Array<string | { text : string, href : string}>
+type LineWithOptions = { line : Line, small? : boolean }
+export type PromptLine = Line | LineWithOptions
 
 interface MultilinePromptProps {
-	lines : Array<Line>
+	lines : Array<PromptLine>
 	onTyped : () => void
 }
 
@@ -29,16 +31,20 @@ export const MultilinePrompt = (props:MultilinePromptProps) => {
 	const initialDelay = fadeDelay * 1000 + 1000
 	const newlineDelay = 300
 
+	const smallCursor = (props.lines[current] as LineWithOptions).small === true
+
 	return	<Container animate={{opacity:[0,1]}} transition={{duration:1, delay: fadeDelay}}>
 				<div>
 				{
-				props.lines.map((line, i) => {
+				props.lines.map((promptLine, i) => {
 					const delay = i === 0 ? initialDelay : newlineDelay
 					return	<React.Fragment key={i}>
 							{
 								i <= current &&
-								<TypedPrompt key={i} content={line} delay={delay} onTyped={() => {
-									setCurrent(current+1)
+								<TypedPrompt key={i} content={promptLine} delay={delay} onTyped={() => {
+									if(current < props.lines.length - 1){
+										setCurrent(current+1)
+									}
 								}}/>
 							}
 							</React.Fragment>
@@ -46,6 +52,7 @@ export const MultilinePrompt = (props:MultilinePromptProps) => {
 				}
 				</div>
 				<Cursor $color={colorTheme.primary}
+						$small={smallCursor}
 						animate={{opacity:[0,0,0,0,1,1,0.5]}}
 						transition={{duration : 0.5, repeat : Infinity}}/>
 			</Container>
@@ -60,17 +67,17 @@ const Container = styled(motion.div)`
 	grid-gap: 7px;
 `
 
-const Cursor = styled(motion.div)<{$color:string}>`
+const Cursor = styled(motion.div)<{$color:string, $small:boolean}>`
 	background: ${props => props.$color};
 	width: ${CursorWidth};
 	height: 24px;
-	margin-bottom: 8px;
+	margin-bottom: ${props => props.$small ? '14px' : '10px'};
 
 	transition: 1s background;
 `
 
 interface Props {
-	content : Line
+	content : PromptLine
 	delay? : number
 	onTyped : () => void
 }
@@ -80,6 +87,9 @@ export const TypedPrompt = (props:Props) => {
 	const [current, setCurrent] = useState(0)
 	const hasDelay = props.delay !== undefined && props.delay > 0
 	const [wait, setWait] = useState(hasDelay)
+
+	const optionLine = props.content as LineWithOptions
+	const line:Line = optionLine.line !== undefined ? optionLine.line : props.content as Line
 
 	useEffect(()=>{
 		if(hasDelay){
@@ -93,14 +103,14 @@ export const TypedPrompt = (props:Props) => {
 	}, [])
 
 	useEffect(()=>{
-		if(current === props.content.length){
+		if(current === line.length){
 			props.onTyped()
 		}
 	}, [current])
 
-	return <PromptLine>
+	return <PromptLine $small={optionLine.small === true}>
 			{
-				props.content.map((content,i) => {
+				line.map((content,i) => {
 					const text = typeof content === 'object' ? content.text : content
 					const href = typeof content === 'object' ? content.href : undefined
 					return <TypingAnimation key={i} text={text} href={href}
@@ -110,8 +120,14 @@ export const TypedPrompt = (props:Props) => {
 			</PromptLine>
 }
 
-const PromptLine = styled.div`
-	height: 30px;
+const PromptLine = styled.div<{$small:boolean}>`
+	height: ${Design.FontSizes.Prompt.Default * 1.5}px;
+	font-size: ${props => props.$small === true ? Design.FontSizes.Prompt.Small : Design.FontSizes.Prompt.Default}px;
+	margin-bottom: ${props => props.$small ? '5px' : undefined};
+
+	display: flex;
+    justify-content: flex-end;
+    align-items: center;
 `
 
 interface TypingProps {
