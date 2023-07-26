@@ -24,7 +24,8 @@ export const BaseTheme:ColorTheme = {
 
 export const ThemeA:ColorTheme = {
 	primary : Colors.Orange,
-	background : Colors.Yellow
+	background : Colors.Yellow,
+	secondaryBackground : "#E94C00"
 }
 
 export const ThemeB:ColorTheme = {
