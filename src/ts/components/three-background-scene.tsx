@@ -130,8 +130,8 @@ const Camera = (props:Props) => {
 		camera.updateProjectionMatrix()
 	})	
 
-	const iniitalDistance = 800
-	const mvZ = useMotionValue(iniitalDistance)
+	const initalDistance = 800
+	const mvZ = useMotionValue(initalDistance)
 	const springZ = useSpring(mvZ, { damping : 60 }) 
 
 	const tx = useMotionValue(0)
@@ -141,7 +141,7 @@ const Camera = (props:Props) => {
 	const fov = useSpring(fovTarget, { damping : 60 }) 
 
 	useLayoutEffect(()=>{
-		const distance = props.mode === 'initial' ? iniitalDistance :
+		const distance = props.mode === 'initial' ? initalDistance :
 									props.mode === 'projects' ? 200 : 70
 
 		mvZ.set(distance)
