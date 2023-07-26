@@ -1,9 +1,9 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 
 import * as Design from './design'
 
-import { ThreeBackgroundScene } from './components/three-background-scene'
+import { AnimationMode, ThreeBackgroundScene } from './components/three-background-scene'
 import { MainNavigation } from './components/main-navigation'
 import { ProjectRouter } from './components/project-router'
 
@@ -21,8 +21,20 @@ export const App = (props:any) => {
 	const [selectedProject, setSelectedProject] = useState(undefined)
 	const [theme, setTheme] = useState(Design.BaseTheme)
 	const [initialScrollPosition, setInitialScrollPosition] = useState(true)
+	const [initialMode , setInitialMode] = useState<AnimationMode>('initial')
 
-	const bgMode = initialScrollPosition ? 'initial' :
+	useEffect(()=>{
+		let timeout
+		if(initialScrollPosition){
+			setInitialMode('initial')
+			timeout = setTimeout(()=>{
+				setInitialMode('idle')
+			}, 1000 * 20)
+		}
+		return () => { clearTimeout(timeout) }
+	}, [initialScrollPosition])
+
+	const bgMode = initialScrollPosition ? initialMode :
 						selectedProject ? 'background' : 'projects'
 
 	return	<Container>

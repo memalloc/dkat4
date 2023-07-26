@@ -1,6 +1,6 @@
 import { useContext, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { styled } from 'styled-components'
-import { animate, useMotionValue, useSpring } from 'framer-motion'
+import { animate, useMotionValue, useSpring, useTransform } from 'framer-motion'
 
 import * as THREE from 'three'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
@@ -25,8 +25,10 @@ const svgLogoShapesOnly = `
 
 type SVGShapes = Array<THREE.Shape[]>
 
+export type AnimationMode = 'initial' | 'idle' | 'projects' | 'background'
+
 interface Props {
-	mode : 'initial' | 'projects' | 'background'
+	mode : AnimationMode
 }
 
 export const ThreeBackgroundScene = (props:Props) => {
@@ -112,7 +114,7 @@ const Camera = (props:Props) => {
 		const cam = cameraRef.current as THREE.PerspectiveCamera
 		if (cam) {
 			cam.aspect = size.width / size.height;
-	  		cam.updateProjectionMatrix();
+			cam.updateProjectionMatrix();
 		}
   }, [size])
 
@@ -131,34 +133,58 @@ const Camera = (props:Props) => {
 	})	
 
 	const initalDistance = 800
-	const mvZ = useMotionValue(initalDistance)
-	const springZ = useSpring(mvZ, { damping : 60 }) 
+	const tz = useMotionValue(initalDistance)
+	const springZ = useSpring(tz, { damping : 100 }) 
 
-	const tx = useMotionValue(0)
-	const springX = useSpring(tx, { damping : 60 }) 
+	const phase = useMotionValue(Math.PI)
+	const radiusTarget = useMotionValue(0)
+	const radius = useSpring(radiusTarget, { damping : 60 }) 
+
+	const tx = useTransform(phase, v => Math.sin(phase.get()) * radius.get())
+	const springX = useSpring(tx, { damping : 60 })
+
+	const yMultiplierTarget = useMotionValue(0)
+	const yMultiplier = useSpring(yMultiplierTarget, { damping : 60 })
+	const ty = useTransform(phase, v => Math.cos(phase.get()) * radius.get() * yMultiplier.get())
+	const springY = useSpring(ty, { damping : 60 }) 
 
 	const fovTarget = useMotionValue(90)
 	const fov = useSpring(fovTarget, { damping : 60 }) 
 
+	const distances:{[key in AnimationMode] : number} = {
+		initial: initalDistance,
+		background: 70,
+		projects: 200,
+		idle: 300
+	}
+	const radii:{[key in AnimationMode] : number} = {
+		initial: 0,
+		background: 50,
+		projects: 300,
+		idle: 400
+	}
+	const yMultipliers:{[key in AnimationMode] : number} = {
+		initial: 0,
+		background: 0,
+		projects: 0.2,
+		idle: -0.4
+	}
+
 	useLayoutEffect(()=>{
-		const distance = props.mode === 'initial' ? initalDistance :
-									props.mode === 'projects' ? 200 : 70
 
-		mvZ.set(distance)
-
-		const txTarget = props.mode === 'initial' ? 0 :
-								props.mode === 'projects' ? 300 : 50
-
+		tz.set(distances[props.mode])
 		fovTarget.set(props.mode === 'background' ? 150 : 90)
+		radiusTarget.set(radii[props.mode])
+		yMultiplierTarget.set(yMultipliers[props.mode])
 
-		const animation = animate(tx, [-txTarget, txTarget], { duration : 15, repeat : Infinity, repeatType : 'reverse', ease : 'easeInOut'})
+		const phaseAnimation = animate(phase, [0, Math.PI*2], { duration : 90, repeat : Infinity, repeatType : 'loop', ease : 'linear'})
 
 		return () => {
-			animation.stop()
+			phaseAnimation.stop()
 		}
 	}, [props.mode])
 
-	return <motion.perspectiveCamera ref={cameraRef} position={[springX,0,springZ]}/>
+	return <motion.perspectiveCamera ref={cameraRef} position={[springX,springY,springZ]}/>
 }
 
 interface ExtrudedSVGProps {
