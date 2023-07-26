@@ -165,5 +165,8 @@ const SelectedProjects = styled(motion.div)`
 `
 
 const ProjectTitle = styled(motion.div)`
-	width: 30vw
+	width: 30vw;
+	@media (${Design.onMobileAspectRatio}) {
+		display: none;
+	}
 `
