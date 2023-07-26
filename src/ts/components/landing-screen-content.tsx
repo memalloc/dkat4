@@ -57,10 +57,11 @@ export const LandingScreenContent = (props:Props) => {
 
 				<ProjectsHint	$color={colorTheme.primary}
 								initial={{y:200}}
-								animate={{y : [200, 0], x : 12}}
+								animate={{y : [200, 0]}}
 								transition={{delay:hintDelay}}
 								>
-					<ProjectsHintContent	animate={{y:[0,10,0,10,0]}}
+					<ProjectsHintContent	animate={{y:[0,10,0,10,0], x:12}}
+											initial={{x:12}}
 											transition={{repeat: Infinity, repeatDelay: 3}}
 											onClick={()=>{
 												props.onScrollToProjects()
