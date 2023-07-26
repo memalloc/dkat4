@@ -56,13 +56,15 @@ export const LandingScreenContent = (props:Props) => {
 				</MainText>
 
 				<ProjectsHint	$color={colorTheme.primary}
-								animate={{y : [200, 0], x : 22}}
+								initial={{y:200}}
+								animate={{y : [200, 0], x : 12}}
 								transition={{delay:hintDelay}}
-								onClick={()=>{
-									props.onScrollToProjects()
-								}}>
+								>
 					<ProjectsHintContent	animate={{y:[0,10,0,10,0]}}
-											transition={{repeat: Infinity, repeatDelay: 3}}>
+											transition={{repeat: Infinity, repeatDelay: 3}}
+											onClick={()=>{
+												props.onScrollToProjects()
+											}}>
 						<ArrowContainer>
 							<ArrowIcon/>
 						</ArrowContainer>
@@ -92,11 +94,14 @@ const MainText = styled.div<{$color:string}>`
 const ProjectsHint = styled(motion.div)<{$color:string}>`
 	position: absolute;
 	bottom: 20px;
+	left: 0vw;
+	right: 0vw;
 
 	font-family: ArvoRegular;
 	color: ${props => props.$color};
 
-	cursor: pointer;
+	display: grid;
+	place-content: center;
 `
 
 const ProjectsHintContent = styled(motion.div)`
@@ -107,6 +112,10 @@ const ProjectsHintContent = styled(motion.div)`
 
 	grid-template-columns: 56px 170px;
 	grid-gap: 10px;
+
+	width: 300px;
+
+	cursor: pointer;
 `
 
 const ArrowContainer = styled.div`
