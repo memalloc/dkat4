@@ -152,6 +152,12 @@ const ProjectsHeader = styled(HideOnProject)<{$color:string}>`
     flex-direction: column;
     align-items: flex-start;
     justify-content: end;
+
+	@media (${Design.onMobileAspectRatio}) {
+		position: static;
+		height: 80px;
+    	justify-content: center;
+	}
 `
 
 const SelectedProjects = styled(motion.div)`
