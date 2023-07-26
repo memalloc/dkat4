@@ -25,14 +25,19 @@ export const MultilinePrompt = (props:MultilinePromptProps) => {
 
 	const colorTheme = useContext(ColorThemeContext)
 
-	return	<Container>
+	const fadeDelay = 1
+	const initialDelay = fadeDelay * 1000 + 1000
+	const newlineDelay = 300
+
+	return	<Container animate={{opacity:[0,1]}} transition={{duration:1, delay: fadeDelay}}>
 				<div>
 				{
 				props.lines.map((line, i) => {
+					const delay = i === 0 ? initialDelay : newlineDelay
 					return	<React.Fragment key={i}>
 							{
 								i <= current &&
-								<TypedPrompt key={i} content={line} onTyped={() => {
+								<TypedPrompt key={i} content={line} delay={delay} onTyped={() => {
 									setCurrent(current+1)
 								}}/>
 							}
@@ -48,7 +53,7 @@ export const MultilinePrompt = (props:MultilinePromptProps) => {
 
 const CursorWidth = '4px'
 
-const Container = styled.div`
+const Container = styled(motion.div)`
 	display: grid;
 	grid-template-columns: 1fr ${CursorWidth};
 	align-items: end;
@@ -66,12 +71,26 @@ const Cursor = styled(motion.div)<{$color:string}>`
 
 interface Props {
 	content : Line
+	delay? : number
 	onTyped : () => void
 }
 
 export const TypedPrompt = (props:Props) => {
 
 	const [current, setCurrent] = useState(0)
+	const hasDelay = props.delay !== undefined && props.delay > 0
+	const [wait, setWait] = useState(hasDelay)
+
+	useEffect(()=>{
+		if(hasDelay){
+			const timeout = setTimeout(() => {
+				setWait(false)
+			}, props.delay)
+			return () => {
+				clearTimeout(timeout)
+			}
+		}
+	}, [])
 
 	useEffect(()=>{
 		if(current === props.content.length){
@@ -85,7 +104,7 @@ export const TypedPrompt = (props:Props) => {
 					const text = typeof content === 'object' ? content.text : content
 					const href = typeof content === 'object' ? content.href : undefined
 					return <TypingAnimation key={i} text={text} href={href}
-											show={current >= i} onTyped={() => setCurrent(current+1)}/>
+											show={!wait && current >= i} onTyped={() => setCurrent(current+1)}/>
 				})
 			}
 			</PromptLine>
