@@ -12,7 +12,8 @@ export type PromptLine = Line | LineWithOptions
 
 interface MultilinePromptProps {
 	lines : Array<PromptLine>
-	onTyped : () => void
+	delay? : number
+	onTyped? : () => void
 }
 
 export const MultilinePrompt = (props:MultilinePromptProps) => {
@@ -27,7 +28,7 @@ export const MultilinePrompt = (props:MultilinePromptProps) => {
 
 	const colorTheme = useContext(ColorThemeContext)
 
-	const fadeDelay = 1
+	const fadeDelay = props.delay ? props.delay : 1
 	const initialDelay = fadeDelay * 1000 + 1000
 	const newlineDelay = 300
 
@@ -103,7 +104,7 @@ export const TypedPrompt = (props:Props) => {
 	}, [])
 
 	useEffect(()=>{
-		if(current === line.length){
+		if(current === line.length && props.onTyped !== undefined){
 			props.onTyped()
 		}
 	}, [current])
