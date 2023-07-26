@@ -33,12 +33,15 @@ export const LandingScreenContent = (props:Props) => {
 			],
 			small : true
 		},
-		[ "say ",
-			{
-				text : "> hello",
-				href : 'mailto:hello@danielkauer.at'
-			}
-		]
+		{
+			line : [ "say ",
+				{
+					text : "> hello",
+					href : 'mailto:hello@danielkauer.at'
+				}
+			],
+			italic : true
+		}
 	]
 
 	return	<>

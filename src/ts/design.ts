@@ -42,14 +42,14 @@ export const FontSizes = {
 	}
 }
 
-export const Hyperlink = styled.a<{$color:string, $backgroundColor:string}>`
+export const Hyperlink = styled.a<{$color:string, $backgroundColor:string, $italic?:boolean}>`
 	text-decoration: none;
 
 	background: ${props => props.$color};
 	border: 2px solid ${props => props.$color};
 	color: ${props => props.$backgroundColor};
 
-	font-family: ArvoBold;
+	font-family: ${props => props.$italic === true ? 'ArvoBoldItalic' : 'ArvoBold'};
     letter-spacing: 0px;
 
 	padding: 0px 2px;

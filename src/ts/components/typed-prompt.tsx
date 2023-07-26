@@ -7,7 +7,7 @@ import * as Design from '../design'
 import { ColorThemeContext } from "../app"
 
 type Line = Array<string | { text : string, href : string}>
-type LineWithOptions = { line : Line, small? : boolean }
+type LineWithOptions = { line : Line, small? : boolean, italic? : boolean }
 export type PromptLine = Line | LineWithOptions
 
 interface MultilinePromptProps {
@@ -114,7 +114,9 @@ export const TypedPrompt = (props:Props) => {
 					const text = typeof content === 'object' ? content.text : content
 					const href = typeof content === 'object' ? content.href : undefined
 					return <TypingAnimation key={i} text={text} href={href}
-											show={!wait && current >= i} onTyped={() => setCurrent(current+1)}/>
+											show={!wait && current >= i}
+											italic={optionLine.italic === true}
+											onTyped={() => setCurrent(current+1)}/>
 				})
 			}
 			</PromptLine>
@@ -134,6 +136,7 @@ interface TypingProps {
 	text : string
 	href? : string
 	show : boolean
+	italic : boolean
 	onTyped : () => void
 }
 
@@ -165,19 +168,26 @@ export const TypingAnimation = (props:TypingProps) => {
 	const colorTheme = useContext(ColorThemeContext)
 
 	const target = 	href =>  href.indexOf("mailto:") === -1 ? '_blank' : undefined
-	const content = props.href ? <Design.Hyperlink $color={colorTheme.primary} $backgroundColor={colorTheme.background} href={props.href} target={target(props.href)}>{text}</Design.Hyperlink> : <>{text}</>
+	const content = props.href ? <Design.Hyperlink	$color={colorTheme.primary}
+															$backgroundColor={colorTheme.background}
+															$italic={props.italic}
+															href={props.href}
+															target={target(props.href)}>
+											{text}
+										</Design.Hyperlink> : <>{text}</>
 
 	return <>
 			{
 				text.length > 0 &&
-				<Text $margin={props.href !== undefined}>
+				<Text $margin={props.href !== undefined} $italic={props.italic}>
 					{ text.length > 0 && content }
 				</Text>
 			}
 			</>
 }
 
-const Text = styled.div<{$margin:boolean}>`
+const Text = styled.div<{$margin:boolean, $italic}>`
 	display: inline-block;
 	margin-left: ${props => props.$margin ? '8px' : undefined};
+	font-family: ${props => props.$italic ? 'ArvoItalic' : undefined};
 `
