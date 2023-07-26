@@ -3,7 +3,7 @@ import { styled } from 'styled-components'
 
 import * as Design from './design'
 
-import { ThreeFiberSVGExtrusion } from './components/dev/three-fiber-svg-extrusion'
+import { ThreeBackgroundScene } from './components/three-background-scene'
 import { MainNavigation } from './components/main-navigation'
 import { ProjectRouter } from './components/project-router'
 
@@ -29,7 +29,7 @@ export const App = (props:any) => {
 
 				<ColorThemeContext.Provider value={theme}>
 
-					<ThreeFiberSVGExtrusion mode={bgMode}/>
+					<ThreeBackgroundScene mode={bgMode}/>
 
 					<MainNavigation projects={projects}
 									selectedProject={selectedProject}
