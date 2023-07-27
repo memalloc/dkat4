@@ -117,6 +117,9 @@ const ProjectsHintContent = styled(motion.div)`
 	width: 300px;
 
 	cursor: pointer;
+
+	font-family: ArvoBold;
+	letter-spacing: 0.5px;
 `
 
 const ArrowContainer = styled.div`
