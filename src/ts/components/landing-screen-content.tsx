@@ -56,8 +56,8 @@ export const LandingScreenContent = (props:Props) => {
 				</MainText>
 
 				<ProjectsHint	$color={colorTheme.primary}
-								initial={{y:200}}
-								animate={{y : [200, 0]}}
+								initial={{y:200, opacity: 0}}
+								animate={{y : [200, 0], opacity : [0, 1]}}
 								transition={{delay:hintDelay}}
 								>
 					<ProjectsHintContent	animate={{y:[0,10,0,10,0], x:12}}
