@@ -11,6 +11,7 @@ import { PageIndicator } from './page-indicator'
 import { DetailToggle } from './detail-toggle'
 import { MediaContent } from './media-content'
 import { ColorThemeContext } from '../app'
+import { AdditionalPagesIndicators } from './additional-pages-indicators'
 
 export interface ProjectData {
 	id : string
@@ -103,6 +104,16 @@ export const ProjectDetails = (props:Props) => {
 									}}/>
 				</PageIndicatorContainer>
 
+				<AdditionalPagesIndicators	container={mediaColumnRef}
+											details={showDetails}
+											onMoveToPage={(page) => {
+					const element = mediaColumnRef.current
+					if(element){
+						const direction = page === 'next' ? 1 : -1
+						element.scrollTop += element.clientHeight * direction
+					}
+				}}/>
+
 			</Container>
 }
 
@@ -125,7 +136,7 @@ const hfMinHeight = 130
 
 const DescriptionMinWidth = 360
 const DescriptionMaxWidth = 550
-const DescriptionWidth = `clamp(${DescriptionMinWidth}px, 30vw, ${DescriptionMaxWidth}px)`
+export const DescriptionWidth = `clamp(${DescriptionMinWidth}px, 30vw, ${DescriptionMaxWidth}px)`
 
 const Title = styled(Shadow)`
 	font-size: 30px;
