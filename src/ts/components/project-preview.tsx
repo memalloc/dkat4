@@ -86,13 +86,14 @@ const Content = styled.div<{$inView, $color, $hoverColor}>`
 	min-width: 60vh;
 	border: 2px solid ${props => props.$color};
 
-
 	&:hover {
-		border-color: ${props => props.$hoverColor}
+		// border-color: ${props => props.$hoverColor}
+		transform: scale(1.025);
 	}
 
 	opacity: ${props => props.$inView ? '1' : '0.5'};
 
+	transform: scale(1);
 	transition: 1s all;
 
 	display: grid;
