@@ -288,8 +288,6 @@ const MediaContainer = styled.div`
 	align-items: stretch;
 	justify-items: stretch;
 
-	pointer-events: none;
-
 	${Design.MobileMediaQuery} {
 		height: auto;
 	}
