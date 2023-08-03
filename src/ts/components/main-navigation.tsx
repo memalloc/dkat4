@@ -110,7 +110,8 @@ const Container = styled.div`
 
 	padding-bottom: 25vh;	
 
-	overflow: scroll;
+	overflow-y: scroll;
+	overflow-x: clip;
 
 	scroll-snap-type: y mandatory;
 

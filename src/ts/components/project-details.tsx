@@ -276,7 +276,8 @@ const MediaColumn = styled.div<{$fullWidth : boolean}>`
 	top: 0px;
 	bottom: 0px;
 
-	overflow: scroll;
+	overflow-y: scroll;
+	overflow-x: clip;
 
 	scroll-snap-type: y mandatory;
 	scroll-behavior: smooth;
