@@ -36,10 +36,12 @@ export const App = (props:any) => {
 
 	const bgMode = initialScrollPosition ? initialMode :
 						selectedProject ? 'background' : 'projects'
+	const activeTheme = (selectedProject && selectedProject.theme) ?
+						selectedProject.theme : theme
 
 	return	<Container>
 
-				<ColorThemeContext.Provider value={theme}>
+				<ColorThemeContext.Provider value={activeTheme}>
 
 					<ThreeBackgroundScene mode={bgMode}/>
 

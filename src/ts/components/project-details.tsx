@@ -20,6 +20,7 @@ export interface ProjectData {
 	description : string
 	media : Array<string>
 	image : string
+	theme? : Design.ColorTheme
 }
 
 interface Props {
