@@ -23,7 +23,7 @@ export const MainNavigation = (props:Props) => {
 	const [selectedProject, setSelectedProject] = useState(props.selectedProject)
 	const [projectInView, setProjectInView] = useState(undefined)
 
-	const firstProject = useRef(null)
+	const projectRefs = useRef([])
 
 	useEffect(() => {
 		setSelectedProject(props.selectedProject)
@@ -51,13 +51,13 @@ export const MainNavigation = (props:Props) => {
 		}
 	}, [containerRef])
 
+	const scrollToProject = i => projectRefs.current[i].scrollIntoView({behavior: 'smooth', block: 'center'})
+
 	const colorTheme = useContext(ColorThemeContext)
 
 	return	<Container ref={containerRef}>
 				<ScreenContent $projectSelected={selectedProject !== undefined}>
-					<LandingScreenContent onScrollToProjects={()=>{
-						firstProject.current.scrollIntoView({behavior: 'smooth', block: 'center'})
-					}}/>
+					<LandingScreenContent onScrollToProjects={() => scrollToProject(0)}/>
 				</ScreenContent>
 
 				<ProjectsHeader $projectSelected={selectedProject !== undefined}
@@ -80,14 +80,18 @@ export const MainNavigation = (props:Props) => {
 				{
 				props.projects.map((project, i) => {
 					return	<ProjectPreview	key={i}
-											ref={i===0 ? firstProject : undefined}
+											ref={ref => projectRefs.current[i] = ref}
 											project={project}
 											projectSelected={selectedProject !== undefined}
 											onInView={(project)=>{
 												setProjectInView(project)
 											}}
-											onClick={()=>{
-												selectProject(project)
+											onClick={()=>{scroll
+												if(projectInView === project){
+													selectProject(project)
+												} else {
+													scrollToProject(i)
+												}
 											}}/>
 				})
 				}
