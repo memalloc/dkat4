@@ -87,7 +87,8 @@ export const MainNavigation = (props:Props) => {
 												setProjectInView(project)
 											}}
 											onClick={()=>{scroll
-												if(projectInView === project){
+												const onMobile = window.matchMedia(`(${Design.onMobileAspectRatio})`).matches
+												if(projectInView === project || onMobile){
 													selectProject(project)
 												} else {
 													scrollToProject(i)
