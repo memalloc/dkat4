@@ -1,4 +1,4 @@
-import { PropsWithChildren, useContext, useEffect, useRef, useState } from 'react'
+import { PropsWithChildren, useContext, useEffect, useReducer, useRef, useState } from 'react'
 import { styled } from 'styled-components'
 import { motion, useMotionValue } from "framer-motion"
 
@@ -21,14 +21,15 @@ export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 
 	const updateScrollbar = () => {
 		const element = contentRef.current
+		if(element !== null){
+			const sbThumbHeight = (element.clientHeight / element.scrollHeight) * element.clientHeight
+			thumbHeight.set(sbThumbHeight)
 
-		const sbThumbHeight = (element.clientHeight / element.scrollHeight) * element.clientHeight
-		thumbHeight.set(sbThumbHeight)
+			const y = (element.scrollTop / element.scrollHeight) * (element.clientHeight)
+			thumbY.set(y)
 
-		const y = (element.scrollTop / element.scrollHeight) * (element.clientHeight)
-		thumbY.set(y)
-
-		thumbOpacity.set(element.clientHeight === element.scrollHeight ? 0 : 1)
+			thumbOpacity.set(element.clientHeight === element.scrollHeight ? 0 : 1)
+		}
 	}
 
 	useEffect(()=>{
@@ -36,15 +37,26 @@ export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 			updateScrollbar()
 		}
 
+		let resizeTimeout
+		const resize = event => {
+			// delay update for one second to allow the CSS transition to finish
+			clearTimeout(resizeTimeout)
+			resizeTimeout = setTimeout(()=>{
+				updateScrollbar()
+			}, 1000)
+		}
+
 		const element = contentRef.current
 		element.addEventListener('scroll', scroll)
-		window.addEventListener('resize', scroll)
+
+		window.addEventListener('resize', resize)
 
 		updateScrollbar()
 
 		return () => {
 			element.removeEventListener('scroll', scroll)
 			window.removeEventListener('resize', scroll)
+			clearTimeout(resizeTimeout)
 		}
 	},[contentRef])
 
@@ -61,7 +73,9 @@ export const ScrollContainer = (props:PropsWithChildren<Props>) => {
 		const factor = y / bounds.height
 
 		const content = contentRef.current as HTMLDivElement
-		content.scrollTop = content.scrollHeight * factor - content.clientHeight/2
+		if(content !== null){
+			content.scrollTop = content.scrollHeight * factor - content.clientHeight/2
+		}
 	}
 
 	return	<Container>
@@ -94,6 +108,8 @@ const Container = styled.div`
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
+
+	overflow: hidden;
 
 	${Design.MobileMediaQuery} {
 		grid-template-columns: 0vw auto;
