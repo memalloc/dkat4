@@ -199,7 +199,7 @@ const ProjectDescription = styled.div<{$details:boolean}>`
 		max-width: ${DescriptionMaxWidth}px;
 
 		border: none;
-		margin: unset;
+		margin: 0px 5px;
 	}
 `
 
