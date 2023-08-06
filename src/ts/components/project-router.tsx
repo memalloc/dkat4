@@ -80,7 +80,7 @@ const ProjectRoute = (props:Props) => {
 	} else {
 		return <motion.div initial={{opacity:0}}
 							animate={{opacity:1}}
-							transition={0.5}
+							transition={{duration:0.5}}
 							exit={{opacity:0}}>
 				{
 					project &&
