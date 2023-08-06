@@ -63,7 +63,8 @@ export const ProjectDetails = (props:Props) => {
 						</Markdown>
 					</Title>
 
-					<MediaContainer>
+					<MediaContainer	$details={showDetails} 
+									onClick={()=>{setShowDetails(!showDetails)}}>
 						<MediaContent url={initialMedia}/>
 					</MediaContainer>
 
@@ -83,7 +84,8 @@ export const ProjectDetails = (props:Props) => {
 
 					{
 						media.map((url, i)=>{
-							return	<MediaContainer key={i}>
+							return	<MediaContainer key={i} $details={showDetails}
+													onClick={()=>{setShowDetails(!showDetails)}}>
 										<MediaContent url={url}/>
 									</MediaContainer>
 						})
@@ -292,7 +294,7 @@ const MediaColumn = styled.div<{$fullWidth : boolean}>`
 	}
 `
 
-const MediaContainer = styled.div`
+const MediaContainer = styled.div<{$details:boolean}>`
 	height: 100vh;
 
 	scroll-snap-align: center;
@@ -300,6 +302,8 @@ const MediaContainer = styled.div`
 	display: grid;
 	align-items: stretch;
 	justify-items: stretch;
+
+	cursor: ${props => props.$details ? 'zoom-in' : 'zoom-out'};
 
 	${Design.MobileMediaQuery} {
 		height: auto;
