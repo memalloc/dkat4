@@ -30,9 +30,9 @@ export const ProjectPreview = forwardRef((props:Props, ref:React.RefObject<Eleme
 
 	return	<Project	ref={ref}
 						$projectSelected={props.projectSelected}>
-				<Content ref={inViewRef} $inView={isInView} $color={colorTheme.primary}
+				<Content ref={inViewRef} $inView={isInView && !props.projectSelected} $color={colorTheme.primary}
 						$hoverColor={colorTheme.background} onClick={props.onClick}>
-					<ProjectImage src={props.project.image} inView={isInView}/>
+					<ProjectImage src={props.project.image} inView={isInView && !props.projectSelected}/>
 				</Content>
 			</Project>	
 	
