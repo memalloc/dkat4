@@ -48,7 +48,7 @@ export const ProjectDetails = (props:Props) => {
 
 				<MediaColumn $fullWidth={!showDetails} ref={mediaColumnRef}>
 
-					<Title $shadow={!showDetails}>
+					<Title $details={showDetails}>
 						<CloseHeader href="#"
 									$details={showDetails}
 									$color={colorTheme.primary}
@@ -139,7 +139,7 @@ const DescriptionMinWidth = 360
 const DescriptionMaxWidth = 550
 export const DescriptionWidth = `clamp(${DescriptionMinWidth}px, 30vw, ${DescriptionMaxWidth}px)`
 
-const Title = styled(Shadow)`
+const Title = styled.div<{$details:boolean}>`
 	font-size: 30px;
 
 	position: fixed;
@@ -147,7 +147,7 @@ const Title = styled(Shadow)`
 	height: 16.5vh;
 	min-height: ${hfMinHeight}px;	
 
-	left: 3vw;
+	left: ${props => props.$details ? '3vw' : '-900px'};
 	width: 30vw;
 
     display: flex;
@@ -209,7 +209,7 @@ const InfoBox = styled(Shadow)<{$details:boolean}>`
 	letter-spacing: 0.5px;
 
 	position: fixed;
-	left: ${props => props.$details ? '3vw' : '90px'};
+	left: ${props => props.$details ? '3vw' : '-850px'};
 	bottom: 0vw;
 	height: 16.5vh;
 	min-height: ${hfMinHeight}px;	
