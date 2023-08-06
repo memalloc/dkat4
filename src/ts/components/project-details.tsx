@@ -12,6 +12,9 @@ import { DetailToggle } from './detail-toggle'
 import { MediaContent } from './media-content'
 import { ColorThemeContext } from '../app'
 import { AdditionalPagesIndicators } from './additional-pages-indicators'
+import { motion } from 'framer-motion'
+import { ArrowIcon } from './arrow-icon'
+import { MultilinePrompt } from './typed-prompt'
 
 export interface ProjectData {
 	id : string
@@ -49,15 +52,28 @@ export const ProjectDetails = (props:Props) => {
 				<MediaColumn $fullWidth={!showDetails} ref={mediaColumnRef}>
 
 					<Title $details={showDetails}>
-						<CloseHeader href="#"
-									$details={showDetails}
-									$color={colorTheme.primary}
-									$backgroundColor={colorTheme.background}
-									onClick={()=>{
-										history.back()
-									}}>
-							Selected Projects
-						</CloseHeader>
+
+						<BackButtonContainer initial={{opacity:0}}
+											 animate={{opacity:1}}
+											 transition={{delay:1.5}}
+											 onClick={()=>{
+												history.back()
+											 }}>
+
+							<motion.div initial={{scale : 0.7, x : -100}}
+										animate={{x : 0}}
+										transition={{delay: 1.5}}>
+								<ArrowIcon />
+							</motion.div>
+
+							<BackPrompt>
+								<MultilinePrompt delay={1.5}
+												 hideCursorWhenFinished
+												 lines={[{line:["selected projects"], small : true}]}/>
+							</BackPrompt>
+
+						</BackButtonContainer>
+
 						<Markdown disableParagraphMargin>
 							{ props.project.title }
 						</Markdown>
@@ -68,13 +84,21 @@ export const ProjectDetails = (props:Props) => {
 						<MediaContent url={initialMedia}/>
 					</MediaContainer>
 
-					<InfoBox $details={showDetails} $shadow={!showDetails}>
+					<InfoBox	$details={showDetails}
+								as={motion.div}
+								initial={{x : Design.onMobile() ? 0 : -600}}
+								animate={{x : 0}}
+								transition={{duration: 0.2}}>
 						<Markdown disableParagraphMargin>
 							{ props.project.info }
 						</Markdown>
 					</InfoBox>
 
-					<ProjectDescription $details={showDetails}>
+					<ProjectDescription $details={showDetails}
+										as={motion.div}
+										initial={{x : Design.onMobile() ? 0 : -600}}
+										animate={{x : 0}}
+										transition={{duration: 0.1}}>
 						<ScrollContainer>
 							<Markdown>
 								{ props.project.description }
@@ -130,16 +154,34 @@ const Shadow = styled.div<{$shadow:boolean}>`
 	transition: 1s all;
 `
 
-const CloseHeader = styled(Design.ProjectDetailsCloseHeader)<{$details:boolean, $color:string}>`
-	${props => !props.$details ? 'transform: translateX(-50vw);' : undefined}
-	transition: 1s transform;
-`
-
 const hfMinHeight = 130
 
 const DescriptionMinWidth = 360
 const DescriptionMaxWidth = 550
 export const DescriptionWidth = `clamp(${DescriptionMinWidth}px, 30vw, ${DescriptionMaxWidth}px)`
+
+const BackButtonContainer = styled(motion.div)`
+	margin-left: -28px;
+	margin-bottom: 10px;
+
+	display: grid;
+	justify-items: start;
+	justify-content: center;
+	align-items: center;
+
+	grid-template-columns: 56px 170px;
+	grid-gap: 5px;
+
+	cursor: pointer;
+
+	${Design.MobileMediaQuery} {
+		margin-left: -5px;
+	}
+`
+
+const BackPrompt = styled.div`
+	transform: translateY(1px);
+`
 
 const Title = styled.div<{$details:boolean}>`
 	font-size: 30px;
@@ -205,7 +247,7 @@ const ProjectDescription = styled.div<{$details:boolean}>`
 	}
 `
 
-const InfoBox = styled(Shadow)<{$details:boolean}>`
+const InfoBox = styled.div<{$details:boolean}>`
 	font-size: 15px;
 	line-height: 24px;
 	letter-spacing: 0.5px;
