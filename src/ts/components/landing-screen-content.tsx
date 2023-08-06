@@ -69,7 +69,8 @@ export const LandingScreenContent = (props:Props) => {
 						<ArrowContainer>
 							<ArrowIcon/>
 						</ArrowContainer>
-						<MultilinePrompt delay={hintDelay} lines={[{line:["selected projects"], small : true}]}/>
+						<MultilinePrompt delay={hintDelay} hideCursorWhenFinished
+										 lines={[{line:["selected projects"], small : true}]}/>
 					</ProjectsHintContent>
 				</ProjectsHint>
 			</>
