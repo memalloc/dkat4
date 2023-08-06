@@ -5,6 +5,8 @@ export const minDetailsHeight = 'max-height: 465px'
 
 export const MobileMediaQuery = `@media (${onMobileAspectRatio}),  (${minDetailsHeight})`
 
+export const onMobile = () => window.matchMedia(`(${onMobileAspectRatio})`).matches
+
 export interface ColorTheme {
 	primary : string
 	background : string
