@@ -14,11 +14,13 @@ interface MultilinePromptProps {
 	lines : Array<PromptLine>
 	delay? : number
 	onTyped? : () => void
+	hideCursorWhenFinished? : boolean
 }
 
 export const MultilinePrompt = (props:MultilinePromptProps) => {
 
 	const [current, setCurrent] = useState(0)
+	const [cursorHidden, setCursorHidden] = useState(false)
 
 	useEffect(()=>{
 		if(current === props.lines.length){
@@ -45,6 +47,10 @@ export const MultilinePrompt = (props:MultilinePromptProps) => {
 								<TypedPrompt key={i} content={promptLine} delay={delay} onTyped={() => {
 									if(current < props.lines.length - 1){
 										setCurrent(current+1)
+									} else {
+										if(props.hideCursorWhenFinished === true){
+											setCursorHidden(true)
+										}
 									}
 								}}/>
 							}
@@ -54,8 +60,8 @@ export const MultilinePrompt = (props:MultilinePromptProps) => {
 				</div>
 				<Cursor $color={colorTheme.primary}
 						$small={smallCursor}
-						animate={{opacity:[0,0,0,0,1,1,0.5]}}
-						transition={{duration : 0.5, repeat : Infinity}}/>
+						animate={cursorHidden ? { opacity : [1, 0] } : {opacity: [0,0,0,0,1,1,0.5]}}
+						transition={cursorHidden ? { duration : 0.5} : {duration : 0.5, repeat : Infinity}}/>
 			</Container>
 }
 
