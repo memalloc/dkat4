@@ -1,5 +1,5 @@
 import { useContext, useEffect, useLayoutEffect, useRef, useState } from "react"
-import { styled } from 'styled-components'
+import { keyframes, styled } from 'styled-components'
 import { animate, useMotionValue, useSpring, useTransform } from 'framer-motion'
 
 import * as THREE from 'three'
@@ -224,6 +224,11 @@ const ExtrudedSVG = (props:ExtrudedSVGProps) => {
 			</motion.group>
 }
 
+const fadeIn = keyframes`
+  from { opacity : 0 }
+  to { opacity : 1 }
+`
+
 const Container = styled.div<{$color:string}>`
 	position: fixed;
 	top: 0px;
@@ -233,4 +238,5 @@ const Container = styled.div<{$color:string}>`
 
 	background: ${props => props.$color};
 	transition: 1s all;
+	animation: 0.5s linear ${fadeIn};
 `
