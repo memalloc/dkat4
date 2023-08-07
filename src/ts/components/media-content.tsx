@@ -13,7 +13,8 @@ export const MediaContent = (props:Props) => {
 	const colorTheme = useContext(ColorThemeContext)
 
 	if(props.url.includes('.mp4')){
-		return <Video src={props.url} autoPlay loop muted playsInline poster={svg(colorTheme)}/>
+		const poster = Design.onMobile() ? undefined : svg(colorTheme)
+		return <Video src={props.url} autoPlay loop muted playsInline poster={poster}/>
 	} else {
 		return <Image src={props.url}/>
 	}
