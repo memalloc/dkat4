@@ -55,7 +55,21 @@ export const LightOnDarkGray:ColorTheme = {
 	secondaryBackground : "#AEAEA1"
 }
 
-export const Themes = [BaseTheme, LightGray, Lava, LightOnDarkGray, IntenseMagenta, AnthraciteOnRed]
+export const PrimaryOrange:ColorTheme = {
+	primary : Colors.Orange,
+	background : "#101F23",
+	secondaryBackground : "#0C171A"
+}
+
+// minimum 5 themes for theme switcher:
+export const Themes = [	
+									BaseTheme,
+									LightGray,
+									PrimaryOrange,
+									LightOnDarkGray,
+									Lava,
+									AnthraciteOnRed
+									]
 
 export const FontSizes = {
 	Prompt : {
