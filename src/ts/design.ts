@@ -15,7 +15,8 @@ export interface ColorTheme {
 
 export const Colors = {
 	Orange : '#FF5605',
-	Yellow : 'rgb(255, 204, 0)'
+	Yellow : 'rgb(255, 204, 0)',
+	Magenta : '#FF0094' 
 }
 
 export const BaseTheme:ColorTheme = {
@@ -24,13 +25,19 @@ export const BaseTheme:ColorTheme = {
 	secondaryBackground : "#1f3f46"
 }
 
-export const ThemeA:ColorTheme = {
-	primary : Colors.Orange,
-	background : Colors.Yellow,
-	secondaryBackground : "#E94C00"
+export const AnthraciteOnRed:ColorTheme = {
+	primary : "#3D3D37",
+	background : "#FF5605",
+	secondaryBackground : '#4D4E43'
 }
 
-export const ThemeB:ColorTheme = {
+export const IntenseMagenta:ColorTheme = { 
+	primary : "#FF9C28",
+	background : Colors.Magenta,
+	secondaryBackground : Colors.Orange
+}
+
+export const Lava:ColorTheme = {
 	primary : Colors.Yellow,
 	background : Colors.Orange,
 	secondaryBackground : "#FFAA00"
@@ -42,7 +49,13 @@ export const LightGray:ColorTheme = {
 	secondaryBackground : "#aaa"
 }
 
-export const Themes = [BaseTheme, ThemeA, ThemeB, LightGray]
+export const LightOnDarkGray:ColorTheme = {
+	primary : "#CACABD",
+	background : "#5B595A",
+	secondaryBackground : "#AEAEA1"
+}
+
+export const Themes = [BaseTheme, LightGray, Lava, LightOnDarkGray, IntenseMagenta, AnthraciteOnRed]
 
 export const FontSizes = {
 	Prompt : {
