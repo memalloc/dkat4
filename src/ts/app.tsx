@@ -60,9 +60,10 @@ export const App = (props:any) => {
 										setSelectedProject(project)
 									}}/>
 
-					<ThemeSwitcher onThemeChange={(theme) => {
-						setTheme(theme)
-					}}/>
+					<ThemeSwitcher	hidden={selectedProject && selectedProject.theme}
+									onThemeChange={(theme) => {
+										setTheme(theme)
+									}}/>
 
 				</ColorThemeContext.Provider>
 								
