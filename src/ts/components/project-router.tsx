@@ -10,6 +10,7 @@ interface Props {
 	projects : Array<ProjectData>
 	selectedProject? : ProjectData
 	onProjectSelection : (project:ProjectData) => void
+	onProjectViewModeUpdate : (detailsVisible:boolean) => void
 }
 
 export const ProjectRouter = (props:Props) => {
@@ -34,11 +35,12 @@ const AnimatedRouter = (props:Props) => {
 		}
 	}, [props.selectedProject])
 
-	// clear project selection when the location changes to root
-	// level for example by using the back button
+	// clear project selection and detail state when the location
+	// changes to root level, for example by using the back button
 	useEffect(() => {
 		if(location.pathname === '/' && props.selectedProject){
 			props.onProjectSelection(undefined)
+			props.onProjectViewModeUpdate(true)
 		}
 	}, [location.pathname])
 
@@ -74,7 +76,7 @@ const ProjectRoute = (props:Props) => {
 		return <div>
 				{
 					project &&
-					<ProjectDetails project={project}/>
+					<ProjectDetails project={project} onViewModeUpdate={props.onProjectViewModeUpdate}/>
 				}
 				</div>
 	} else {
@@ -84,7 +86,7 @@ const ProjectRoute = (props:Props) => {
 							exit={{opacity:0}}>
 				{
 					project &&
-					<ProjectDetails project={project}/>
+					<ProjectDetails project={project} onViewModeUpdate={props.onProjectViewModeUpdate}/>
 				}
 				</motion.div>
 

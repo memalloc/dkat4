@@ -28,6 +28,7 @@ export interface ProjectData {
 
 interface Props {
 	project : ProjectData
+	onViewModeUpdate : (detailsVisible:boolean) => void
 }
 
 export const ProjectDetails = (props:Props) => {
@@ -46,6 +47,10 @@ export const ProjectDetails = (props:Props) => {
 			element.scrollTop = element.clientHeight * page
 		}
 	}
+
+	useEffect(()=>{
+		props.onViewModeUpdate(showDetails)
+	}, [showDetails])
 
 	return	<Container $color={colorTheme.primary}>
 

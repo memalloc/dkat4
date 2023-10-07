@@ -19,6 +19,8 @@ export const ColorThemeContext = createContext<Design.ColorTheme>(Design.BaseThe
 export const App = (props:any) => {
 
 	const [selectedProject, setSelectedProject] = useState(undefined)
+	const [projectDetailsVisible, setProjectDetailsVisible] = useState(false)
+
 	const [theme, setTheme] = useState(Design.BaseTheme)
 	const [initialScrollPosition, setInitialScrollPosition] = useState(true)
 	const [initialMode , setInitialMode] = useState<AnimationMode>('initial')
@@ -52,15 +54,19 @@ export const App = (props:any) => {
 									}}
 									onProjectSelection={(project) => {
 										setSelectedProject(project)
+										setProjectDetailsVisible(true)
 									}}/>
 
 					<ProjectRouter	projects={projects}
 									selectedProject={selectedProject}
 									onProjectSelection={(project) => {
 										setSelectedProject(project)
+									}}
+									onProjectViewModeUpdate={(detailsVisible) => {
+										setProjectDetailsVisible(detailsVisible)
 									}}/>
 
-					<ThemeSwitcher	hidden={selectedProject && selectedProject.theme}
+					<ThemeSwitcher	hidden={selectedProject && (selectedProject.theme || !projectDetailsVisible)}
 									onThemeChange={(theme) => {
 										setTheme(theme)
 									}}/>
