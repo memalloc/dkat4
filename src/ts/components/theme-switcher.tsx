@@ -81,7 +81,7 @@ const Container = styled(motion.div)`
 	bottom: ${INTERACTION_AREA_SIZE + THEME_SIZE}px;
 	left: calc(3vw + ${THEME_DISTANCE}px - ${INTERACTION_AREA_SIZE/2}px + ${THEME_SIZE/2}px);
 
-	@media (${Design.onMobileAspectRatio}) {
+	${Design.MobileMediaQuery} {
 		top: 10px;
 		right: ${INTERACTION_AREA_SIZE*2}px;
 		bottom: unset;
