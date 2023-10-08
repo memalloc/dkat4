@@ -23,11 +23,14 @@ const calculateClosestDistance = (arrLength: number, index1: number, index2: num
   return distanceClockwise <= distanceCounterClockwise ? distanceClockwise : -distanceCounterClockwise
 }
 
+const THEME_DISTANCE = 30
+const INTERACTION_AREA_SIZE = 40
+const THEME_SIZE = 10
+
 export const ThemeSwitcher = (props:Props) => {
 
 	const [themeIndex, setThemeIndex] = useState(0)
 
-	const distance = 30
 	const smaller = 0.7
 
 	return	<Container animate={{y : props.hidden ? 200 : 0}}>
@@ -38,7 +41,7 @@ export const ThemeSwitcher = (props:Props) => {
 					const visible = Math.abs(relativeIndex) < 2
 
 					const containerAnimation = {
-						x : distance * Math.min(Math.max(-2,relativeIndex), 2),
+						x : THEME_DISTANCE * Math.min(Math.max(-2,relativeIndex), 2),
 						opacity : visible ? 1 : 0,
 						cursor : visible && index !== themeIndex ? 'pointer' : undefined
 					}
@@ -71,27 +74,25 @@ export const ThemeSwitcher = (props:Props) => {
 
 const Container = styled(motion.div)`
 	position: fixed;
-	bottom: 55px;
-	left: 62px;
+	bottom: ${INTERACTION_AREA_SIZE + THEME_SIZE}px;
+	left: calc(3vw + ${THEME_DISTANCE}px - ${INTERACTION_AREA_SIZE/2}px + ${THEME_SIZE/2}px);
 `
 
 const ThemeInteractionArea = styled(motion.div)`
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	width: 40px;
-	height: 40px;
+	width: ${INTERACTION_AREA_SIZE}px;
+	height: ${INTERACTION_AREA_SIZE}px;
 	display: grid;
 	place-items: center;
 `
 
-const size = '10px'
-
 const Theme = styled(motion.div)`
 	border: 3px solid ;
 
-	width: ${size};
-	height: ${size};
+	width: ${THEME_SIZE}px;
+	height: ${THEME_SIZE}px;
 
-	border-radius: ${size};
+	border-radius: ${THEME_SIZE}px;
 `
