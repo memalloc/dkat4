@@ -62,7 +62,17 @@ export const ProjectDetails = (props:Props) => {
 											 animate={{opacity:1}}
 											 transition={{delay:1.5}}
 											 onClick={()=>{
-												history.back()
+											 	if(history.length > 2){
+												 	// preseve the main navigation scrolling position
+												 	// by navigating using history if the user has
+												 	// visited from the main navigation
+													history.back()
+											 	} else {
+											 		// navigate to the root if a projects URL has
+											 		// been visited directly, to avoid returning
+											 		// to the new tab page
+											 		window.location.href = '/'	
+											 	}
 											 }}>
 
 							<motion.div initial={{scale : 0.7, x : -100}}
