@@ -37,7 +37,7 @@ export const ThemeSwitcher = (props:Props) => {
 
 	return	<Container 	initial={{opacity : 0}}
 											animate={{x : props.hidden ? hidePosition : '0vw', opacity : 1}}
-											transition={{duration:1, opacity : { delay : 0 }}}>
+											transition={{duration:1, opacity : { delay : 7 }}}>
 			{
 
 				Design.Themes.map((theme, index)=>{
