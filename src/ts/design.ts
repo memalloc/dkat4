@@ -3,9 +3,10 @@ import styled from "styled-components"
 export const onMobileAspectRatio = 'max-aspect-ratio: 6/10'
 export const minDetailsHeight = 'max-height: 465px'
 
-export const MobileMediaQuery = `@media (${onMobileAspectRatio}),  (${minDetailsHeight})`
+const MobileMediaQueryString = `(${onMobileAspectRatio}), (${minDetailsHeight})`
+export const MobileMediaQuery = `@media ${MobileMediaQueryString}`
 
-export const onMobile = () => window.matchMedia(`(${onMobileAspectRatio})`).matches
+export const onMobile = () => window.matchMedia(MobileMediaQueryString).matches
 
 export interface ColorTheme {
 	primary : string
