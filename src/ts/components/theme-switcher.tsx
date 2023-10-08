@@ -30,35 +30,6 @@ export const ThemeSwitcher = (props:Props) => {
 	const distance = 30
 	const smaller = 0.7
 
-	const variants = {
-		prevHidden : {
-			x : -distance * 2,
-			scale : smaller,
-			opacity : 0
-		},
-		prev : {
-			x : -distance,
-			scale : smaller,
-			opacity: 1
-		},
-		current : {
-			x : 0,
-			scale : 1
-		},
-		next : {
-			x : distance,
-			scale : smaller,
-			opacity: 1
-		},
-		nextHidden : {
-			x : distance * 2,
-			opacity : 0
-		},
-		otherHidden : {
-			opacity : 0
-		}
-	}
-	
 	return	<Container animate={{y : props.hidden ? 200 : 0}}>
 			{
 
