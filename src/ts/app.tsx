@@ -31,7 +31,7 @@ export const App = (props:any) => {
 			setInitialMode('initial')
 			timeout = setTimeout(()=>{
 				setInitialMode('idle')
-			}, 1000 * 20)
+			}, 1000 * 8)
 		}
 		return () => { clearTimeout(timeout) }
 	}, [initialScrollPosition])
