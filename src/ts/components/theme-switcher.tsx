@@ -40,7 +40,7 @@ export const ThemeSwitcher = (props:Props) => {
 					const containerAnimation = {
 						x : distance * Math.min(Math.max(-2,relativeIndex), 2),
 						opacity : visible ? 1 : 0,
-						cursor : visible ? 'pointer' : undefined
+						cursor : visible && index !== themeIndex ? 'pointer' : undefined
 					}
 
 					const themeAnimation = {
