@@ -66,29 +66,33 @@ export const ThemeSwitcher = (props:Props) => {
 					const relativeIndex = calculateClosestDistance(Design.Themes.length, themeIndex, index)
 					const visible = Math.abs(relativeIndex) < 2
 
-					const animate = {
+					const containerAnimation = {
 						x : distance * Math.min(Math.max(-2,relativeIndex), 2),
 						opacity : visible ? 1 : 0,
+						cursor : visible ? 'pointer' : undefined
+					}
+
+					const themeAnimation = {
 						scale : relativeIndex === 0 ? 1 : smaller,
 						background: theme.background,
-						borderColor : theme.primary,
-						cursor : visible ? 'pointer' : undefined
+						borderColor : theme.primary
 					}
 
 					const transition = {
 						duration : 0.5
 					}
 
-					return <Theme	key={index}
-									animate={animate}
+					return <ThemeInteractionArea	key={index}
+									animate={containerAnimation}
 									transition={transition}
 									onClick={() => {
 										if(visible){
 											setThemeIndex(wrappedIndex(Design.Themes, themeIndex, relativeIndex))
 											props.onThemeChange(theme)
 										}
-									}}/>
-					return <div></div>	
+									}}>
+										<Theme animate={themeAnimation} transition={transition}/>
+									</ThemeInteractionArea>
 				})
 			}
 			</Container>
@@ -100,6 +104,16 @@ const Container = styled(motion.div)`
 	left: 72px;
 `
 
+const ThemeInteractionArea = styled(motion.div)`
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 20px;
+	height: 20px;
+	display: grid;
+	place-items: center;
+`
+
 const size = '10px'
 
 const Theme = styled(motion.div)`
@@ -109,9 +123,4 @@ const Theme = styled(motion.div)`
 	height: ${size};
 
 	border-radius: ${size};
-	margin-right: 8px;
-
-	position: absolute;
-	top: 0px;
-	left: 0px;
 `
