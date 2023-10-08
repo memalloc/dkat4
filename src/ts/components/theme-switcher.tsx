@@ -71,16 +71,16 @@ export const ThemeSwitcher = (props:Props) => {
 
 const Container = styled(motion.div)`
 	position: fixed;
-	bottom: 45px;
-	left: 72px;
+	bottom: 55px;
+	left: 62px;
 `
 
 const ThemeInteractionArea = styled(motion.div)`
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	width: 20px;
-	height: 20px;
+	width: 40px;
+	height: 40px;
 	display: grid;
 	place-items: center;
 `
