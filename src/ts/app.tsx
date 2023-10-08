@@ -36,8 +36,8 @@ export const App = (props:any) => {
 		return () => { clearTimeout(timeout) }
 	}, [initialScrollPosition])
 
-	const bgMode = initialScrollPosition ? initialMode :
-						selectedProject ? 'background' : 'projects'
+	const bgMode = selectedProject ? 'background' :
+						initialScrollPosition ? initialMode : 'projects'
 	const activeTheme = (selectedProject && selectedProject.theme) ?
 						selectedProject.theme : theme
 
