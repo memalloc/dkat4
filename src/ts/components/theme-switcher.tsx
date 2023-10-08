@@ -33,7 +33,9 @@ export const ThemeSwitcher = (props:Props) => {
 
 	const smaller = 0.7
 
-	return	<Container animate={{x : props.hidden ? '-20vw' : '0vw'}} transition={{duration:1}}>
+	return	<Container 	initial={{opacity : 0}}
+											animate={{x : props.hidden ? '-20vw' : '0vw', opacity : 1}}
+											transition={{duration:1, opacity : { delay : 7 }}}>
 			{
 
 				Design.Themes.map((theme, index)=>{
