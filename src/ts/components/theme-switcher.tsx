@@ -33,9 +33,11 @@ export const ThemeSwitcher = (props:Props) => {
 
 	const smaller = 0.7
 
+	const hidePosition = Design.onMobile() ? '50vw' : '-20vw'
+
 	return	<Container 	initial={{opacity : 0}}
-											animate={{x : props.hidden ? '-20vw' : '0vw', opacity : 1}}
-											transition={{duration:1, opacity : { delay : 7 }}}>
+											animate={{x : props.hidden ? hidePosition : '0vw', opacity : 1}}
+											transition={{duration:1, opacity : { delay : 0 }}}>
 			{
 
 				Design.Themes.map((theme, index)=>{
@@ -78,6 +80,13 @@ const Container = styled(motion.div)`
 	position: fixed;
 	bottom: ${INTERACTION_AREA_SIZE + THEME_SIZE}px;
 	left: calc(3vw + ${THEME_DISTANCE}px - ${INTERACTION_AREA_SIZE/2}px + ${THEME_SIZE/2}px);
+
+	@media (${Design.onMobileAspectRatio}) {
+		top: 10px;
+		right: ${INTERACTION_AREA_SIZE*2}px;
+		bottom: unset;
+		left: unset;
+	}
 `
 
 const ThemeInteractionArea = styled(motion.div)`
