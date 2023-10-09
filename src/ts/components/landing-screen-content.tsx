@@ -8,6 +8,7 @@ import { motion } from 'framer-motion'
 
 interface Props {
 	onScrollToProjects : ()=>void	
+	hideProjectsHint : boolean
 }
 
 export const LandingScreenContent = (props:Props) => {
@@ -60,18 +61,21 @@ export const LandingScreenContent = (props:Props) => {
 								animate={{y : [200, 0], opacity : [0, 1]}}
 								transition={{delay:hintDelay}}
 								>
-					<ProjectsHintContent	animate={{y:[0,10,0,10,0], x:12}}
-											initial={{x:12}}
-											transition={{repeat: Infinity, repeatDelay: 3}}
-											onClick={()=>{
-												props.onScrollToProjects()
-											}}>
-						<ArrowContainer>
-							<ArrowIcon/>
-						</ArrowContainer>
-						<MultilinePrompt delay={hintDelay} hideCursorWhenFinished
-										 lines={[{line:["selected projects"], small : true}]}/>
-					</ProjectsHintContent>
+					<motion.div animate={{opacity : props.hideProjectsHint ? 0 : 1}}
+								transition={{duration:1}}>
+						<ProjectsHintContent	animate={{y:[0,10,0,10,0], x:12}}
+												initial={{x:12}}
+												transition={{repeat: Infinity, repeatDelay: 3}}
+												onClick={()=>{
+													props.onScrollToProjects()
+												}}>
+							<ArrowContainer>
+								<ArrowIcon/>
+							</ArrowContainer>
+							<MultilinePrompt delay={hintDelay} hideCursorWhenFinished
+											 lines={[{line:["selected projects"], small : true}]}/>
+						</ProjectsHintContent>
+					</motion.div>
 				</ProjectsHint>
 			</>
 }

@@ -22,6 +22,7 @@ export const MainNavigation = (props:Props) => {
 
 	const [selectedProject, setSelectedProject] = useState(props.selectedProject)
 	const [projectInView, setProjectInView] = useState(undefined)
+	const [hideProjectsHint, setHideProjectsHint] = useState(false)
 
 	const projectRefs = useRef([])
 
@@ -42,6 +43,7 @@ export const MainNavigation = (props:Props) => {
 		const scroll = event => {
 			const initialPosition = element.scrollTop <= element.clientHeight * 0.2
 			props.onScroll(initialPosition)
+			setHideProjectsHint(element.scrollTop > 200)
 		}
 
 		element.addEventListener('scroll', scroll)
@@ -57,7 +59,10 @@ export const MainNavigation = (props:Props) => {
 
 	return	<Container ref={containerRef}>
 				<ScreenContent $projectSelected={selectedProject !== undefined}>
-					<LandingScreenContent onScrollToProjects={() => scrollToProject(0)}/>
+					<LandingScreenContent	hideProjectsHint={hideProjectsHint}
+											onScrollToProjects={
+												() => scrollToProject(0)
+											}/>
 				</ScreenContent>
 
 				<ProjectsHeader $projectSelected={selectedProject !== undefined}
