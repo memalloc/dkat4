@@ -158,7 +158,7 @@ const ProjectsHeader = styled(HideOnProject)<{$color:string}>`
     align-items: flex-start;
     justify-content: end;
 
-	@media (${Design.onMobileAspectRatio}) {
+	${Design.MobileMediaQuery} {
 		position: static;
 		height: 80px;
     	justify-content: center;
@@ -173,11 +173,16 @@ const SelectedProjects = styled(motion.div)`
 
 	border: 2px solid transparent;
     transform: translateX(-5px);
+
+	${Design.MobileMediaQuery} {
+    	transform: translateY(25px);
+	}
+
 `
 
 const ProjectTitle = styled(motion.div)`
 	width: 30vw;
-	@media (${Design.onMobileAspectRatio}) {
+	${Design.MobileMediaQuery} {
 		display: none;
 	}
 `
