@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import { styled } from 'styled-components'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import * as Design from '../design'
 
@@ -12,7 +13,6 @@ import { DetailToggle } from './detail-toggle'
 import { MediaContent } from './media-content'
 import { ColorThemeContext } from '../app'
 import { AdditionalPagesIndicators } from './additional-pages-indicators'
-import { motion } from 'framer-motion'
 import { ArrowIcon } from './arrow-icon'
 import { MultilinePrompt } from './typed-prompt'
 
@@ -57,6 +57,18 @@ export const ProjectDetails = (props:Props) => {
 				<MediaColumn $fullWidth={!showDetails} ref={mediaColumnRef}>
 
 					<Title $details={showDetails}>
+
+						{
+							Design.onMobile() &&
+							<AnimatePresence>
+								<MobileTopGradient	key={`bg-${colorTheme.background}`}
+													$bgColor={colorTheme.background}
+													transition={{duration:1}}
+													initial={{opacity:0}}
+											 		animate={{opacity:1}}
+											 		exit={{opacity:0}}/>
+							</AnimatePresence>
+						}
 
 						<BackButtonContainer initial={{opacity:0}}
 											 animate={{opacity:1}}
@@ -175,6 +187,23 @@ const DescriptionMinWidth = 360
 const DescriptionMaxWidth = 550
 export const DescriptionWidth = `clamp(${DescriptionMinWidth}px, 30vw, ${DescriptionMaxWidth}px)`
 
+const MobileTopGradient = styled(motion.div)<{$bgColor:string}>`
+	display: none;
+
+	@media (${Design.onMobileAspectRatio}){
+		display: unset;
+
+		position: fixed;
+		top: 0px;
+		left: 0px;
+		right: 0px;
+
+		height: 80px;
+
+		background: linear-gradient(180deg, ${props => props.$bgColor} 25%, transparent 100%);
+	}
+`
+
 const BackButtonContainer = styled(motion.div)`
 	margin-left: -28px;
 	margin-bottom: 10px;
@@ -190,12 +219,24 @@ const BackButtonContainer = styled(motion.div)`
 	cursor: pointer;
 
 	${Design.MobileMediaQuery} {
-		margin-left: -5px;
+		position: fixed;
+		top: 1px;
+		left: 0px;
+		right: 0px;
+		margin: 0px;
+
+		justify-content: start;
+
+		padding-top: 3px;
 	}
 `
 
 const BackPrompt = styled.div`
 	transform: translateY(1px);
+
+	@media (${Design.minDetailsHeight}){
+		display: none;
+	}
 `
 
 const Title = styled.div<{$details:boolean}>`
@@ -226,9 +267,15 @@ const Title = styled.div<{$details:boolean}>`
 
 		margin-left: 8px;
 		margin-bottom: 8px;
+		margin-top: 20px;
 
 		width: 100vw;
 		max-width: ${DescriptionMaxWidth}px;
+	}
+
+	@media (${Design.minDetailsHeight}) {
+		min-height: unset;
+		margin-bottom: 0px;
 	}
 `
 
