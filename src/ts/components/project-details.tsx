@@ -373,7 +373,7 @@ const ToggleContainer = styled.div<{$details:boolean}>`
 `
 
 const MediaColumn = styled.div<{$fullWidth : boolean}>`
-	transition: 1s all;
+	transition: 1s padding-left;
 
 	padding-left: ${props => props.$fullWidth ? '0vw' : `clamp(${DescriptionMinWidth + 40}px, 34vw, 620px)`};
 
