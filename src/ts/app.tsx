@@ -36,14 +36,15 @@ export const App = (props:any) => {
 		return () => { clearTimeout(timeout) }
 	}, [initialScrollPosition])
 
-	useEffect(()=>{
-		document.body.style.backgroundColor = theme.background	
-	}, [theme])
 
 	const bgMode = selectedProject ? 'background' :
 						initialScrollPosition ? initialMode : 'projects'
 	const activeTheme = (selectedProject && selectedProject.theme) ?
 						selectedProject.theme : theme
+
+	useEffect(()=>{
+		document.body.style.backgroundColor = activeTheme.background	
+	}, [activeTheme])
 
 	return	<Container>
 
