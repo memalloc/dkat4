@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { styled } from 'styled-components'
 import * as  svgToMiniDataURI from 'mini-svg-data-uri'
 
@@ -12,9 +12,22 @@ interface Props {
 export const MediaContent = (props:Props) => {
 	const colorTheme = useContext(ColorThemeContext)
 
+	const [controls, setControls] = useState(false)
+
 	if(props.url.includes('.mp4')){
 		const poster = Design.onMobile() ? undefined : svg(colorTheme)
-		return <Video src={props.url} autoPlay loop muted playsInline poster={poster}/>
+		return <Video	src={props.url} autoPlay loop muted playsInline
+						poster={poster} controls={controls}
+						onTouchStart={()=>{
+							// activate controls after initial touch on mobile to:
+							// 1. ensure initial playback without controls overlay
+							// 2. mitigate mobile safaris inability to scroll the
+							// page when touching a video element without controls
+							// 3. enable fullscreening the video (also useful on android)
+							if(Design.onMobile()){
+								setControls(true)
+							}
+						}}/>
 	} else {
 		return <Image src={props.url}/>
 	}
