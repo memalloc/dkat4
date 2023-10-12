@@ -39,7 +39,16 @@ const Video = styled.video`
 
 	${Design.MobileMediaQuery} {
 		margin: 20px 0px;
+		width: unset;
 	}
+
+	@media (${Design.onMobileAspectRatio}){
+		height: calc(9/16*100vw);
+	}	
+
+	@media (${Design.minDetailsHeight}){
+		height: 100vh;
+	}	
 `
 
 const Image = styled.img`
