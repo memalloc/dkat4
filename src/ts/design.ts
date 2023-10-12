@@ -6,7 +6,11 @@ export const minDetailsHeight = 'max-height: 465px'
 const MobileMediaQueryString = `(${onMobileAspectRatio}), (${minDetailsHeight})`
 export const MobileMediaQuery = `@media ${MobileMediaQueryString}`
 
-export const onMobile = () => window.matchMedia(MobileMediaQueryString).matches
+export const onMobile = (orientation? : 'portrait' | 'landscape') => {
+	const query = orientation === undefined ? MobileMediaQueryString :
+						orientation === 'portrait' ? `(${onMobileAspectRatio})` : `(${minDetailsHeight})`
+	return window.matchMedia(query).matches
+}
 
 export interface ColorTheme {
 	primary : string

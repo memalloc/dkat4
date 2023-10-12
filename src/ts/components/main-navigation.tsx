@@ -91,8 +91,8 @@ export const MainNavigation = (props:Props) => {
 											onInView={(project)=>{
 												setProjectInView(project)
 											}}
-											onClick={()=>{scroll
-												if(projectInView === project || Design.onMobile()){
+											onClick={()=>{
+												if(projectInView === project || Design.onMobile('portrait')){
 													selectProject(project)
 												} else {
 													scrollToProject(i)
