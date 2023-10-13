@@ -354,10 +354,13 @@ const PageIndicatorContainer = styled.div<{$details:boolean}>`
 	}
 `
 
+const toggleButtonPadding = '0.5vh'
 const ToggleContainer = styled.div<{$details:boolean}>`
 	position: fixed;
 	bottom: 0vw;
-	height: 15.5vh;
+	height: calc(16.5vh - ${toggleButtonPadding});
+	min-height: calc(${hfMinHeight}px - ${toggleButtonPadding});
+	padding-top: ${toggleButtonPadding};
 
 	left: ${props => props.$details ? DescriptionWidth : '34px'};
 	margin-left: -18px;
