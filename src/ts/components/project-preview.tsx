@@ -135,6 +135,8 @@ const Image = styled.img<{$inView, $aspectRatio}>`
 
 	opacity: ${props => props.$inView ? 1 : 0};
 	transition: 1s all;
+	
+	pointer-events: none;
 
 	@media (${Design.onMobileAspectRatio}) {
 		width: 100vw;
