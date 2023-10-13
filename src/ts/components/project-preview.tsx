@@ -1,6 +1,6 @@
-import { forwardRef, useContext, useEffect, useRef, useState } from "react"
+import { PropsWithChildren, forwardRef, useContext, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
-import { useInView } from "framer-motion"
+import { motion, useInView } from "framer-motion"
 
 import * as Design from '../design'
 import * as Helper from '../helper'
@@ -30,13 +30,30 @@ export const ProjectPreview = forwardRef((props:Props, ref:React.RefObject<Eleme
 
 	return	<Project	ref={ref}
 						$projectSelected={props.projectSelected}>
-				<Content ref={inViewRef} $inView={isInView && !props.projectSelected} $color={colorTheme.primary}
-						$hoverColor={colorTheme.background} onClick={props.onClick}>
-					<ProjectImage src={props.project.image} inView={isInView && !props.projectSelected}/>
-				</Content>
+				<UserPressScaler>
+					<Content ref={inViewRef} $inView={isInView && !props.projectSelected} $color={colorTheme.primary}
+							 onClick={props.onClick}>
+						<ProjectImage src={props.project.image} inView={isInView && !props.projectSelected}/>
+					</Content>
+				</UserPressScaler>
 			</Project>	
 	
 })
+
+const UserPressScaler = (props:PropsWithChildren<{}>) => {
+	const [pressed, setPressed] = useState(false)
+
+	return	<motion.div animate={{scale : pressed ? 0.95 : 1}}
+						onMouseDown={()=>{setPressed(true)}}
+						onMouseUp={()=>{setPressed(false)}}
+						onMouseLeave={()=>{setPressed(false)}}
+						onMouseOut={()=>{setPressed(false)}}
+						onTouchStart={()=>{setPressed(true)}}
+						onTouchEnd={()=>{setPressed(false)}}
+						onTouchCancel={()=>{setPressed(false)}}>
+				{ props.children }
+			</motion.div>
+}
 
 const ProjectImage = (props:{src:string, inView:boolean}) => {
 
