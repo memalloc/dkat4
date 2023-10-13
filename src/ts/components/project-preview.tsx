@@ -31,7 +31,9 @@ export const ProjectPreview = forwardRef((props:Props, ref:React.RefObject<Eleme
 	return	<Project	ref={ref}
 						$projectSelected={props.projectSelected}>
 				<UserPressScaler>
-					<Content ref={inViewRef} $inView={isInView && !props.projectSelected} $color={colorTheme.primary}
+					<Content ref={inViewRef}
+							 $inView={isInView && !props.projectSelected}
+							 $color={colorTheme.primary}
 							 onClick={props.onClick}>
 						<ProjectImage src={props.project.image} inView={isInView && !props.projectSelected}/>
 					</Content>
@@ -63,8 +65,6 @@ const ProjectImage = (props:{src:string, inView:boolean}) => {
 
 	return <Image	src={props.src}
 					$aspectRatio={aspectRatio}
-					$color={colorTheme.primary}
-					$hoverColor={colorTheme.background}
 					$inView={props.inView}
 					onLoad={(e)=>{
 						const image = e.target as HTMLImageElement
@@ -98,13 +98,12 @@ const Project = styled.div<{$projectSelected:boolean, ref:any}>`
 	}
 `
 
-const Content = styled.div<{$inView, $color, $hoverColor}>`
+const Content = styled.div<{$inView, $color}>`
 	height: 60vh;
 	min-width: 60vh;
 	border: 2px solid ${props => props.$color};
 
 	&:hover {
-		// border-color: ${props => props.$hoverColor}
 		transform: scale(1.025);
 	}
 
