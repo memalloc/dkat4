@@ -9,10 +9,17 @@ import { ProjectRouter } from './components/project-router'
 
 import { ThemeSwitcher } from './components/theme-switcher'
 
-import { sampleProjects } from './components/dev/sample-data'
-import { Projects } from '../../content/data'
+// Because of the storage requirements of the media featured on the site
+// its content is actually not contained inside this repository (see .gitignore).
+// The reason for this is to avoid potential issues from accumulating LFS storage
+// in particular due to updates to videos.
+// To build the site without the content directory simply remove or comment
+// the import of the unversioned file and switch the projects declaration
+// to the provided sampleProjects.
 
-const projects  = Projects
+import { sampleProjects } from './components/dev/sample-data'
+import { Projects } from '../../content/data' // unversioned data - see comment above
+const projects  = Projects // switch with sampleProjects if necessary
 
 export const ColorThemeContext = createContext<Design.ColorTheme>(Design.BaseTheme)
 
