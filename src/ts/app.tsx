@@ -10,7 +10,7 @@ import { ProjectRouter } from './components/project-router'
 import { ThemeSwitcher } from './components/theme-switcher'
 
 import { sampleProjects } from './components/dev/sample-data'
-import { Projects } from '../../temp-dev-data/data'
+import { Projects } from '../../content/data'
 
 const projects  = Projects
 

@@ -6,4 +6,4 @@ packaged/
 *.sublime-workspace
 .parcel-cache/
 storybook-static/
-temp-dev-data/
+content/
