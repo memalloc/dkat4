@@ -13,7 +13,7 @@ export const ProjectDetailsStory = () => {
 	const colorTheme = useContext(ColorThemeContext)
 	return <Container>
 				<BackgroundPlaceholder $color={colorTheme.background}/>
-				<ProjectDetails project={sampleProject}/>
+				<ProjectDetails project={sampleProject} onViewModeUpdate={() => {}}/>
 			</Container>
 }
 ProjectDetailsStory.storyName = 'Project Details'
