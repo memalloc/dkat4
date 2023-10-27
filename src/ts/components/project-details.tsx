@@ -395,6 +395,7 @@ const MediaColumn = styled.div<{$fullWidth : boolean}>`
 	${Design.MobileMediaQuery} {
 		padding: 0px;
 		scroll-snap-type: none;
+		padding-bottom: 15vh;
 	}
 
 	/*

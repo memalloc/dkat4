@@ -126,6 +126,7 @@ const Container = styled.div`
 
 	@media (${Design.onMobileAspectRatio}) {
 		scroll-snap-type: none;
+		padding-bottom: 38vh;
 	}
 `
 
