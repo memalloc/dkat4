@@ -395,7 +395,13 @@ const MediaColumn = styled.div<{$fullWidth : boolean}>`
 	${Design.MobileMediaQuery} {
 		padding: 0px;
 		scroll-snap-type: none;
+	}
 
+	/*
+	center content only in landscape orientation on mobile otherwise
+	a slight left margin is added to videos in portrait orientation
+	*/
+	@media (${Design.minDetailsHeight}) {
 		display: grid;
 		justify-items: center;
 	}
