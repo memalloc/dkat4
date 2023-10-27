@@ -25,8 +25,8 @@ export const LandingScreenContent = (props:Props) => {
 					href : 'https://pinboard.in/u:memalloc'
 				},
 				{
-					text : "twitter",
-					href : 'https://twitter.com/memalloc'
+					text : "github",
+					href : 'https://github.com/memalloc'
 				},
 				' ',
 				{
