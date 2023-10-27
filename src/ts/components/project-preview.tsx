@@ -61,8 +61,6 @@ const ProjectImage = (props:{src:string, inView:boolean}) => {
 
 	const [aspectRatio, setAspectRatio] = useState(1)
 
-	const colorTheme = useContext(ColorThemeContext)
-
 	return <Image	src={props.src}
 					$aspectRatio={aspectRatio}
 					$inView={props.inView}
