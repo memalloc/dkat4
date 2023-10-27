@@ -168,6 +168,12 @@ const ProjectsHeader = styled(HideOnProject)<{$color:string}>`
 		height: 80px;
     	justify-content: center;
 	}
+
+	@media (${Design.onMobileAspectRatio}) {
+		margin-left: 0px;
+		margin-bottom: 1vh;
+    	align-items: center;
+	}
 `
 
 const SelectedProjects = styled(motion.div)`
