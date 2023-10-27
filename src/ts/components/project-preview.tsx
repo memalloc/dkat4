@@ -116,11 +116,10 @@ const Content = styled.div<{$inView, $color}>`
 	cursor: pointer;
 
 	@media (${Design.onMobileAspectRatio}) {
-		width: 100vw;
+		width: 80vw;
 		min-width: unset;
 		height: unset;
 		opacity: 1;
-		border: none;
 	}
 `
 
@@ -137,13 +136,11 @@ const Image = styled.img<{$inView, $aspectRatio}>`
 	pointer-events: none;
 
 	@media (${Design.onMobileAspectRatio}) {
-		width: 100vw;
-		max-width: 100vw;
+		max-width: 80vw;
 		height: auto;
 
-		opacity: 1;
+		opacity: ${props => props.$inView ? 1 : 0.25};
 
 		object-fit: contain;
 	}
-
 `
