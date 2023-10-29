@@ -14,9 +14,20 @@ export const MediaContent = (props:Props) => {
 
 	const [controls, setControls] = useState(false)
 
+	const onMobile = Design.onMobile()
+
 	if(props.url.includes('.mp4')){
 		const poster = Design.onMobile() ? undefined : svg(colorTheme)
-		return <Video	src={props.url} autoPlay loop muted playsInline
+		return <>
+					{
+						// render invisible div on top of video to mitigate
+						// scrolling issue described below for iPadOS.
+						// this is necessary since displaying the controls
+						// is not an option for the desktop layout
+						!onMobile &&
+						<VideoOverlay/>
+					}
+					<Video	src={props.url} autoPlay loop muted playsInline
 						poster={poster} controls={controls}
 						onTouchStart={()=>{
 							// activate controls after initial touch on mobile to:
@@ -24,14 +35,25 @@ export const MediaContent = (props:Props) => {
 							// 2. mitigate mobile safaris inability to scroll the
 							// page when touching a video element without controls
 							// 3. enable fullscreening the video (also useful on android)
-							if(Design.onMobile()){
+							if(onMobile){
 								setControls(true)
 							}
 						}}/>
+				</>
 	} else {
 		return <Image src={props.url}/>
 	}
 }
+
+const VideoOverlay = styled.div`
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+
+	background: transparent;
+`
 
 const Video = styled.video`
 	width: 100%;

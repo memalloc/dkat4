@@ -417,6 +417,8 @@ const MediaContainer = styled.div<{$details:boolean}>`
 	align-items: stretch;
 	justify-items: stretch;
 
+	position: relative; /* to enable positioning for iOS video overlay */
+
 	cursor: ${props => props.$details ? 'zoom-in' : 'zoom-out'};
 
 	${Design.MobileMediaQuery} {
