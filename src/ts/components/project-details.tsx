@@ -422,6 +422,7 @@ const MediaContainer = styled.div<{$details:boolean}>`
 	cursor: ${props => props.$details ? 'zoom-in' : 'zoom-out'};
 
 	${Design.MobileMediaQuery} {
+		position: static; /* reset to default to ensure back button stays on top */
 		height: auto;
 	}
 `
