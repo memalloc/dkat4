@@ -265,11 +265,12 @@ const Title = styled.div<{$details:boolean}>`
 		left: unset;
 		height: unset;
 
-		margin-left: 8px;
+		margin-left: 4vw;
+		margin-right: 4vw;
 		margin-bottom: 8px;
 		margin-top: 20px;
 
-		width: 100vw;
+		width: 92vw;
 		max-width: ${DescriptionMaxWidth}px;
 	}
 
@@ -305,7 +306,7 @@ const ProjectDescription = styled.div<{$details:boolean}>`
 		max-width: ${DescriptionMaxWidth}px;
 
 		border: none;
-		margin: 0px 5px;
+		margin: 0vw 4vw;
 	}
 `
 
@@ -331,10 +332,12 @@ const InfoBox = styled.div<{$details:boolean}>`
 		height: unset;
 		min-height: unset;
 
-		width: 100vw;
+		width: 92vw;
 		max-width: ${DescriptionMaxWidth}px;
 
-		margin-bottom: 12px;
+		margin-bottom: 22px;
+		margin-left: 4vw;
+		margin-right: 4vw;
 	}
 `
 

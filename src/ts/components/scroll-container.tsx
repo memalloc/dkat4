@@ -164,5 +164,6 @@ const ScrollContent = styled.div<{$smoothScroll:boolean, $color:string}>`
 
 	${Design.MobileMediaQuery} {
 		border: none;
+		padding: 0px;
 	}
 `
