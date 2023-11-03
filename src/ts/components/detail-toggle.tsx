@@ -10,9 +10,6 @@ interface Props {
 export const DetailToggle = (props:Props) => {
 
 	const variants = {
-		initial : {
-			transformOrigin : 'center'
-		},
 		hidden : {
 			rotate : 0,
 			y: 0,
