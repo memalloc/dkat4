@@ -13,7 +13,7 @@ export const DetailToggle = (props:Props) => {
 		initial : {
 			transformOrigin : 'center'
 		},
-		details : {
+		hidden : {
 			rotate : 0,
 			y: 0,
 			transition : {
@@ -21,7 +21,7 @@ export const DetailToggle = (props:Props) => {
 				duration : 0.5
 			}
 		},
-		hidden : {
+		details : {
 			rotate : 180,
 			y : -2,
 			transition : {
@@ -34,6 +34,7 @@ export const DetailToggle = (props:Props) => {
 	return	<div>
 				<motion.div onClick={props.onClick}
 							variants={variants}
+							initial={'details'}
 							animate={props.details ? 'details' : 'hidden'}>
 					<ArrowIcon/>
 				</motion.div>
