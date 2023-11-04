@@ -1,4 +1,6 @@
 {
+  "author": "Daniel Kauer",
+  "homepage": "https://www.danielkauer.at",
   "license": "MIT",
   "devDependencies": {
     "@parcel/transformer-less": "2.9.2",
