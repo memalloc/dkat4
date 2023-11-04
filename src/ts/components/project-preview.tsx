@@ -35,7 +35,7 @@ export const ProjectPreview = forwardRef((props:Props, ref:React.RefObject<Eleme
 							 $inView={isInView && !props.projectSelected}
 							 $color={colorTheme.primary}
 							 onClick={props.onClick}>
-						<ProjectImage src={props.project.image} inView={isInView && !props.projectSelected}/>
+						<ProjectImage src={props.project.image} alt={props.project.title} inView={isInView && !props.projectSelected}/>
 					</Content>
 				</UserPressScaler>
 			</Project>	
@@ -57,11 +57,12 @@ const UserPressScaler = (props:PropsWithChildren<{}>) => {
 			</motion.div>
 }
 
-const ProjectImage = (props:{src:string, inView:boolean}) => {
+const ProjectImage = (props:{src:string, alt:string, inView:boolean}) => {
 
 	const [aspectRatio, setAspectRatio] = useState(1)
 
 	return <Image	src={props.src}
+					alt={props.alt}
 					$aspectRatio={aspectRatio}
 					$inView={props.inView}
 					onLoad={(e)=>{
