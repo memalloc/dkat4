@@ -159,21 +159,21 @@ const ProjectsHeader = styled(HideOnProject)<{$color:string}>`
 
 	margin-left: 3vw;
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: end;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: end;
 
 	${Design.MobileMediaQuery} {
 		position: static;
 		height: 80px;
-    	justify-content: center;
+		justify-content: center;
 	}
 
 	@media (${Design.onMobileAspectRatio}) {
 		margin-left: 0px;
 		margin-bottom: 1vh;
-    	align-items: center;
+		align-items: center;
 	}
 `
 
@@ -184,10 +184,10 @@ const SelectedProjects = styled(motion.div)`
 	padding: 0px 2px;
 
 	border: 2px solid transparent;
-    transform: translateX(-5px);
+	transform: translateX(-5px);
 
 	${Design.MobileMediaQuery} {
-    	transform: translateY(25px);
+		transform: translateY(25px);
 	}
 
 `

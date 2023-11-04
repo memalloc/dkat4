@@ -68,13 +68,13 @@ export const PrimaryOrange:ColorTheme = {
 
 // minimum 5 themes for theme switcher:
 export const Themes = [	
-									BaseTheme,
-									LightGray,
-									PrimaryOrange,
-									LightOnDarkGray,
-									Lava,
-									AnthraciteOnRed
-									]
+	BaseTheme,
+	LightGray,
+	PrimaryOrange,
+	LightOnDarkGray,
+	Lava,
+	AnthraciteOnRed
+]
 
 export const FontSizes = {
 	Prompt : {
@@ -91,7 +91,7 @@ export const Hyperlink = styled.a<{$color:string, $backgroundColor:string, $ital
 	color: ${props => props.$backgroundColor};
 
 	font-family: ${props => props.$italic === true ? 'ArvoBoldItalic' : 'ArvoBold'};
-    letter-spacing: 0px;
+	letter-spacing: 0px;
 
 	padding: 0px 2px;
 
@@ -105,10 +105,10 @@ export const ProjectDetailsCloseHeader = styled(Hyperlink)`
 	font-family: ArvoBoldItalic;
 	letter-spacing: 0.5px;
 
-    text-wrap: nowrap;
+	text-wrap: nowrap;
 
 	margin-bottom: 5px;
 
 	padding: 0px 6px;
-    transform: translateX(-8px);
+	transform: translateX(-8px);
 `
