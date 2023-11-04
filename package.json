@@ -14,6 +14,7 @@
     "@types/three": "0.152.1",
     "parcel": "2.9.2",
     "process": "0.11.10",
+    "run-script-os": "1.1.6",
     "storybook": "7.0.9",
     "typescript": "5.1.3",
     "vite": "4.2.0"
@@ -32,21 +33,29 @@
     "three": "0.153.0"
   },
   "scripts": {
-    "preinstall": "mkdir node_modules ; xattr -w com.dropbox.ignored 1 node_modules",
+    "postinstall": "run-script-os",
+    "postinstall:darwin": "mkdir node_modules ; xattr -w com.dropbox.ignored 1 node_modules",
+    "postinstall:win32:linux": "echo skipping postinstall",
 
     "storybook": "storybook dev -p 6006",
-    "dev" : "run-s prepare:dist dev:watch",
-    "build" : "run-s clean:* prepare:dist production:build",
+    "dev": "run-s prepare:dist dev:watch",
+    "build": "run-s clean:* prepare:dist production:build",
 
     "dev:watch": "yarn parcel --target web",
 
     "production:build": "yarn parcel build --target web --no-cache --no-source-maps --detailed-report",
 
 
-    "clean:dist": "rm -Rf dist",
-    "clean:cache": "rm -Rf .parcel-cache",
+    "clean:dist": "run-script-os",
+    "clean:dist:darwin:linux": "rm -Rf dist",
+    "clean:dist:win32": "echo skipping clean:dist",
+    "clean:cache": "run-script-os",
+    "clean:cache:darwin:linux": "rm -Rf .parcel-cache",
+    "clean:cache:win32": "echo skipping clean:cache",
 
-    "prepare:dist" : "mkdir dist ; xattr -w com.dropbox.ignored 1 dist"
+    "prepare:dist": "run-script-os",
+    "prepare:dist:darwin": "mkdir dist ; xattr -w com.dropbox.ignored 1 dist",
+    "prepare:dist:win32:linux": "echo skipping prepare:dist"
   },
   "targets": {
     "web": {
