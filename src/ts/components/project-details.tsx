@@ -10,7 +10,7 @@ import { Markdown } from './markdown'
 
 import { PageIndicator } from './page-indicator'
 import { DetailToggle } from './detail-toggle'
-import { MediaContent } from './media-content'
+import { MediaContent, MediaData } from './media-content'
 import { ColorThemeContext } from '../app'
 import { AdditionalPagesIndicators } from './additional-pages-indicators'
 import { ArrowIcon } from './arrow-icon'
@@ -21,7 +21,7 @@ export interface ProjectData {
 	title : string
 	info : string
 	description : string
-	media : Array<string>
+	media : Array<MediaData>
 	image : string
 	theme? : Design.ColorTheme
 }
@@ -108,7 +108,7 @@ export const ProjectDetails = (props:Props) => {
 
 					<MediaContainer	$details={showDetails} 
 									onClick={()=>{setShowDetails(!showDetails)}}>
-						<MediaContent url={initialMedia}/>
+						<MediaContent media={initialMedia}/>
 					</MediaContainer>
 
 					<InfoBox	$details={showDetails}
@@ -137,7 +137,7 @@ export const ProjectDetails = (props:Props) => {
 						media.map((url, i)=>{
 							return	<MediaContainer key={i} $details={showDetails}
 													onClick={()=>{setShowDetails(!showDetails)}}>
-										<MediaContent url={url}/>
+										<MediaContent media={url}/>
 									</MediaContainer>
 						})
 					}

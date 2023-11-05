@@ -5,8 +5,15 @@ import * as  svgToMiniDataURI from 'mini-svg-data-uri'
 import * as Design from '../design'
 import { ColorThemeContext } from '../app'
 
+export type MediaData = string | VideoData
+
+interface VideoData {
+	url : string
+	poster : string
+}
+
 interface Props {
-	url : string	
+	media : MediaData
 }
 
 export const MediaContent = (props:Props) => {
@@ -15,9 +22,14 @@ export const MediaContent = (props:Props) => {
 	const [controls, setControls] = useState(false)
 
 	const onMobile = Design.onMobile()
+	const url = typeof props.media === 'string' ? props.media : props.media.url
+	const posterUrl = typeof props.media === 'string' ? undefined : props.media.poster
 
-	if(props.url.includes('.mp4')){
-		const poster = Design.onMobile() ? undefined : svg(colorTheme)
+	if(url.includes('.mp4')){
+		let poster
+		if(typeof props.media !== 'string'){
+			poster = Design.onMobile() ? posterUrl : svg(colorTheme)
+		}
 		return <>
 					{
 						// render invisible div on top of video to mitigate
@@ -27,8 +39,8 @@ export const MediaContent = (props:Props) => {
 						!onMobile &&
 						<VideoOverlay/>
 					}
-					<Video	src={props.url} autoPlay loop muted playsInline
-						poster={poster} controls={controls}
+					<Video	src={url} autoPlay loop muted playsInline
+						poster={poster} videoPoster={posterUrl} controls={controls}
 						onTouchStart={()=>{
 							// activate controls after initial touch on mobile to:
 							// 1. ensure initial playback without controls overlay
@@ -41,7 +53,7 @@ export const MediaContent = (props:Props) => {
 						}}/>
 				</>
 	} else {
-		return <Image src={props.url}/>
+		return <Image src={url}/>
 	}
 }
 
@@ -55,9 +67,14 @@ const VideoOverlay = styled.div`
 	background: transparent;
 `
 
-const Video = styled.video`
+const Video = styled.video<{videoPoster:string}>`
 	width: 100%;
 	max-height: 100vh;
+
+	background: url('${props => props.videoPoster}');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
 
 	${Design.MobileMediaQuery} {
 		margin: 20px 0px;
