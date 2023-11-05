@@ -100,6 +100,18 @@ export const MainNavigation = (props:Props) => {
 											}}/>
 				})
 				}
+				<PreloadContainer>
+				{
+				props.projects.map((project, pi) => {
+					return <>{
+						project.media.map((media, mi) => {
+							const posterUrl = typeof media === 'string' ? undefined : media.poster
+							return posterUrl ? <img key={`${pi}-${mi}`} src={posterUrl} alt=""/> : undefined
+						})
+					}</>
+				})
+				}
+				</PreloadContainer>
 			</Container>
 }
 
@@ -197,4 +209,8 @@ const ProjectTitle = styled(motion.div)`
 	${Design.MobileMediaQuery} {
 		display: none;
 	}
+`
+
+const PreloadContainer = styled.div`
+	display: none;
 `
