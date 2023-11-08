@@ -116,14 +116,14 @@ const Camera = (props:Props) => {
 			cam.aspect = size.width / size.height;
 			cam.updateProjectionMatrix();
 		}
-  }, [size])
+	}, [size])
 
 	useLayoutEffect(()=>{
 		if (cameraRef.current) {
 			const oldCam = camera
 			set(() => ({ camera: cameraRef.current }))
 			return () => set(() => ({ camera: oldCam }))
-	}
+		}
 	}, [cameraRef.current])
 
 	useFrame(()=>{
@@ -171,7 +171,6 @@ const Camera = (props:Props) => {
 	}
 
 	useLayoutEffect(()=>{
-
 		tz.set(distances[props.mode])
 		fovTarget.set(props.mode === 'background' ? 150 : 90)
 		radiusTarget.set(radii[props.mode])
