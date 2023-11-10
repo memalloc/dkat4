@@ -40,7 +40,7 @@ export const MediaContent = (props:Props) => {
 						<VideoOverlay/>
 					}
 					<Video	src={url} autoPlay loop muted playsInline
-						poster={poster} videoPoster={posterUrl} controls={controls}
+						poster={poster} $videoPoster={posterUrl} controls={controls}
 						onTouchStart={()=>{
 							// activate controls after initial touch on mobile to:
 							// 1. ensure initial playback without controls overlay
@@ -67,7 +67,7 @@ const VideoOverlay = styled.div`
 	background: transparent;
 `
 
-const Video = styled.video<{videoPoster:string}>`
+const Video = styled.video<{$videoPoster:string}>`
 	width: 100%;
 	max-height: 100vh;
 
