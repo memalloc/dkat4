@@ -71,7 +71,7 @@ const Video = styled.video<{$videoPoster:string}>`
 	width: 100%;
 	max-height: 100vh;
 
-	background: url('${props => props.videoPoster}');
+	background: url('${props => props.$videoPoster}');
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
