@@ -19,6 +19,8 @@ export const ProjectRouter = (props:Props) => {
 			</HashRouter>
 }
 
+const initialTitle = document.title
+
 const AnimatedRouter = (props:Props) => {
 
 	const location = useLocation()
@@ -42,6 +44,7 @@ const AnimatedRouter = (props:Props) => {
 			props.onProjectSelection(undefined)
 			props.onProjectViewModeUpdate(true)
 		}
+		document.title = props.selectedProject ? `Daniel Kauer | ${props.selectedProject.title}` : initialTitle
 	}, [location.pathname])
 
 	const Root = <Fragment/> // just used to avoid warning for missing element
