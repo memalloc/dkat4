@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { Fragment, useContext, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -103,12 +103,12 @@ export const MainNavigation = (props:Props) => {
 				<PreloadContainer>
 				{
 				props.projects.map((project, pi) => {
-					return <>{
+					return <Fragment key={pi}>{
 						project.media.map((media, mi) => {
 							const posterUrl = typeof media === 'string' ? undefined : media.poster
 							return posterUrl ? <img key={`${pi}-${mi}`} src={posterUrl} alt=""/> : undefined
 						})
-					}</>
+					}</Fragment>
 				})
 				}
 				</PreloadContainer>
