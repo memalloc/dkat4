@@ -23,6 +23,8 @@ const projects  = Projects // switch with sampleProjects if necessary
 
 export const ColorThemeContext = createContext<Design.ColorTheme>(Design.BaseTheme)
 
+const initialTitle = document.title
+
 export const App = (props:any) => {
 
 	const [selectedProject, setSelectedProject] = useState(undefined)
@@ -52,6 +54,10 @@ export const App = (props:any) => {
 	useEffect(()=>{
 		document.body.style.backgroundColor = activeTheme.background	
 	}, [activeTheme])
+
+	useEffect(()=>{
+		document.title = selectedProject ? `Daniel Kauer | ${selectedProject.title}` : initialTitle
+	}, [selectedProject])
 
 	return	<Container>
 
