@@ -1,7 +1,7 @@
 # dkat4
 
 2023 redesign of [danielkauer.at](https://www.danielkauer.at/) featuring a portfolio of selected projects.
-This project uses [Parcel](https://parceljs.org/) as its main bundler, but [Vite](https://vitejs.dev/) is also utilized for component driven development using [Storybook](https://storybook.js.org/) 
+This project uses [Parcel](https://parceljs.org/) as its main bundler, but [Vite](https://vitejs.dev/) is also utilized for component driven development using [Storybook](https://storybook.js.org/).
 
 ## Site Content
 
