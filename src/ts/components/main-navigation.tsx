@@ -112,6 +112,16 @@ export const MainNavigation = (props:Props) => {
 				})
 				}
 				</PreloadContainer>
+
+				<SEONav>
+					<ul>
+					{
+					props.projects.map((project, i) => {
+						return <li key={i}><a href={`#/project/${project.id}`}>{project.title}</a></li>
+					})
+					}
+					</ul>
+				</SEONav>
 			</Container>
 }
 
@@ -213,4 +223,10 @@ const ProjectTitle = styled(motion.div)`
 
 const PreloadContainer = styled.div`
 	display: none;
+`
+
+const SEONav = styled.nav`
+	display: none;
+	position: fixed;
+	top: 0px;
 `
