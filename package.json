@@ -41,7 +41,7 @@
     "postinstall:win32:linux": "echo skipping postinstall",
 
     "storybook": "storybook dev -p 6006",
-    "dev": "run-s prepare:dist dev:watch",
+    "dev": "run-s clean:dist prepare:dist dev:watch",
     "build": "run-s clean:* prepare:dist production:build",
 
     "dev:watch": "yarn parcel --target web",
